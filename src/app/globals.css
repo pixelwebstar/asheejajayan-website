@@ -55,18 +55,28 @@ body {
 }
 
 /*
-  Hero section utility — fills the exact visible viewport minus the
-  fixed navbar. Uses dvh (dynamic viewport height) which reacts to the
-  mobile browser chrome sliding in/out, with svh as a safe fallback
-  for older engines that don't support dvh.
-  Works on WebKit (Safari), Chromium (Chrome/Edge/Opera), and Gecko (Firefox).
+  Viewport height is captured ONCE on page load via JS (see layout.tsx)
+  and stored in --vh. This prevents dynamic resizing from mobile browser
+  chrome or window drag — height only recalculates on full page reload.
 */
-.hero-section {
-  min-height: calc(100svh - var(--navbar-h));
-  min-height: calc(100dvh - var(--navbar-h));
+.hero-section,
+.full-section {
+  /* On mobile, use min-height so content can expand without getting cut off */
+  min-height: calc(var(--vh, 100vh) - var(--navbar-h));
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  /* On desktop, lock every section to exactly one page size */
+  .hero-section,
+  .full-section {
+    height: calc(var(--vh, 100vh) - var(--navbar-h));
+    min-height: auto;
+    overflow: hidden;
+  }
 }
 
 /* Custom Scrollbar for Webkit Browsers */

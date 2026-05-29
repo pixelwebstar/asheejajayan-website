@@ -26,7 +26,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`min-h-[100svh] flex items-center justify-center relative py-24 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}

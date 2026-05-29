@@ -24,7 +24,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`min-h-[100svh] flex items-center justify-center relative py-12 sm:py-16 lg:py-20 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -135,7 +135,7 @@ export default function Services() {
                   <div className="bg-white border border-slate-200 rounded text-[10px] text-slate-400 px-3 py-1 font-mono text-center flex-grow max-w-[280px]">
                     pixelwebstar.com/your-business
                   </div>
-                  <span className="text-[9px] font-bold tracking-widest text-slate-900 uppercase bg-slate-200 rounded px-2.5 py-0.5 ml-auto">⚡ INSTANT</span>
+                  <span className="text-[9px] font-bold tracking-widest text-slate-900 uppercase bg-slate-200 rounded px-2.5 py-0.5 ml-auto">INSTANT</span>
                 </div>
                 {/* Browser Body Mockup Content */}
                 <div className="p-8 space-y-6 bg-white min-h-[220px] flex flex-col justify-between">
@@ -146,7 +146,7 @@ export default function Services() {
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                      <span className="block text-[11px] font-bold text-slate-900">4.9 ★</span>
+                      <span className="block text-[11px] font-bold text-slate-900">4.9 / 5</span>
                       <span className="block text-[8px] text-slate-400 uppercase tracking-widest mt-1">Rating</span>
                     </div>
                     <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -363,7 +363,7 @@ export default function Services() {
                           <span className="text-xs font-black text-slate-950 uppercase">Your Business Name</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-mono">
-                          <span className="font-bold text-slate-900 font-mono">5.0 ★★★★★</span>
+                          <span className="font-bold text-slate-900 font-mono">5.0 Rating</span>
                           <span>(48 Reviews)</span>
                         </div>
                         <span className="block text-[9px] text-slate-500">Open 24/7 • Fast Response</span>
@@ -378,7 +378,7 @@ export default function Services() {
                           <span className="text-xs font-bold text-slate-600 uppercase">Competitor Services</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-mono">
-                          <span>3.8 ★★☆☆☆</span>
+                          <span>3.8 Rating</span>
                           <span>(12 Reviews)</span>
                         </div>
                       </div>
@@ -554,9 +554,9 @@ export default function Services() {
         </div>
       </FullSection>
 
-      {/* 8. FINAL CTA SECTION (Warm Sand bg) */}
+      {/* 8. FINAL CTA SECTION (Clean Centered) */}
       <FullSection bgClass="bg-warm-light">
-        <div className="text-center space-y-8 max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto w-full text-center space-y-8">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
             GET STARTED
           </span>
@@ -564,7 +564,7 @@ export default function Services() {
             Ready to Sync Your Pipeline?
           </h2>
           <p className="text-base text-slate-600 leading-relaxed font-medium max-w-xl mx-auto">
-            Review budget parameters or submit your goals below. I will analyze your requirements and send a project proposal in 24 hours.
+            Review budget parameters or submit your goals below. I will analyze your requirements and send a project proposal within 24 hours.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
             <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>

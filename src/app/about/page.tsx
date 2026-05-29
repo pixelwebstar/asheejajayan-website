@@ -24,7 +24,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`min-h-[100svh] flex items-center justify-center relative py-24 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -34,18 +34,6 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
 }
 
 export default function About() {
-  const capabilities = [
-    { name: "Digital Architecture", desc: "Fast, custom websites designed to display instantly on desktop and mobile phones." },
-    { name: "Lead Integration", desc: "Saving contact inquiries directly to your CRM, keeping your sales flow completely organized." },
-    { name: "Conversion Funnels", desc: "Structuring typography and layouts to guide visitors effortlessly toward phone calls and bookings." },
-    { name: "Absolute Ownership", desc: "Delivering all assets directly to your control with zero ongoing platform subscription fees." },
-  ];
-
-  const experience = [
-    { year: "2026", title: "Independent Web Engineer", desc: "Designing high-conversion layouts and engineering automated systems for elite business owners." },
-    { year: "2024", title: "Lead Web Developer", desc: "Engineered fast custom software and secure database synchronization architectures." },
-    { year: "2022", title: "Web Developer", desc: "Began building websites in Canada, focused on lightweight code and flawless performance." },
-  ];
 
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
@@ -72,114 +60,142 @@ export default function About() {
         </div>
       </HeroSection>
 
-      {/* SECTION 2: PHILOSOPHY (Slate 50) */}
+      {/* SECTION 2: PHILOSOPHY (Split — Left Text / Right Principles) */}
       <FullSection id="philosophy" bgClass="bg-cool-light">
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
-            PHILOSOPHY
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            Business-First Web Design.
-          </h2>
-          <p className="text-base text-slate-600 leading-relaxed font-medium">
-            I treat website design as a precision instrument. We eliminate visual noise, bloated plugins, and slow template features to prioritize the only metric that matters: elevating your brand authority and converting your visitors into revenue.
-          </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="#capabilities" className={`${btnPrimary} w-full sm:w-auto`}>
-              Explore Capabilities
-            </Link>
-            <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-              Discuss Strategy
-            </Link>
+        <div className="max-w-5xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Editorial */}
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                PHILOSOPHY
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                Business-First Web Design.
+              </h2>
+              <p className="text-base text-slate-600 leading-relaxed font-medium">
+                I treat website design as a precision instrument for revenue. Every decision eliminates noise and prioritizes conversions. We strip away everything that does not directly serve your bottom line.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link href="#capabilities" className={`${btnPrimary} w-full sm:w-auto`}>
+                  Explore Capabilities
+                </Link>
+                <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
+                  Discuss Strategy
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Numbered Principles with Dividers */}
+            <div className="lg:col-span-7 space-y-0">
+              {[
+                { num: "01", title: "Eliminate Noise", desc: "We strip away bloated plugins, slow templates, and visual clutter that distract visitors from contacting you." },
+                { num: "02", title: "Authority by Design", desc: "Premium visual design positions your brand as the trusted expert in your market. First impressions happen in seconds." },
+                { num: "03", title: "Revenue Focus", desc: "Every layout decision is made to guide visitors toward your intake form. We measure success by leads generated." }
+              ].map((item, idx) => (
+                <div key={item.num} className={`flex gap-6 items-start py-6 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
+                  <span className="text-2xl font-black text-slate-300 select-none leading-none pt-1 min-w-[40px]">{item.num}</span>
+                  <div className="space-y-1">
+                    <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 3: CAPABILITIES GRID (White) */}
-      <FullSection id="capabilities" bgClass="bg-warm-light">
-        <div className="space-y-20 max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+      {/* SECTION 3: CAPABILITIES (Dark Inverted — 2x2 Grid) */}
+      <FullSection id="capabilities" bgClass="bg-slate-900">
+        <div className="max-w-5xl mx-auto w-full space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
               SPECIALTIES
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1]">
               Elite Execution.
             </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-400 font-medium max-w-xl mx-auto">
+              Four core capabilities that set our work apart from generic agencies.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
-            {capabilities.map((item, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+            {[
+              { num: "01", name: "Digital Architecture", desc: "Fast, custom websites designed to display instantly on desktop and mobile phones.", bold: "Sub-second load times." },
+              { num: "02", name: "Lead Integration", desc: "Saving contact inquiries directly to your CRM, keeping your sales flow completely organized.", bold: "Zero lost leads." },
+              { num: "03", name: "Conversion Funnels", desc: "Structuring typography and layouts to guide visitors effortlessly toward phone calls and bookings.", bold: "Every click has purpose." },
+              { num: "04", name: "Absolute Ownership", desc: "Delivering all assets directly to your control with zero ongoing platform subscription fees.", bold: "You own everything." }
+            ].map((item, idx) => (
               <div
-                key={item.name}
-                className="flex flex-col items-center text-center space-y-4 p-8 bg-slate-50 rounded-2xl border border-slate-100"
+                key={item.num}
+                className={`p-8 lg:p-10 space-y-4 ${idx < 2 ? 'border-b border-slate-700' : ''} ${idx % 2 === 0 ? 'sm:border-r border-slate-700' : ''}`}
               >
-                <div className="w-12 h-12 bg-slate-900 rounded-full flex items-center justify-center text-white font-black text-lg shadow-sm">
-                  {index + 1}
-                </div>
-                <h3 className="text-lg font-bold tracking-tight text-slate-900">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {item.desc}
-                </p>
+                <span className="text-3xl font-black text-slate-600 block leading-none">{item.num}</span>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider">{item.name}</h3>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">{item.desc}</p>
+                <p className="text-xs sm:text-sm text-white font-bold">{item.bold}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="#timeline" className={`${btnPrimary} w-full sm:w-auto mx-auto sm:mx-0`}>
+          <div className="text-center">
+            <Link href="#timeline" className="inline-flex items-center justify-center rounded bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-100 active:scale-[0.98] min-w-[220px]">
               View Journey
             </Link>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 4: TIMELINE (Slate 50) */}
+      {/* SECTION 4: TIMELINE (Horizontal Stacked Rows) */}
       <FullSection id="timeline" bgClass="bg-cool-light">
-        <div className="space-y-20 max-w-4xl mx-auto w-full">
-          <div className="text-center max-w-xl mx-auto space-y-6">
+        <div className="max-w-5xl mx-auto w-full space-y-12">
+          <div className="space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
               JOURNEY
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
               Professional History.
             </h2>
           </div>
 
-          <div className="max-w-2xl mx-auto space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-slate-200">
-            {experience.map((exp) => (
-              <div key={exp.year} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-50 bg-slate-900 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                  <span className="text-[10px] font-bold">{exp.year.slice(-2)}</span>
+          <div className="space-y-0">
+            {[
+              { year: "2026", title: "Independent Web Engineer", desc: "Designing high-conversion layouts and engineering automated systems for elite business owners." },
+              { year: "2024", title: "Lead Web Developer", desc: "Engineered fast custom software and secure database synchronization architectures." },
+              { year: "2022", title: "Web Developer", desc: "Began building websites in Canada, focused on lightweight code and flawless performance." }
+            ].map((exp, idx) => (
+              <div key={exp.year} className={`grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 py-8 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
+                <div className="sm:col-span-3">
+                  <span className="text-4xl sm:text-5xl font-black text-slate-900 block leading-none tracking-tight">{exp.year}</span>
                 </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-left">
-                  <span className="text-xs font-bold text-slate-900 uppercase tracking-widest block mb-2">{exp.year}</span>
-                  <h3 className="text-lg font-bold tracking-tight text-slate-900 mb-2">{exp.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{exp.desc}</p>
+                <div className="sm:col-span-9 space-y-2">
+                  <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{exp.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed font-medium">{exp.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto text-center">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto mx-auto`}>
-              Reserve Architecture Slot
+          <div className="pt-4">
+            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start Your Project
             </Link>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 5: CTA (White) */}
+      {/* SECTION 5: CTA (Full-Width Centered Editorial) */}
       <FullSection bgClass="bg-warm-light">
-        <div className="text-center space-y-8 max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto w-full text-center space-y-8">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
             INITIATE
           </span>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            Let's Build Your Pipeline.
+            Let&apos;s Build Your Pipeline.
           </h2>
           <p className="text-base text-slate-600 leading-relaxed font-medium max-w-xl mx-auto">
-            Ready to deploy an elite, custom digital architecture that effortlessly converts your visitors? Review our intake process or message me directly.
+            Ready to deploy a custom digital platform that converts visitors into paying clients? Review our intake process or message me directly.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
             <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>

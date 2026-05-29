@@ -26,7 +26,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`min-h-[100svh] flex items-center justify-center relative py-24 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -82,26 +82,26 @@ export default function Pricing() {
         </div>
       </HeroSection>
 
-      {/* SECTION 2: PLAN CARDS */}
+      {/* SECTION 2: PLAN CARDS (Centered Cards — Interactive) */}
       <FullSection id="plans" bgClass="bg-cool-light">
-        <div className="space-y-20 max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
               INVESTMENT TIERS
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
               Choose Your Scope.
             </h2>
-            <p className="text-base text-slate-600 leading-relaxed font-medium">
-              Each tier is designed to match your growth stage. Select the package that aligns with your business objectives.
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              Each tier matches your growth stage. Select the package that aligns with your business objectives.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
             {plans.map((plan, index) => (
               <div
                 key={plan.name}
-                className={`flex flex-col items-center text-center p-8 rounded-2xl border transition-all ${selectedPlan === plan.name ? 'bg-slate-900 text-white border-slate-900 shadow-lg scale-[1.02]' : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'}`}
+                className={`flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-0.5 ${selectedPlan === plan.name ? 'bg-slate-900 text-white border-slate-900 shadow-lg scale-[1.02]' : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'}`}
               >
                 <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-4 ${selectedPlan === plan.name ? 'text-slate-400' : 'text-slate-500'}`}>
                   {index === 1 ? "RECOMMENDED" : `TIER 0${index + 1}`}
@@ -109,7 +109,7 @@ export default function Pricing() {
                 <h3 className="text-lg font-bold tracking-tight mb-2">
                   {plan.name}
                 </h3>
-                <div className="text-3xl font-black mb-4">{plan.price}</div>
+                <div className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">{plan.price}</div>
                 <p className={`text-sm leading-relaxed mb-6 ${selectedPlan === plan.name ? 'text-slate-300' : 'text-slate-600'}`}>
                   {plan.desc}
                 </p>
@@ -129,7 +129,7 @@ export default function Pricing() {
             ))}
           </div>
 
-          <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+          <div className="text-center">
             <Link href="#custom" className={`${btnPrimary} w-full sm:w-auto`}>
               Need Something Custom?
             </Link>
@@ -137,43 +137,47 @@ export default function Pricing() {
         </div>
       </FullSection>
 
-      {/* SECTION 3: CUSTOM PROJECTS */}
+      {/* SECTION 3: CUSTOM PROJECTS (Split — Left Heading / Right Feature List) */}
       <FullSection id="custom" bgClass="bg-warm-light">
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
-            BESPOKE
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            Custom Client Solutions.
-          </h2>
-          <p className="text-base text-slate-600 leading-relaxed font-medium">
-            If your business requires specific integrations, custom-built tools, booking calendar configurations, or multi-location platforms, I can design a custom proposal package tailored to your exact objectives.
-          </p>
+        <div className="max-w-5xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Heading */}
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                BESPOKE
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                Custom Client Solutions.
+              </h2>
+              <p className="text-base text-slate-600 leading-relaxed font-medium">
+                If your business requires specific integrations, multi-location platforms, or custom booking systems, I design proposals tailored to your exact objectives.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link href="#checkout" onClick={() => setSelectedPlan("ENTERPRISE")} className={`${btnPrimary} w-full sm:w-auto`}>
+                  Request Custom Quote
+                </Link>
+              </div>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full pt-4">
-            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
-              <span className="block text-slate-900 font-black text-lg mb-1">✔</span>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Custom Integrations</span>
+            {/* Right: Feature Rows with Dividers */}
+            <div className="lg:col-span-7 space-y-0">
+              {[
+                { title: "Custom Integrations", desc: "Payment systems, third-party APIs, and custom automation workflows built to fit your operations." },
+                { title: "Multi-Location Platforms", desc: "Separate landing pages, localized SEO, and location-specific contact forms for each branch." },
+                { title: "Payment & Billing", desc: "Secure checkout flows, invoicing portals, and subscription billing configured for your business model." },
+                { title: "Booking Calendars", desc: "Integrated scheduling systems that let customers book appointments directly from your website." }
+              ].map((item, idx) => (
+                <div key={item.title} className={`py-6 ${idx < 3 ? 'border-b border-slate-200' : ''}`}>
+                  <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mt-1">{item.desc}</p>
+                </div>
+              ))}
             </div>
-            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
-              <span className="block text-slate-900 font-black text-lg mb-1">✔</span>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Multi-Location</span>
-            </div>
-            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center">
-              <span className="block text-slate-900 font-black text-lg mb-1">✔</span>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Payment Systems</span>
-            </div>
-          </div>
-
-          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="#checkout" onClick={() => setSelectedPlan("ENTERPRISE")} className={`${btnPrimary} w-full sm:w-auto`}>
-              Request Custom Quote
-            </Link>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 4: CHECKOUT FORM */}
+      {/* SECTION 4: CHECKOUT FORM (Centered Form — Clean) */}
       <FullSection id="checkout" bgClass="bg-cool-light">
         <div className="space-y-12 max-w-3xl mx-auto relative z-10 w-full">
           <div className="text-center space-y-6 flex flex-col items-center">
