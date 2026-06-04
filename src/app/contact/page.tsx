@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
@@ -35,25 +36,10 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   );
 }
 
-export default function Contact() {
-  // Interactive Brief Builder State
-  const [selections, setSelections] = useState<string[]>(["CRM"]);
-
-  const toggleSelection = (item: string) => {
-    if (selections.includes(item)) {
-      setSelections(selections.filter(i => i !== item));
-    } else {
-      setSelections([...selections, item]);
-    }
-  };
-
-  const requirements = [
-    { id: "DEV", label: "Custom Website Build" },
-    { id: "CRM", label: "Automated Lead Integration" },
-    { id: "CHECKOUT", label: "Secure Payment Systems" },
-    { id: "SEO", label: "Search Engine Authority" },
-    { id: "PORTAL", label: "Frictionless Content Editor" }
-  ];
+function ContactContent() {
+  const searchParams = useSearchParams();
+  const initialPlan = searchParams.get("plan") || "";
+  const [plan, setPlan] = useState(initialPlan);
 
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
@@ -65,67 +51,21 @@ export default function Contact() {
             Start Your Project.
           </h1>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Ready to deploy an elite digital sales system that effortlessly captures leads? Select your specifications below or message us directly to begin.
+            Ready to deploy an elite digital sales system that effortlessly captures leads? Select your scope below or message us directly to begin.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#brief" className={`${btnPrimary} w-full sm:w-auto`}>
-              Build Requirements
-            </Link>
-            <Link href="#message" className={`${btnSecondary} w-full sm:w-auto`}>
+            <Link href="#message" className={`${btnPrimary} w-full sm:w-auto`}>
               Send Inquiry
+            </Link>
+            <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
+              View Channels
             </Link>
           </div>
         </div>
       </HeroSection>
 
-      {/* SECTION 2: PROJECT BRIEF BUILDER (Slate 50) */}
-      <FullSection id="brief" bgClass="bg-cool-light">
-        <div className="space-y-12 max-w-3xl mx-auto relative z-10 w-full">
-          <div className="text-center space-y-6 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              SPECIFICATIONS
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Interactive Architecture Brief.
-            </h2>
-            <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed font-medium">
-              Select your essential requirements below. These choices will form the baseline structural logic for your custom build.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-            <div className="space-y-4">
-              {requirements.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => toggleSelection(item.id)}
-                  className={`w-full p-5 border-2 rounded-xl flex justify-between items-center text-sm font-bold transition-all ${selections.includes(item.id) ? 'bg-slate-100 text-slate-900 border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
-                >
-                  <span>{item.label}</span>
-                  <span className={`text-lg leading-none ${selections.includes(item.id) ? 'text-slate-900' : 'text-slate-400'}`}>
-                    {selections.includes(item.id) ? "✓" : "+"}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-sm font-bold">
-              <span className="text-slate-900">Total Architecture Requirements</span>
-              <span className="text-slate-900">{selections.length} Selected</span>
-            </div>
-
-            <div className="text-center pt-4">
-              <Link href="#message" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
-                Confirm Specifications
-              </Link>
-            </div>
-          </div>
-        </div>
-      </FullSection>
-
-      {/* SECTION 3: MESSAGE FORM (White) */}
-      <FullSection id="message" bgClass="bg-warm-light">
+      {/* SECTION 2: MESSAGE FORM (White) */}
+      <FullSection id="message" bgClass="bg-cool-light">
         <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
           <div className="text-center space-y-6 flex flex-col items-center">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -136,7 +76,7 @@ export default function Contact() {
             </h2>
           </div>
 
-          <div className="bg-slate-50 p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
+          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
             <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2 text-center sm:text-left">
@@ -148,26 +88,42 @@ export default function Contact() {
                   <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
                 </div>
               </div>
+
+              <div className="space-y-2 text-center sm:text-left">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Scope</label>
+                <div className="relative">
+                  <select
+                    value={plan}
+                    onChange={(e) => setPlan(e.target.value)}
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
+                  >
+                    <option value="">Select a package...</option>
+                    <option value="essential">Essential Package ($999)</option>
+                    <option value="growth">Growth Package ($2,499)</option>
+                    <option value="enterprise">Enterprise Package ($4,999+)</option>
+                    <option value="custom">Custom Bespoke Solution</option>
+                  </select>
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-400 font-bold select-none">
+                    ▼
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2 text-center sm:text-left">
                 <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
                 <textarea rows={5} className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none" placeholder="Describe your business requirements..."></textarea>
               </div>
+
               <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
                 Submit Project Request
               </button>
             </form>
           </div>
-
-          <div className="pt-8 flex justify-center w-full">
-            <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
-              View Other Channels
-            </Link>
-          </div>
         </div>
       </FullSection>
 
-      {/* SECTION 4: OTHER CHANNELS (Slate 50) */}
-      <FullSection id="channels" bgClass="bg-cool-light">
+      {/* SECTION 3: OTHER CHANNELS (Slate 50) */}
+      <FullSection id="channels" bgClass="bg-warm-light">
         <div className="space-y-12 max-w-xl mx-auto text-center">
           <div className="space-y-6">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -205,5 +161,13 @@ export default function Contact() {
       </FullSection>
 
     </div>
+  );
+}
+
+export default function Contact() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white"></div>}>
+      <ContactContent />
+    </Suspense>
   );
 }

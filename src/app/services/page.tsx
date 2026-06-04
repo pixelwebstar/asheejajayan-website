@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
+import BrowserMockup from "@/components/BrowserMockup";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
@@ -118,42 +119,8 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              {/* Browser mockup widget */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                {/* Browser Title Bar */}
-                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-3">
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-200"></span>
-                  </div>
-                  <div className="bg-white border border-slate-200 rounded text-[10px] text-slate-400 px-3 py-1 font-mono text-center flex-grow max-w-[280px]">
-                    pixelwebstar.com/your-business
-                  </div>
-                  <span className="text-[9px] font-bold tracking-widest text-slate-900 uppercase bg-slate-200 rounded px-2.5 py-0.5 ml-auto">INSTANT</span>
-                </div>
-                {/* Browser Body Mockup Content */}
-                <div className="p-8 space-y-6 bg-white min-h-[220px] flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <span className="text-[8px] font-bold uppercase tracking-widest text-slate-400">YOUR PREMIUM BUSINESS</span>
-                    <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">Elite Local Services.</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-sm">We provide high-quality structural repair, consultation, and custom builds for residential estates.</p>
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                      <span className="block text-[11px] font-bold text-slate-900">4.9 / 5</span>
-                      <span className="block text-[8px] text-slate-400 uppercase tracking-widest mt-1">Rating</span>
-                    </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                      <span className="block text-[11px] font-bold text-slate-900">24 Hour</span>
-                      <span className="block text-[8px] text-slate-400 uppercase tracking-widest mt-1">Response</span>
-                    </div>
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                      <span className="block text-[11px] font-bold text-slate-900">100% Custom</span>
-                      <span className="block text-[8px] text-slate-400 uppercase tracking-widest mt-1">No Templates</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl="/screenshots/novacookers.png" title="Product Showroom" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -180,47 +147,8 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              {/* Dashboard Layout Mockup */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
-                    <span className="text-[10px] font-bold text-slate-900 uppercase tracking-widest">Internal Operations Portal</span>
-                  </div>
-                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest font-mono">ACTIVE DATABASE</span>
-                </div>
-                <div className="grid grid-cols-12 min-h-[220px] bg-white">
-                  {/* Dashboard Sidebar */}
-                  <div className="col-span-4 bg-slate-50 border-r border-slate-200 p-4 space-y-3">
-                    <div className="w-full h-6 bg-slate-200 rounded text-[9px] text-slate-900 font-bold flex items-center px-3.5 uppercase tracking-wider">Dashboard</div>
-                    <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Bookings</div>
-                    <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Invoices</div>
-                    <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Settings</div>
-                  </div>
-                  {/* Dashboard Main Panel */}
-                  <div className="col-span-8 p-6 flex flex-col justify-between space-y-4">
-                    <div className="space-y-2">
-                      <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block">Client Queue</span>
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between border border-slate-200 p-2.5 rounded-xl bg-slate-50/50 text-[10px] font-mono">
-                          <span className="text-slate-900 font-bold">John Davis</span>
-                          <span className="text-[8px] bg-slate-200 text-slate-900 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">Confirmed</span>
-                        </div>
-                        <div className="flex items-center justify-between border border-slate-200 p-2.5 rounded-xl bg-slate-50/50 text-[10px] font-mono">
-                          <span className="text-slate-900 font-bold">Sarah Miller</span>
-                          <span className="text-[8px] bg-slate-200 text-slate-900 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">In Progress</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-slate-100 text-slate-900 p-4 rounded-xl flex items-center justify-between border border-slate-200">
-                      <div>
-                        <span className="block text-[8px] text-slate-500 uppercase tracking-widest">Automation Saved</span>
-                        <span className="text-sm font-black tracking-tight leading-none mt-0.5 uppercase">42 Hours / Mo</span>
-                      </div>
-                      <span className="text-[9px] font-bold bg-slate-200 px-2 py-1 rounded tracking-widest uppercase font-mono text-slate-700">Time Sync</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://checkersmark.com" screenshotUrl="/screenshots/checkersmark.png" title="Workspace Operating System" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -269,40 +197,8 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              {/* Lead Sync Pipeline Diagram */}
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-                {/* Lead Form Box */}
-                <div className="md:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Website Form</span>
-                  <div className="space-y-1.5">
-                    <div className="h-6 bg-slate-50 border border-slate-200 rounded px-2 text-[9px] text-slate-900 font-bold flex items-center font-mono">Sarah Miller</div>
-                    <div className="h-6 bg-slate-50 border border-slate-200 rounded px-2 text-[9px] text-slate-900 font-bold flex items-center font-mono">sarah@domain.com</div>
-                    <div className="h-10 bg-slate-50 border border-slate-200 rounded p-2 text-[8px] text-slate-900 font-bold flex items-start font-mono">Needs consultation...</div>
-                  </div>
-                  <div className="h-6 bg-slate-900 text-white rounded text-[8px] font-bold uppercase tracking-widest flex items-center justify-center font-mono">Submit Form</div>
-                </div>
-                
-                {/* Sync Arrow */}
-                <div className="md:col-span-1 flex md:flex-col justify-center items-center gap-1 text-slate-400 py-2">
-                  <span className="text-[9px] font-bold uppercase tracking-wider font-mono">Sync</span>
-                  <span className="text-lg leading-none">➜</span>
-                </div>
-                
-                {/* Mobile Notification Mockup */}
-                <div className="md:col-span-2 bg-slate-100 p-5 rounded-2xl border border-slate-200 text-slate-900 space-y-3">
-                  <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block font-mono">Phone Notification</span>
-                  <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
-                    <div className="flex items-center justify-between border-b border-slate-200 pb-1.5 font-mono">
-                      <span className="text-[9px] font-bold tracking-wider text-slate-900">🚨 NEW INQUIRY</span>
-                      <span className="text-[8px] text-slate-400">Just Now</span>
-                    </div>
-                    <div className="space-y-1">
-                      <span className="block text-[10px] font-bold text-slate-900">Sarah Miller</span>
-                      <span className="block text-[8px] text-slate-500">Request: Consultation</span>
-                    </div>
-                    <div className="bg-slate-900 text-white text-[8px] font-black uppercase tracking-widest text-center py-1.5 rounded-lg mt-1 font-mono">Tap to Call back</div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://bonder.vercel.app" screenshotUrl="/screenshots/bonder.png" title="Collaboration Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -329,47 +225,8 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              {/* Search Engine Mockup */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-3">
-                  <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest font-mono">Google</span>
-                  <div className="bg-white border border-slate-200 rounded text-[10px] text-slate-950 px-3 py-1 font-mono flex-grow max-w-[280px]">
-                    structural repair services near me
-                  </div>
-                </div>
-                <div className="p-6 space-y-4 min-h-[220px] flex flex-col justify-between bg-white">
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Local Maps Rankings</span>
-                  <div className="space-y-2">
-                    {/* Rank #1 */}
-                    <div className="bg-slate-50 border border-slate-900/10 p-3.5 rounded-xl flex items-center justify-between shadow-sm">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[9px] font-bold text-slate-900 bg-slate-200 px-2 py-0.5 rounded font-mono">#1 Rank</span>
-                          <span className="text-xs font-black text-slate-950 uppercase">Your Business Name</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-mono">
-                          <span className="font-bold text-slate-900 font-mono">5.0 Rating</span>
-                          <span>(48 Reviews)</span>
-                        </div>
-                        <span className="block text-[9px] text-slate-500">Open 24/7 • Fast Response</span>
-                      </div>
-                      <div className="bg-slate-900 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-2 rounded-lg font-mono">Call Now</div>
-                    </div>
-                    {/* Rank #2 */}
-                    <div className="bg-white border border-slate-200 p-3.5 rounded-xl flex items-center justify-between opacity-50">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[9px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded font-mono">#2 Rank</span>
-                          <span className="text-xs font-bold text-slate-600 uppercase">Competitor Services</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-mono">
-                          <span>3.8 Rating</span>
-                          <span>(12 Reviews)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://jsgastech.com" screenshotUrl="/screenshots/jsgastech.png" title="Marketing Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -418,28 +275,8 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              {/* Google Ad Result Mockup */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-3">
-                  <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest font-mono">Google</span>
-                  <div className="bg-white border border-slate-200 rounded text-[10px] text-slate-950 px-3 py-1 font-mono flex-grow max-w-[280px]">
-                    best structural consultant to hire today
-                  </div>
-                </div>
-                <div className="p-6 space-y-4 min-h-[220px] flex flex-col justify-center text-left bg-white">
-                  <div className="space-y-2 border border-slate-200 p-4 rounded-xl shadow-sm bg-slate-50/20">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[8px] font-extrabold text-slate-900 border border-slate-900 px-1.5 py-0.25 rounded uppercase tracking-wider font-mono">Sponsored</span>
-                      <span className="text-[10px] text-slate-500 font-mono">pixelwebstar.com/hire-expert</span>
-                    </div>
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">Hire a Top-Rated Professional Consultant Today.</h3>
-                    <p className="text-[10.5px] text-slate-600 font-medium">Custom-crafted plans, residential inspections, and structural calculations. Direct phone responses in minutes. Get a transparent quote now.</p>
-                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200 text-[9px] font-bold text-slate-500 font-mono">
-                      <div>• Clear Flat Rate Pricing</div>
-                      <div>• Licensed & Insured Crew</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl="/screenshots/mobwik.png" title="Mobile Search Engine" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -466,32 +303,8 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              {/* Health Console Mockup */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                <div className="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
-                    <span className="text-[10px] font-bold text-slate-900 uppercase tracking-widest">Server Maintenance Logs</span>
-                  </div>
-                  <span className="text-[9px] font-bold text-slate-900 uppercase bg-slate-200 rounded px-2 py-0.5 font-mono">ONLINE</span>
-                </div>
-                <div className="p-6 space-y-3 min-h-[220px] flex flex-col justify-between bg-white">
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block font-mono">System Diagnostics</span>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-[10px] font-mono">
-                      <span className="text-slate-500">Database Daily Backups</span>
-                      <span className="text-slate-900 font-bold uppercase">Active (4:00 AM)</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-[10px] font-mono">
-                      <span className="text-slate-500">Website Content Updates</span>
-                      <span className="text-slate-900 font-bold uppercase">Completed</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-[10px] font-mono">
-                      <span className="text-slate-500">Anti-Spam Security Shield</span>
-                      <span className="text-slate-900 font-bold uppercase">Active</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="h-[280px] w-full">
+                <BrowserMockup url="https://ksinghconstruction.vercel.app" screenshotUrl="/screenshots/ksingh.webm" title="Professional Portfolio" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">

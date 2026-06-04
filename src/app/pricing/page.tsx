@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
@@ -36,8 +36,6 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
 }
 
 export default function Pricing() {
-  const [selectedPlan, setSelectedPlan] = useState("GROWTH");
-
   const plans = [
     {
       name: "ESSENTIAL",
@@ -98,35 +96,45 @@ export default function Pricing() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-            {plans.map((plan, index) => (
-              <div
-                key={plan.name}
-                className={`flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-0.5 ${selectedPlan === plan.name ? 'bg-white text-slate-900 border-2 border-slate-900 shadow-lg scale-[1.02]' : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'}`}
-              >
-                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-4 ${selectedPlan === plan.name ? 'text-slate-500' : 'text-slate-500'}`}>
-                  {index === 1 ? "RECOMMENDED" : `TIER 0${index + 1}`}
-                </span>
-                <h3 className="text-lg font-bold tracking-tight mb-2">
-                  {plan.name}
-                </h3>
-                <div className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">{plan.price}</div>
-                <p className={`text-sm leading-relaxed mb-6 ${selectedPlan === plan.name ? 'text-slate-600' : 'text-slate-600'}`}>
-                  {plan.desc}
-                </p>
-                <ul className={`space-y-2 text-xs text-left w-full mb-8 ${selectedPlan === plan.name ? 'text-slate-600' : 'text-slate-600'}`}>
-                  {plan.features.map(f => (
-                    <li key={f}>+ {f}</li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  onClick={() => setSelectedPlan(plan.name)}
-                  className={`w-full py-4 text-xs font-bold uppercase tracking-widest rounded-xl border-2 transition-all mt-auto ${selectedPlan === plan.name ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-transparent text-slate-900 border-slate-200 hover:border-slate-900'}`}
+            {plans.map((plan, index) => {
+              const isRecommended = index === 1;
+              return (
+                <div
+                  key={plan.name}
+                  className={`flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-0.5 ${
+                    isRecommended 
+                      ? 'bg-white text-slate-900 border-2 border-slate-900 shadow-lg scale-[1.02]' 
+                      : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'
+                  }`}
                 >
-                  {selectedPlan === plan.name ? "SELECTED" : `SELECT ${plan.name}`}
-                </button>
-              </div>
-            ))}
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-slate-500">
+                    {isRecommended ? "RECOMMENDED" : `TIER 0${index + 1}`}
+                  </span>
+                  <h3 className="text-lg font-bold tracking-tight mb-2">
+                    {plan.name}
+                  </h3>
+                  <div className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">{plan.price}</div>
+                  <p className="text-sm leading-relaxed mb-6 text-slate-600">
+                    {plan.desc}
+                  </p>
+                  <ul className="space-y-2 text-xs text-left w-full mb-8 text-slate-600">
+                    {plan.features.map(f => (
+                      <li key={f}>+ {f}</li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={`/contact?plan=${plan.name.toLowerCase()}`}
+                    className={`w-full py-4 text-xs font-bold uppercase tracking-widest rounded-xl border-2 transition-all mt-auto text-center ${
+                      isRecommended 
+                        ? 'bg-slate-900 text-white border-slate-900 shadow-md hover:bg-slate-800' 
+                        : 'bg-transparent text-slate-900 border-slate-200 hover:border-slate-900'
+                    }`}
+                  >
+                    Select {plan.name}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
           <div className="text-center">
@@ -153,7 +161,7 @@ export default function Pricing() {
                 If your business requires specific integrations, multi-location platforms, or custom booking systems, I design proposals tailored to your exact objectives.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link href="#checkout" onClick={() => setSelectedPlan("ENTERPRISE")} className={`${btnPrimary} w-full sm:w-auto`}>
+                <Link href="/contact?plan=enterprise" className={`${btnPrimary} w-full sm:w-auto`}>
                   Request Custom Quote
                 </Link>
               </div>
@@ -177,66 +185,6 @@ export default function Pricing() {
         </div>
       </FullSection>
 
-      {/* SECTION 4: CHECKOUT FORM (Centered Form — Clean) */}
-      <FullSection id="checkout" bgClass="bg-cool-light">
-        <div className="space-y-12 max-w-3xl mx-auto relative z-10 w-full">
-          <div className="text-center space-y-6 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">INITIATE</span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900">
-              Complete Your Request.
-            </h2>
-            <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed font-medium">
-              Confirm your selected package, complete the client form below, and submit to proceed.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100">
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-
-              <div className="space-y-4">
-                <label className="block text-center sm:text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Select Scope</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {["ESSENTIAL", "GROWTH", "ENTERPRISE"].map((plan) => (
-                    <button
-                      key={plan}
-                      type="button"
-                      onClick={() => setSelectedPlan(plan)}
-                      className={`py-5 text-[10px] font-bold tracking-widest rounded-xl uppercase transition-all border-2 ${selectedPlan === plan ? 'bg-slate-100 text-slate-900 border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
-                    >
-                      {plan}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">First Name</label>
-                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John" />
-                </div>
-                <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Last Name</label>
-                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="Doe" />
-                </div>
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Business Email</label>
-                <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Objectives</label>
-                <textarea rows={4} className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none" placeholder="Describe your vision and requirements..."></textarea>
-              </div>
-
-              <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
-                Submit Project Request
-              </button>
-            </form>
-          </div>
-        </div>
-      </FullSection>
     </div>
   );
 }
