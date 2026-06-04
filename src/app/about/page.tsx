@@ -75,14 +75,7 @@ export default function About() {
               <p className="text-base text-slate-600 leading-relaxed font-medium">
                 I treat website design as a precision instrument for revenue. Every decision eliminates noise and prioritizes conversions. We strip away everything that does not directly serve your bottom line.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link href="#capabilities" className={`${btnPrimary} w-full sm:w-auto`}>
-                  Explore Capabilities
-                </Link>
-                <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-                  Discuss Strategy
-                </Link>
-              </div>
+
             </div>
 
             {/* Right: Numbered Principles with Dividers */}
@@ -105,17 +98,17 @@ export default function About() {
         </div>
       </FullSection>
 
-      {/* SECTION 3: CAPABILITIES (Dark Inverted — 2x2 Grid) */}
-      <FullSection id="capabilities" bgClass="bg-slate-900">
+      {/* SECTION 3: CAPABILITIES (Warm Light bg — 2x2 Grid) */}
+      <FullSection id="capabilities" bgClass="bg-warm-light">
         <div className="max-w-5xl mx-auto w-full space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
               SPECIALTIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
               Elite Execution.
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed text-slate-400 font-medium max-w-xl mx-auto">
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
               Four core capabilities that set our work apart from generic agencies.
             </p>
           </div>
@@ -129,21 +122,17 @@ export default function About() {
             ].map((item, idx) => (
               <div
                 key={item.num}
-                className={`p-8 lg:p-10 space-y-4 ${idx < 2 ? 'border-b border-slate-700' : ''} ${idx % 2 === 0 ? 'sm:border-r border-slate-700' : ''}`}
+                className={`p-8 lg:p-10 space-y-4 ${idx < 2 ? 'border-b border-slate-200' : ''} ${idx % 2 === 0 ? 'sm:border-r border-slate-200' : ''}`}
               >
                 <span className="text-3xl font-black text-slate-600 block leading-none">{item.num}</span>
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">{item.name}</h3>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">{item.desc}</p>
-                <p className="text-xs sm:text-sm text-white font-bold">{item.bold}</p>
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{item.name}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
+                <p className="text-xs sm:text-sm text-slate-900 font-bold">{item.bold}</p>
               </div>
             ))}
           </div>
 
-          <div className="text-center">
-            <Link href="#timeline" className="inline-flex items-center justify-center rounded bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-100 active:scale-[0.98] min-w-[220px]">
-              View Journey
-            </Link>
-          </div>
+
         </div>
       </FullSection>
 
@@ -161,8 +150,8 @@ export default function About() {
 
           <div className="space-y-0">
             {[
-              { year: "2026", title: "Independent Web Engineer", desc: "Designing high-conversion layouts and engineering automated systems for elite business owners." },
-              { year: "2024", title: "Lead Web Developer", desc: "Engineered fast custom software and secure database synchronization architectures." },
+              { year: "2026", title: "Independent Web Developer", desc: "Designing high-conversion layouts and developing automated systems for elite business owners." },
+              { year: "2024", title: "Lead Web Developer", desc: "Developed fast custom software and secure database synchronization architectures." },
               { year: "2022", title: "Web Developer", desc: "Began building websites in Canada, focused on lightweight code and flawless performance." }
             ].map((exp, idx) => (
               <div key={exp.year} className={`grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 py-8 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
@@ -177,11 +166,7 @@ export default function About() {
             ))}
           </div>
 
-          <div className="pt-4">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Your Project
-            </Link>
-          </div>
+
         </div>
       </FullSection>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
@@ -35,6 +35,318 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   );
 }
 
+const projects = [
+  {
+    id: 1,
+    title: "Mobile Search Engine",
+    desc: "A search-optimized mobile database directory and wiki application.",
+    url: "https://mobwik.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 2,
+    title: "Operations Portal",
+    desc: "A custom real-time request tracker and operations dispatch system.",
+    url: "https://dakeek.ae",
+    type: "portal" as const
+  },
+  {
+    id: 3,
+    title: "Workspace Operating System",
+    desc: "A high-performance command center and calendar scheduling hub.",
+    url: "https://checkersmark.com",
+    type: "dashboard" as const
+  },
+  {
+    id: 4,
+    title: "Product Showroom",
+    desc: "A clean storefront and interactive catalog for kitchen appliances.",
+    url: "https://novacookers.vercel.app",
+    type: "shop" as const
+  },
+  {
+    id: 5,
+    title: "Collaboration Platform",
+    desc: "A client communication portal and real-time team coordination tool.",
+    url: "https://bonder.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 6,
+    title: "Interior Design Showcase",
+    desc: "A curated digital catalog displaying high-end lighting installations.",
+    url: "https://lumiereluminouse.netlify.app/",
+    type: "landing" as const
+  },
+  {
+    id: 7,
+    title: "Digital Publishing Archive",
+    desc: "A lightweight content management portal for digital archives.",
+    url: "https://sayahnam.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 8,
+    title: "Professional Portfolio",
+    desc: "A minimalist digital resume and showcase for professional services.",
+    url: "https://ksinghconstruction.vercel.app",
+    type: "landing" as const
+  },
+  {
+    id: 9,
+    title: "Marketing Platform",
+    desc: "A search-optimized page built to maximize local service conversion.",
+    url: "https://jsgastech.com",
+    type: "landing" as const
+  }
+];
+const screenshotMap: Record<number, string> = {
+  1: "/screenshots/mobwik.png",
+  2: "/screenshots/dakeek.png",
+  3: "/screenshots/checkersmark.png",
+  4: "/screenshots/novacookers.png",
+  5: "/screenshots/bonder.png",
+  6: "/screenshots/lumiere.webm",
+  7: "/screenshots/sayahnam.png",
+  8: "/screenshots/ksingh.webm",
+  9: "/screenshots/jsgastech.png"
+};
+
+function BrowserMockup({ project, isVisible }: { project: typeof projects[0]; isVisible: boolean }) {
+  const [hasBeenVisible, setHasBeenVisible] = useState(false);
+
+  if (isVisible && !hasBeenVisible) {
+    setHasBeenVisible(true);
+  }
+
+  const screenshotUrl = hasBeenVisible ? (screenshotMap[project.id] || "") : "";
+  const isVideo = screenshotUrl.endsWith(".webm");
+
+  return (
+    <div className="w-full h-full bg-white rounded-t-xl overflow-hidden flex flex-col border border-slate-200 shadow-md">
+      {/* Browser Chrome Header */}
+      <div className="h-8 bg-slate-50 border-b border-slate-200/80 flex items-center px-4 justify-between select-none shrink-0 font-sans">
+        {/* Window controls */}
+        <div className="flex gap-1.5 items-center">
+          <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
+          <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
+          <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
+        </div>
+        {/* Address bar */}
+        <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[8px] font-bold text-slate-400 uppercase tracking-widest text-center truncate font-mono shadow-sm">
+          {project.url.replace("https://", "").replace("www.", "")}
+        </div>
+        <div className="w-10"></div>
+      </div>
+      
+      {/* Content Area with Blueprint Grid Texture & Screenshot/Video */}
+      <div className={`flex-1 relative overflow-hidden ${!hasBeenVisible ? "bg-white" : "blueprint-grid bg-slate-50"}`}>
+        {hasBeenVisible && (
+          <>
+            {isVideo ? (
+              <video
+                src={screenshotUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover object-top select-none pointer-events-none opacity-90"
+              />
+            ) : (
+              <img
+                src={screenshotUrl}
+                alt={project.title}
+                className="w-full h-full object-cover object-top select-none pointer-events-none opacity-90"
+              />
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ThreeDGallery() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lastInteraction, setLastInteraction] = useState(0);
+  const count = projects.length;
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % projects.length);
+    setLastInteraction(Date.now());
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setLastInteraction(Date.now());
+  };
+
+  const selectProject = (idx: number) => {
+    setActiveIndex(idx);
+    setLastInteraction(Date.now());
+  };
+
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      const timeSinceInteraction = Date.now() - lastInteraction;
+      if (timeSinceInteraction >= 15000) {
+        setActiveIndex((prev) => (prev + 1) % projects.length);
+      }
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [lastInteraction]);
+
+  return (
+    <div className="w-full flex flex-col items-center space-y-8">
+      {/* 3D Gallery Stage (Hidden on Mobile) */}
+      <div className="hidden lg:flex w-full h-[340px] items-center justify-center relative perspective-stage select-none overflow-visible pt-4">
+        <div className="relative w-[520px] h-[310px] preserve-3d">
+          {projects.map((project, idx) => {
+            let diff = idx - activeIndex;
+            if (diff < -count / 2) diff += count;
+            if (diff > count / 2) diff -= count;
+
+            const isActive = diff === 0;
+            const isLeftStack = diff < 0;
+            const isRightStack = diff > 0;
+
+            let transform = "";
+            let opacity = 1;
+            let zIndex = 1;
+            let pointerEvents: "auto" | "none" = "auto";
+
+            if (isActive) {
+              transform = "translate3d(0, 0, 140px) rotateY(0deg) scale(1.05)";
+              opacity = 1;
+              zIndex = 20;
+              pointerEvents = "auto";
+            } else if (isLeftStack) {
+              // Cover Flow shift left + Y-rotation inward
+              transform = `translate3d(${(diff * 55) - 260}px, 0, -100px) rotateY(60deg)`;
+              opacity = 1; // Opaque to prevent transparency overlaps
+              zIndex = 10 + diff;
+              pointerEvents = "auto";
+            } else if (isRightStack) {
+              // Cover Flow shift right + Y-rotation inward
+              transform = `translate3d(${(diff * 55) + 260}px, 0, -100px) rotateY(-60deg)`;
+              opacity = 1; // Opaque to prevent transparency overlaps
+              zIndex = 10 - diff;
+              pointerEvents = "auto";
+            } else {
+              transform = "translate3d(0, 0, -250px) rotateY(180deg)";
+              opacity = 0;
+              zIndex = 1;
+              pointerEvents = "none";
+            }
+
+            return (
+              <div
+                key={project.id}
+                onClick={() => {
+                  if (isActive) {
+                    if (project.url !== "#") {
+                      window.open(project.url, "_blank", "noopener,noreferrer");
+                    }
+                  } else {
+                    selectProject(idx);
+                  }
+                }}
+                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] reflect-below ${
+                  isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
+                }`}
+                style={{
+                  transform,
+                  opacity,
+                  zIndex,
+                  pointerEvents,
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <BrowserMockup project={project} isVisible={Math.abs(diff) <= 1} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Flat Mobile Preview Slider (Visible on Mobile) */}
+      <div 
+        className="block lg:hidden w-full max-w-[480px] mx-auto px-4 select-none relative"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="w-full h-[260px] relative">
+          <BrowserMockup project={projects[activeIndex]} isVisible={true} />
+        </div>
+
+        {/* Mobile Pagination Indicator Dots */}
+        <div className="flex justify-center gap-1.5 mt-4">
+          {projects.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => selectProject(idx)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to project ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Active Project Info & Standard Navigation Panel */}
+      <div className="max-w-2xl mx-auto w-full text-center mt-12 lg:mt-16 space-y-6">
+        {/* Info Block */}
+        <div className="space-y-1.5 min-h-[64px] flex flex-col justify-center items-center">
+          <h3 className="text-xl font-black text-slate-900 tracking-tight">
+            {projects[activeIndex].title}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium max-w-lg">
+            {projects[activeIndex].desc}
+          </p>
+        </div>
+
+        {/* Two Standard Conversion CTAs */}
+        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+          <Link href="#pricing" className={btnPrimary}>
+            Start Your Project
+          </Link>
+          <Link href="#services" className={btnSecondary}>
+            See How We Do It
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
@@ -52,7 +364,7 @@ export default function Home() {
             <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
-            <Link href="# pricing" className={`${btnSecondary} w-full sm:w-auto`}>
+            <Link href="#services" className={`${btnSecondary} w-full sm:w-auto`}>
               See How We Do It
             </Link>
           </div>
@@ -83,9 +395,9 @@ export default function Home() {
               { num: "05", name: "Google Ads", desc: "Targeted campaigns that show your business to active customers who are looking to hire you today.", id: "google-ads" },
               { num: "06", name: "Support & Operations", desc: "Daily database backups, performance monitoring, and content updates so you never worry about tech.", id: "support-ops" }
             ].map((srv) => (
-              <Link 
+              <Link
                 href={`/services#${srv.id}`}
-                key={srv.num} 
+                key={srv.num}
                 className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
                 <div className="flex items-center justify-between">
@@ -101,76 +413,22 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 2. SECTION 2: WHY (Business Need — Scannable) */}
-      <FullSection id="why" bgClass="bg-warm-light">
-        <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
+      {/* 2. SECTION 2: SELECTED WORK (Case Studies) */}
+      <FullSection id="work" bgClass="bg-warm-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           {/* Centered Heading */}
-          <div className="text-center max-w-3xl mx-auto space-y-4">
+          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              WHY A WEBSITE
+              SELECTED WORK
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Why Your Business Needs a Website.
+              Real Projects. Real Outcomes.
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-              Your website is your 24/7 sales partner. It builds trust, captures leads, and converts visitors while you focus on your work.
-            </p>
           </div>
 
-          {/* 4 Stat Cards — The Main Focus */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                stat: "75%",
-                title: "Judge by Design",
-                desc: "Consumers evaluate your credibility based on your website before ever contacting you."
-              },
-              {
-                stat: "24/7",
-                title: "Always Open",
-                desc: "Your site captures inquiries and builds trust around the clock, even while you sleep."
-              },
-              {
-                stat: "3×",
-                title: "More Leads",
-                desc: "Professional websites generate significantly more qualified leads than word of mouth alone."
-              },
-              {
-                stat: "10s",
-                title: "Or They Leave",
-                desc: "Visitors decide to stay or bounce within ten seconds. Speed and clarity keep them."
-              }
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-              >
-                <span className="text-4xl sm:text-5xl font-black text-slate-900 block tracking-tight leading-none">
-                  {item.stat}
-                </span>
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-                  {item.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Single CTA Row */}
-          <div className="text-center space-y-6">
-            <p className="text-sm text-slate-500 font-medium max-w-lg mx-auto">
-              Without a professional site, customers move on to a competitor in seconds. A strong web presence is how they discover, evaluate, and choose you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-                Start Your Project
-              </Link>
-              <Link href="#services" className={`${btnSecondary} w-full sm:w-auto`}>
-                See Services
-              </Link>
-            </div>
+          {/* ThreeD Gallery Curved Deck */}
+          <div className="w-full pt-4">
+            <ThreeDGallery />
           </div>
         </div>
       </FullSection>
@@ -186,23 +444,14 @@ export default function Home() {
                   OUR METHOD
                 </span>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
-                  Engineered for Growth.
+                  Architected for Growth.
                 </h2>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm">
                   We don't just design websites. We architect custom digital pipelines that convert visitors into paying clients.
                 </p>
               </div>
 
-              <div className="mt-12 lg:mt-auto space-y-4">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-                    Start Your Project
-                  </Link>
-                  <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-                    Contact Us
-                  </Link>
-                </div>
-              </div>
+
             </div>
 
             {/* Right Column: Five Stacked Process Rows */}
@@ -227,8 +476,72 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 4. SECTION 4: WHAT (Wide Bento Grid — Lead Pipeline) */}
-      <FullSection id="what" bgClass="bg-warm-light">
+      {/* 4. SECTION 4: ROI COMPARISON (Custom Build vs. Templates) */}
+      <FullSection id="roi" bgClass="bg-warm-light">
+        <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              THE DIFFERENCE
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Custom Build vs. Templates.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              See why a hand-coded website outperforms page builders and pre-made themes on every metric that matters.
+            </p>
+          </div>
+
+          {/* Unified Comparison Table */}
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+            {/* Table Header */}
+            <div className="grid grid-cols-3 border-b border-slate-200">
+              <div className="p-5 lg:p-6">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">METRIC</span>
+              </div>
+              <div className="p-5 lg:p-6 border-l border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">TEMPLATE</span>
+              </div>
+              <div className="p-5 lg:p-6 border-l border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900 block">CUSTOM BUILD</span>
+              </div>
+            </div>
+            {/* Table Rows */}
+            {[
+              { label: "Code Size", ours: "Under 50 KB", theirs: "2–5 MB of Bloat" },
+              { label: "Load Speed", ours: "Under 0.3 Seconds", theirs: "3–8 Seconds" },
+              { label: "Conversion Rate", ours: "3–5× Higher", theirs: "Industry Average" },
+              { label: "Monthly SaaS Fees", ours: "$0 — You Own It", theirs: "$30–$300 / Month" },
+              { label: "Security Risk", ours: "Minimal — No Plugins", theirs: "High — Plugin Exploits" }
+            ].map((row, idx) => (
+              <div key={row.label} className={`grid grid-cols-3 ${idx < 4 ? 'border-b border-slate-100' : ''}`}>
+                <div className="p-5 lg:p-6 flex items-center">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</span>
+                </div>
+                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
+                  <span className="text-sm font-medium text-slate-400">{row.theirs}</span>
+                </div>
+                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
+                  <span className="text-sm font-bold text-emerald-600">{row.ours}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
+            <Link href="#pricing" className={btnPrimary}>
+              Start Your Project
+            </Link>
+            <Link href="#services" className={btnSecondary}>
+              See How We Do It
+            </Link>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 5. SECTION 5: WHAT (Wide Bento Grid — Lead Pipeline) */}
+      <FullSection id="what" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-16">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-slate-200 pb-8">
@@ -243,15 +556,7 @@ export default function Home() {
                 Every website we build is an automated lead-capture system. Here is exactly how it works to scale your operations.
               </p>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-                Start Your Project
-              </Link>
-              <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-                Contact Us
-              </Link>
-            </div>
+
           </div>
 
           {/* Bento Grid */}
@@ -260,9 +565,9 @@ export default function Home() {
             <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
               <span className="text-6xl font-black text-slate-200 block leading-none">01</span>
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Client Submits</h3>
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Customer Fills Form</h3>
                 <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  A visitor lands on your site and effortlessly fills out the simple, high-converting contact form with their name, email, and project details.
+                  When a customer wants to hire you, they fill out a simple contact form on your website with their name and email.
                 </p>
               </div>
             </div>
@@ -271,29 +576,31 @@ export default function Home() {
             <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
               <span className="text-6xl font-black text-slate-200 block leading-none">02</span>
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Instant Database</h3>
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Leads Are Saved</h3>
                 <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  Their information is instantly and securely saved to your custom customer database. Zero manual entry, zero lost leads.
+                  Their details are saved automatically in your list. You do not have to write anything down, and you will never lose a lead.
                 </p>
               </div>
             </div>
 
-            {/* Box 3: Phone Alert (Spans 2 columns on tablet, 1 on desktop) */}
-            <div className="bg-slate-900 p-8 lg:p-12 rounded-3xl shadow-md flex flex-col justify-between space-y-8 md:col-span-2 lg:col-span-1">
-              <span className="text-6xl font-black text-slate-800 block leading-none">03</span>
+            {/* Box 3: Phone Alert */}
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 md:col-span-2 lg:col-span-1 hover:shadow-md transition-shadow">
+              <span className="text-6xl font-black text-slate-200 block leading-none">03</span>
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-white tracking-tight">Phone Alert</h3>
-                <p className="text-sm text-slate-300 leading-relaxed font-medium">
-                  You receive an instant notification directly on your phone, allowing you to call them back in minutes before they contact a competitor.
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Get Text Notification</h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                  You get a text message on your phone right away. This lets you call the customer back fast before they look for someone else.
                 </p>
               </div>
             </div>
           </div>
+
+
         </div>
       </FullSection>
 
-      {/* 5. SECTION 5: CLIENT REVIEWS (Wide 3-Column Staggered Grid) */}
-      <FullSection id="reviews" bgClass="bg-cool-light">
+      {/* 6. SECTION 6: CLIENT REVIEWS (Wide 3-Column Staggered Grid) */}
+      <FullSection id="reviews" bgClass="bg-warm-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-16">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-slate-200 pb-8">
@@ -305,15 +612,7 @@ export default function Home() {
                 What Our Clients Achieve.
               </h2>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-                Start Your Project
-              </Link>
-              <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-                Contact Us
-              </Link>
-            </div>
+
           </div>
 
           {/* 3-Column Review Grid */}
@@ -324,7 +623,7 @@ export default function Home() {
                 &ldquo;Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.&rdquo;
               </p>
               <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
-                <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white text-sm font-black">MV</div>
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">MV</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Marcus V.</span>
                   <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Business Owner</span>
@@ -333,14 +632,14 @@ export default function Home() {
             </div>
 
             {/* Column 2 */}
-            <div className="bg-slate-900 p-8 lg:p-12 rounded-3xl shadow-md space-y-8 text-white">
-              <p className="text-lg lg:text-xl leading-relaxed font-bold tracking-tight">
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
                 &ldquo;Inquiries go straight to our phones now. Our customer calls doubled within 30 days. The custom CRM eliminated hours of manual data entry every single week.&rdquo;
               </p>
-              <footer className="flex items-center gap-4 pt-4 border-t border-slate-700">
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-slate-900 text-sm font-black">DK</div>
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">DK</div>
                 <div>
-                  <span className="text-sm font-bold text-white block uppercase tracking-wider">David K.</span>
+                  <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">David K.</span>
                   <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Local Business Owner</span>
                 </div>
               </footer>
@@ -363,55 +662,7 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 6. SECTION 6: FOUNDER'S MANIFESTO (Wide Split-Screen Editorial) */}
-      <FullSection id="manifesto" bgClass="bg-warm-light">
-        <div className="max-w-[1500px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            {/* Left: Massive Typography */}
-            <div className="space-y-8">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">
-                MANIFESTO / THE STANDARDS
-              </span>
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-slate-900 uppercase leading-[0.9]">
-                No Bloated Builders.
-                <span className="block text-slate-300 mt-4">No Slow Templates.</span>
-                <span className="block text-slate-900 mt-4">Zero Compromise.</span>
-              </h2>
-            </div>
 
-            {/* Right: Editorial & CTA */}
-            <div className="space-y-12">
-              <div className="space-y-6 text-lg sm:text-xl text-slate-600 leading-relaxed font-medium border-l-2 border-slate-900 pl-8">
-                <p>
-                  I refuse to build slow, templated sites that make your business look unprofessional. I refuse to use bloated page builders that put your security at risk and frustrate your visitors.
-                </p>
-                <p>
-                  Every website I create is custom-coded from scratch. I build clean, secure platforms for one simple reason: <strong className="text-slate-900">to turn your website visitors into paying customers</strong>.
-                </p>
-                <p>
-                  By combining instant loading, clear visual layouts, and automatic lead capture, I build websites that actively bring in clients for your business 24/7.
-                </p>
-              </div>
-
-              {/* Signature & Dual Buttons */}
-              <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 border-t border-slate-200">
-                <div className="flex flex-col">
-                  <span className="font-mono text-xl text-slate-900 tracking-wider font-semibold italic">Amrith Sheeja Jayan</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Founder / Developer</span>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                  <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-                    Start Your Project
-                  </Link>
-                  <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-                    Contact Us
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </FullSection>
 
       {/* 7. SECTION 7: INTAKE (Two-Column — Left Info / Right Form) */}
       <FullSection id="pricing" bgClass="bg-cool-light">

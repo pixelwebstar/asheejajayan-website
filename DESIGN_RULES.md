@@ -47,11 +47,31 @@ We adhere to a strict **monochrome slate** foundation, accented by two super-lig
 We use two very light backgrounds to create a subtle contrast rhythm between page sections:
 *   **Warm Accent (`--color-warm-light`)**: `#FAF5F0` (warm sand/champagne tint).
 *   **Cool Accent (`--color-cool-light`)**: `#F0F4F8` (cool ice blue tint).
-*   *Luminosity Rule*: Both accents are locked at **96% lightness** to guarantee excellent reading contrast.
+*   **Luminosity Rule**: Both accents are locked at **96% lightness** to guarantee excellent reading contrast.
+
+### Functional Micro-Accents (Comparison Only)
+Used exclusively inside comparison tables/rows to signal winners vs. losers:
+*   **Winner Indicator**: `text-emerald-600` (`#059669`) — tiny ✓ marks next to our values.
+*   **Loser Indicator**: `text-rose-400` (`#FB7185`) — tiny ✗ marks next to competitor values.
+*   *Rule*: These are NEVER used as backgrounds, buttons, borders, or decorative elements. They appear only as inline text colors on comparison data.
+
+### Slate-900 Background Restriction
+*   **`slate-900` (`#0F172A`) must NEVER be used as a card, section, or container background color.**
+*   Valid uses: text color (headings, body), button backgrounds (`btnPrimary`), form focus rings, text selection highlight, and button mockups inside service diagrams.
+*   For emphasis on cards, use `border-l-4 border-l-slate-300` or `border-2 border-slate-900` instead of full dark fill.
 
 ---
 
-## 3. Button Standards
+## 3. Selected / Active State Pattern
+All interactive selection states (pricing plan cards, scope buttons, contact requirement toggles) follow a consistent pattern:
+*   **Selected State**: `bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-md` — subtle grey fill with prominent dark border.
+*   **Unselected State**: `bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm`.
+*   *Rule*: Selection is communicated through **border emphasis and scale**, never through full dark color inversion.
+*   For pricing card selected buttons (the action button inside the card), use `bg-slate-900 text-white` to keep it as a clear CTA.
+
+---
+
+## 4. Button Standards
 Buttons must have uniform shapes, interactive feel, and minimum sizes.
 
 ### Primary Action Buttons (`btnPrimary`)
@@ -71,7 +91,7 @@ For forms (contact/pricing cards), we extend the action button to feel more touc
 
 ---
 
-## 4. Component Layout Rules
+## 5. Component Layout Rules
 *   **Hero Sections**: Every hero section must fill the exact viewport minus the fixed double header height:
     ```css
     min-height: calc(100svh - var(--navbar-h));

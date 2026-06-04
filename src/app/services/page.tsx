@@ -41,7 +41,7 @@ export default function Services() {
       <HeroSection bgClass="bg-warm-light">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-            WEB ENGINEERING
+            WEB SYSTEMS CRAFT
           </span>
           <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
             Professional Web Services.
@@ -116,11 +116,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 We design and code clean, custom marketing websites from scratch. No slow page builders, no bloated pre-made templates, and no unnecessary widgets. Your website opens instantly, ensuring potential clients never click away to a competitor out of frustration.
               </p>
-              <div className="pt-2">
-                <Link href="/#pricing" className={btnPrimary}>
-                  Build Your Website
-                </Link>
-              </div>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               {/* Browser mockup widget */}
@@ -197,7 +192,7 @@ export default function Services() {
                 <div className="grid grid-cols-12 min-h-[220px] bg-white">
                   {/* Dashboard Sidebar */}
                   <div className="col-span-4 bg-slate-50 border-r border-slate-200 p-4 space-y-3">
-                    <div className="w-full h-6 bg-slate-900 rounded text-[9px] text-white font-bold flex items-center px-3.5 uppercase tracking-wider">Dashboard</div>
+                    <div className="w-full h-6 bg-slate-200 rounded text-[9px] text-slate-900 font-bold flex items-center px-3.5 uppercase tracking-wider">Dashboard</div>
                     <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Bookings</div>
                     <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Invoices</div>
                     <div className="w-full h-6 bg-white border border-slate-200 rounded text-[9px] text-slate-600 font-bold flex items-center px-3.5 uppercase tracking-wider">Settings</div>
@@ -217,12 +212,12 @@ export default function Services() {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-slate-900 text-white p-4 rounded-xl flex items-center justify-between shadow-sm">
+                    <div className="bg-slate-100 text-slate-900 p-4 rounded-xl flex items-center justify-between border border-slate-200">
                       <div>
-                        <span className="block text-[8px] text-slate-400 uppercase tracking-widest">Automation Saved</span>
+                        <span className="block text-[8px] text-slate-500 uppercase tracking-widest">Automation Saved</span>
                         <span className="text-sm font-black tracking-tight leading-none mt-0.5 uppercase">42 Hours / Mo</span>
                       </div>
-                      <span className="text-[9px] font-bold bg-white/10 px-2 py-1 rounded tracking-widest uppercase font-mono">Time Sync</span>
+                      <span className="text-[9px] font-bold bg-slate-200 px-2 py-1 rounded tracking-widest uppercase font-mono text-slate-700">Time Sync</span>
                     </div>
                   </div>
                 </div>
@@ -253,11 +248,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 We design and build custom client login portals, scheduling systems, and internal tools tailored exactly to how your business runs. Because you own the code, you get software that fits your workflow perfectly without paying expensive monthly per-user software fees.
               </p>
-              <div className="pt-2">
-                <Link href="/#pricing" className={btnPrimary}>
-                  Build Web App
-                </Link>
-              </div>
             </div>
           </div>
         </div>
@@ -277,11 +267,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 When someone requests a quote on your site, their information is immediately saved to your customer contact list. The system automatically alerts your phone via text or email. This lets you contact them back in minutes, while they are actively looking to buy.
               </p>
-              <div className="pt-2">
-                <Link href="/#pricing" className={btnPrimary}>
-                  Configure CRM Sync
-                </Link>
-              </div>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               {/* Lead Sync Pipeline Diagram */}
@@ -304,18 +289,18 @@ export default function Services() {
                 </div>
                 
                 {/* Mobile Notification Mockup */}
-                <div className="md:col-span-2 bg-slate-900 p-5 rounded-2xl border border-slate-250 shadow-md text-white space-y-3">
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Phone Notification</span>
-                  <div className="bg-white/10 p-3 rounded-xl border border-white/5 space-y-2">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-1.5 font-mono">
-                      <span className="text-[9px] font-bold tracking-wider">🚨 NEW INQUIRY</span>
+                <div className="md:col-span-2 bg-slate-100 p-5 rounded-2xl border border-slate-200 text-slate-900 space-y-3">
+                  <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block font-mono">Phone Notification</span>
+                  <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between border-b border-slate-200 pb-1.5 font-mono">
+                      <span className="text-[9px] font-bold tracking-wider text-slate-900">🚨 NEW INQUIRY</span>
                       <span className="text-[8px] text-slate-400">Just Now</span>
                     </div>
                     <div className="space-y-1">
-                      <span className="block text-[10px] font-bold">Sarah Miller</span>
-                      <span className="block text-[8px] text-slate-400">Request: Consultation</span>
+                      <span className="block text-[10px] font-bold text-slate-900">Sarah Miller</span>
+                      <span className="block text-[8px] text-slate-500">Request: Consultation</span>
                     </div>
-                    <div className="bg-white text-slate-900 text-[8px] font-black uppercase tracking-widest text-center py-1.5 rounded-lg mt-1 font-mono">Tap to Call back</div>
+                    <div className="bg-slate-900 text-white text-[8px] font-black uppercase tracking-widest text-center py-1.5 rounded-lg mt-1 font-mono">Tap to Call back</div>
                   </div>
                 </div>
               </div>
@@ -412,11 +397,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 When people in your local area search for services you offer, you need to show up at the top of Google Maps. We set up and optimize your business map listing so you stand out, get customer reviews, and receive direct phone calls.
               </p>
-              <div className="pt-2">
-                <Link href="/contact" className={btnPrimary}>
-                  Optimize Google Map
-                </Link>
-              </div>
             </div>
           </div>
         </div>
@@ -436,11 +416,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Unlike social media ads that interrupt people, Google Ads shows your business to customers who are actively looking to hire someone right now. We build campaigns and landing pages that work together to turn clicks into calls without wasting your budget.
               </p>
-              <div className="pt-2">
-                <Link href="/contact" className={btnPrimary}>
-                  Launch Ads Funnel
-                </Link>
-              </div>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               {/* Google Ad Result Mockup */}
@@ -458,7 +433,7 @@ export default function Services() {
                       <span className="text-[10px] text-slate-500 font-mono">pixelwebstar.com/hire-expert</span>
                     </div>
                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">Hire a Top-Rated Professional Consultant Today.</h3>
-                    <p className="text-[10.5px] text-slate-600 font-medium">Custom-engineered plans, residential inspections, and structural calculations. Direct phone responses in minutes. Get a transparent quote now.</p>
+                    <p className="text-[10.5px] text-slate-600 font-medium">Custom-crafted plans, residential inspections, and structural calculations. Direct phone responses in minutes. Get a transparent quote now.</p>
                     <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200 text-[9px] font-bold text-slate-500 font-mono">
                       <div>• Clear Flat Rate Pricing</div>
                       <div>• Licensed & Insured Crew</div>
@@ -544,11 +519,6 @@ export default function Services() {
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Once your site is live, we make sure it stays secure, fast, and online. If you need to update text, change pricing, or post photos, just send us an email and we will make the changes for you so you can focus on running your business.
               </p>
-              <div className="pt-2">
-                <Link href="/contact" className={btnPrimary}>
-                  Discuss Support Plan
-                </Link>
-              </div>
             </div>
           </div>
         </div>

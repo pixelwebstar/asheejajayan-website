@@ -100,10 +100,10 @@ export default function Contact() {
                   key={item.id}
                   type="button"
                   onClick={() => toggleSelection(item.id)}
-                  className={`w-full p-5 border-2 rounded-xl flex justify-between items-center text-sm font-bold transition-all ${selections.includes(item.id) ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
+                  className={`w-full p-5 border-2 rounded-xl flex justify-between items-center text-sm font-bold transition-all ${selections.includes(item.id) ? 'bg-slate-100 text-slate-900 border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
                 >
                   <span>{item.label}</span>
-                  <span className={`text-lg leading-none ${selections.includes(item.id) ? 'text-white' : 'text-slate-400'}`}>
+                  <span className={`text-lg leading-none ${selections.includes(item.id) ? 'text-slate-900' : 'text-slate-400'}`}>
                     {selections.includes(item.id) ? "✓" : "+"}
                   </span>
                 </button>

@@ -101,19 +101,19 @@ export default function Pricing() {
             {plans.map((plan, index) => (
               <div
                 key={plan.name}
-                className={`flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-0.5 ${selectedPlan === plan.name ? 'bg-slate-900 text-white border-slate-900 shadow-lg scale-[1.02]' : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'}`}
+                className={`flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-0.5 ${selectedPlan === plan.name ? 'bg-white text-slate-900 border-2 border-slate-900 shadow-lg scale-[1.02]' : 'bg-white text-slate-900 border-slate-100 shadow-sm hover:shadow-md'}`}
               >
-                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-4 ${selectedPlan === plan.name ? 'text-slate-400' : 'text-slate-500'}`}>
+                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-4 ${selectedPlan === plan.name ? 'text-slate-500' : 'text-slate-500'}`}>
                   {index === 1 ? "RECOMMENDED" : `TIER 0${index + 1}`}
                 </span>
                 <h3 className="text-lg font-bold tracking-tight mb-2">
                   {plan.name}
                 </h3>
                 <div className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">{plan.price}</div>
-                <p className={`text-sm leading-relaxed mb-6 ${selectedPlan === plan.name ? 'text-slate-300' : 'text-slate-600'}`}>
+                <p className={`text-sm leading-relaxed mb-6 ${selectedPlan === plan.name ? 'text-slate-600' : 'text-slate-600'}`}>
                   {plan.desc}
                 </p>
-                <ul className={`space-y-2 text-xs text-left w-full mb-8 ${selectedPlan === plan.name ? 'text-slate-300' : 'text-slate-600'}`}>
+                <ul className={`space-y-2 text-xs text-left w-full mb-8 ${selectedPlan === plan.name ? 'text-slate-600' : 'text-slate-600'}`}>
                   {plan.features.map(f => (
                     <li key={f}>+ {f}</li>
                   ))}
@@ -121,7 +121,7 @@ export default function Pricing() {
                 <button
                   type="button"
                   onClick={() => setSelectedPlan(plan.name)}
-                  className={`w-full py-4 text-xs font-bold uppercase tracking-widest rounded-xl border-2 transition-all mt-auto ${selectedPlan === plan.name ? 'bg-white text-slate-900 border-white shadow-md' : 'bg-transparent text-slate-900 border-slate-200 hover:border-slate-900'}`}
+                  className={`w-full py-4 text-xs font-bold uppercase tracking-widest rounded-xl border-2 transition-all mt-auto ${selectedPlan === plan.name ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-transparent text-slate-900 border-slate-200 hover:border-slate-900'}`}
                 >
                   {selectedPlan === plan.name ? "SELECTED" : `SELECT ${plan.name}`}
                 </button>
@@ -201,7 +201,7 @@ export default function Pricing() {
                       key={plan}
                       type="button"
                       onClick={() => setSelectedPlan(plan)}
-                      className={`py-5 text-[10px] font-bold tracking-widest rounded-xl uppercase transition-all border-2 ${selectedPlan === plan ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
+                      className={`py-5 text-[10px] font-bold tracking-widest rounded-xl uppercase transition-all border-2 ${selectedPlan === plan ? 'bg-slate-100 text-slate-900 border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 shadow-sm'}`}
                     >
                       {plan}
                     </button>
