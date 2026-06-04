@@ -438,15 +438,15 @@ export default function Home() {
         <div className="max-w-[1500px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
             {/* Left Column: Heading & Summary (Stretched to match right column height) */}
-            <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6">
-              <div className="space-y-6">
+            <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6 text-center lg:text-left items-center lg:items-start w-full">
+              <div className="space-y-6 max-w-sm mx-auto lg:mx-0 w-full">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                   OUR METHOD
                 </span>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
                   Architected for Growth.
                 </h2>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm">
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm mx-auto lg:mx-0">
                   We don't just design websites. We architect custom digital pipelines that convert visitors into paying clients.
                 </p>
               </div>
@@ -544,15 +544,15 @@ export default function Home() {
       <FullSection id="what" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-16">
           {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-slate-200 pb-8">
-            <div className="space-y-4 max-w-3xl">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
+            <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                 THE VALUE DELIVERED
               </span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
                 What Your Business Gets.
               </h2>
-              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium">
+              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto md:mx-0">
                 Every website we build is an automated lead-capture system. Here is exactly how it works to scale your operations.
               </p>
             </div>
@@ -603,8 +603,8 @@ export default function Home() {
       <FullSection id="reviews" bgClass="bg-warm-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-16">
           {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-slate-200 pb-8">
-            <div className="space-y-4 max-w-3xl">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
+            <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                 SOCIAL PROOF
               </span>
@@ -669,15 +669,15 @@ export default function Home() {
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Left Column: Heading + Selling Points */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="space-y-4">
+            <div className="lg:col-span-5 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start w-full">
+              <div className="space-y-4 w-full">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                   GET STARTED
                 </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
                   Initiate Your Project.
                 </h2>
-                <p className="text-base leading-relaxed text-slate-600 font-medium">
+                <p className="text-base leading-relaxed text-slate-600 font-medium max-w-sm mx-auto lg:mx-0">
                   Submit your goals and I will return a custom project proposal within 24 hours.
                 </p>
               </div>
