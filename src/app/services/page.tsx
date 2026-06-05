@@ -119,7 +119,7 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl="/screenshots/novacookers.png" title="Product Showroom" />
               </div>
               {/* Core Benefits */}
@@ -147,7 +147,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://checkersmark.com" screenshotUrl="/screenshots/checkersmark.png" title="Workspace Operating System" />
               </div>
               {/* Core Benefits */}
@@ -197,7 +197,7 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://bonder.vercel.app" screenshotUrl="/screenshots/bonder.png" title="Collaboration Platform" />
               </div>
               {/* Core Benefits */}
@@ -225,7 +225,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://jsgastech.com" screenshotUrl="/screenshots/jsgastech.png" title="Marketing Platform" />
               </div>
               {/* Core Benefits */}
@@ -275,7 +275,7 @@ export default function Services() {
               </p>
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl="/screenshots/mobwik.png" title="Mobile Search Engine" />
               </div>
               {/* Core Benefits */}
@@ -303,7 +303,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
-              <div className="h-[280px] w-full">
+              <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
                 <BrowserMockup url="https://ksinghconstruction.vercel.app" screenshotUrl="/screenshots/ksingh.webm" title="Professional Portfolio" />
               </div>
               {/* Core Benefits */}

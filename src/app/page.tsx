@@ -257,7 +257,7 @@ function ThreeDGallery() {
               window.open(projects[activeIndex].url, "_blank", "noopener,noreferrer");
             }
           }}
-          className="w-full h-[260px] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150"
+          className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150"
         >
           <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
         </div>
