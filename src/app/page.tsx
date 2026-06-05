@@ -237,7 +237,7 @@ function ThreeDGallery() {
                   transformStyle: "preserve-3d",
                 }}
               >
-                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={Math.abs(diff) <= 1} />
+                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={true} />
               </div>
             );
           })}
