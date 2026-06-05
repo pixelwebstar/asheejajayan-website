@@ -251,7 +251,14 @@ function ThreeDGallery() {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div className="w-full h-[260px] relative">
+        <div 
+          onClick={() => {
+            if (projects[activeIndex].url !== "#") {
+              window.open(projects[activeIndex].url, "_blank", "noopener,noreferrer");
+            }
+          }}
+          className="w-full h-[260px] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150"
+        >
           <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
         </div>
 
