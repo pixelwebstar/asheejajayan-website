@@ -191,19 +191,19 @@ function ThreeDGallery() {
             let pointerEvents: "auto" | "none" = "auto";
 
             if (isActive) {
-              transform = "translate3d(0, 0, 140px) rotateY(0deg) scale(1.05)";
+              transform = "translate3d(0, 0, 140px) rotateY(0deg) scale(var(--flow-scale))";
               opacity = 1;
               zIndex = 20;
               pointerEvents = "auto";
             } else if (isLeftStack) {
               // Cover Flow shift left + Y-rotation inward
-              transform = `translate3d(${(diff * 55) - 260}px, 0, -100px) rotateY(60deg)`;
+              transform = `translate3d(calc(var(--flow-gap) * ${diff} - var(--flow-shift)), 0, -100px) rotateY(60deg) scale(calc(var(--flow-scale) * 0.85))`;
               opacity = 1; // Opaque to prevent transparency overlaps
               zIndex = 10 + diff;
               pointerEvents = "auto";
             } else if (isRightStack) {
               // Cover Flow shift right + Y-rotation inward
-              transform = `translate3d(${(diff * 55) + 260}px, 0, -100px) rotateY(-60deg)`;
+              transform = `translate3d(calc(var(--flow-gap) * ${diff} + var(--flow-shift)), 0, -100px) rotateY(-60deg) scale(calc(var(--flow-scale) * 0.85))`;
               opacity = 1; // Opaque to prevent transparency overlaps
               zIndex = 10 - diff;
               pointerEvents = "auto";

@@ -45,12 +45,25 @@ body {
 :root {
   --navbar-h: 96px;
   /* h-14 (56px) + h-10 (40px) = 96px */
+
+  /* 3D Gallery parameters (Tablet / Intermediate screens) */
+  --flow-shift: 185px;
+  --flow-scale: 0.85;
+  --flow-gap: 35px;
 }
 
 @media (min-width: 640px) {
   :root {
     --navbar-h: 112px;
     /* h-16 (64px) + h-12 (48px) = 112px */
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --flow-shift: 260px;
+    --flow-scale: 1.05;
+    --flow-gap: 55px;
   }
 }
 
@@ -69,8 +82,8 @@ body {
   position: relative;
 }
 
-@media (min-width: 1024px) {
-  /* On desktop, lock every section to exactly one page size */
+@media (min-width: 1200px) and (min-height: 850px) {
+  /* On large and tall desktop displays, lock every section to exactly one page size */
   .hero-section,
   .full-section {
     height: calc(var(--vh, 100vh) - var(--navbar-h));
