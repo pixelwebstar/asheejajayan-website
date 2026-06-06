@@ -59,7 +59,7 @@ function FullSection({ children, bgClass, id, bgImage }: { children: ReactNode; 
     >
       {bgImage && (
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-15 pointer-events-none"
+          className="absolute inset-0 z-0 bg-cover bg-center opacity-45 pointer-events-none"
           style={{
             backgroundImage: `url(${bgImage})`,
           }}
