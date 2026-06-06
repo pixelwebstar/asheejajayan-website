@@ -364,7 +364,7 @@ export default function Home() {
       </HeroSection>
 
       {/* 1. SECTION 1: SERVICES (The "What" Grid) */}
-      <FullSection id="services" bgClass="bg-cool-light" bgImage="/services-bg.webp">
+      <FullSection id="services" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <div className="max-w-3xl space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
