@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -13,11 +14,27 @@ const nav = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight > 0) {
+        setScrollProgress((window.scrollY / scrollHeight) * 100);
+      }
+    };
+    
+    // Run initially
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border/60">
-      {/* Row 1: Brand & Actions (Colored like footer using bg-surface-2) */}
-      <div className="border-b border-border/40 bg-surface-2">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border">
+      {/* Row 1: Brand & Actions (Intense, solid cool slate-blue trust color) */}
+      <div className="border-b border-border bg-[#F0F4F8]">
         <div className="mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28">
           <div className="flex h-14 sm:h-16 items-center justify-between gap-4">
             <Link
@@ -37,8 +54,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Row 2: Navigation Links */}
-      <div className="bg-surface/30">
+      {/* Row 2: Navigation Links (Solid white background for clear contrast) */}
+      <div className="bg-white">
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12">
           <nav
             className="flex h-10 sm:h-12 items-center overflow-x-auto whitespace-nowrap scrollbar-none justify-between"
@@ -62,6 +79,12 @@ export default function Navbar() {
           </nav>
         </div>
       </div>
+
+      {/* Scroll Progress Bar indicator */}
+      <div
+        className="absolute bottom-0 left-0 h-[3px] bg-slate-900 z-50 transition-all duration-75 ease-out"
+        style={{ width: `${scrollProgress}%` }}
+      />
     </header>
   );
 }
