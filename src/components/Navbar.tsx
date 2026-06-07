@@ -33,6 +33,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const activeIndex = nav.findIndex((item) => {
+    if (item.href === "/") return pathname === "/";
+    return pathname.startsWith(item.href);
+  });
+  const currentIndex = activeIndex === -1 ? 0 : activeIndex;
+  const prevIndex = (currentIndex - 1 + nav.length) % nav.length;
+  const nextIndex = (currentIndex + 1) % nav.length;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border">
       {/* Row 1: Brand & Actions (Intense, solid cool slate-blue trust color) */}
@@ -57,11 +65,12 @@ export default function Navbar() {
       </div>
 
       {/* Row 2: Navigation Links (Solid white background for clear contrast) */}
-      <div className="bg-white">
+      <div className="bg-white border-b border-border/50">
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12">
+          {/* Desktop Nav (Visible on md and up) */}
           <nav
-            className="flex h-10 sm:h-12 items-center overflow-x-auto whitespace-nowrap scrollbar-none justify-start md:justify-between gap-6 sm:gap-8"
-            aria-label="Site Navigation"
+            className="hidden md:flex h-12 items-center overflow-x-auto whitespace-nowrap scrollbar-none justify-between"
+            aria-label="Site Navigation Desktop"
           >
             {nav.map(({ href, label }) => {
               const active = pathname === href;
@@ -69,8 +78,8 @@ export default function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none shrink-0 px-1 sm:px-2 ${active
-                    ? "text-primary"
+                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none px-2 ${active
+                    ? "text-primary font-black"
                     : "text-muted hover:text-foreground"
                     }`}
                 >
@@ -78,6 +87,53 @@ export default function Navbar() {
                 </Link>
               );
             })}
+          </nav>
+
+          {/* Mobile Carousel Nav (Visible on mobile only) */}
+          <nav
+            className="flex md:hidden h-12 items-center justify-between relative select-none"
+            aria-label="Site Navigation Mobile"
+          >
+            {/* Prev Page Peek & Arrow */}
+            <div className="flex items-center gap-1.5 w-1/3 justify-start overflow-hidden">
+              <Link
+                href={nav[prevIndex].href}
+                className="text-[9px] font-bold uppercase tracking-wider text-muted/40 whitespace-nowrap truncate max-w-[50px] transition-opacity hover:opacity-75"
+              >
+                {nav[prevIndex].label}
+              </Link>
+              <Link
+                href={nav[prevIndex].href}
+                className="text-lg font-black text-muted hover:text-foreground p-1"
+                aria-label="Previous Page"
+              >
+                ‹
+              </Link>
+            </div>
+
+            {/* Active Page (Centered) */}
+            <div className="w-1/3 text-center flex justify-center items-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                {nav[currentIndex].label}
+              </span>
+            </div>
+
+            {/* Next Page Peek & Arrow */}
+            <div className="flex items-center gap-1.5 w-1/3 justify-end overflow-hidden">
+              <Link
+                href={nav[nextIndex].href}
+                className="text-lg font-black text-muted hover:text-foreground p-1"
+                aria-label="Next Page"
+              >
+                ›
+              </Link>
+              <Link
+                href={nav[nextIndex].href}
+                className="text-[9px] font-bold uppercase tracking-wider text-muted/40 whitespace-nowrap truncate max-w-[50px] transition-opacity hover:opacity-75"
+              >
+                {nav[nextIndex].label}
+              </Link>
+            </div>
           </nav>
         </div>
       </div>
