@@ -91,20 +91,20 @@ export default function Navbar() {
 
           {/* Mobile Carousel Nav (Visible on mobile only) */}
           <nav
-            className="flex md:hidden h-12 items-center justify-between relative select-none"
+            className="flex md:hidden h-12 items-center justify-between relative select-none px-4"
             aria-label="Site Navigation Mobile"
           >
             {/* Prev Page Peek & Arrow */}
-            <div className="flex items-center gap-1.5 w-1/3 justify-start overflow-hidden">
+            <div className="flex items-center gap-1 w-1/3 justify-start overflow-hidden">
               <Link
                 href={nav[prevIndex].href}
-                className="text-[9px] font-bold uppercase tracking-wider text-muted/40 whitespace-nowrap truncate max-w-[50px] transition-opacity hover:opacity-75"
+                className="text-[9px] font-bold uppercase tracking-wider text-muted/30 whitespace-nowrap truncate max-w-[40px] transition-opacity hover:opacity-75"
               >
                 {nav[prevIndex].label}
               </Link>
               <Link
                 href={nav[prevIndex].href}
-                className="text-lg font-black text-muted hover:text-foreground p-1"
+                className="text-lg font-black text-muted hover:text-foreground px-2 py-1.5 transition-colors shrink-0"
                 aria-label="Previous Page"
               >
                 ‹
@@ -119,17 +119,17 @@ export default function Navbar() {
             </div>
 
             {/* Next Page Peek & Arrow */}
-            <div className="flex items-center gap-1.5 w-1/3 justify-end overflow-hidden">
+            <div className="flex items-center gap-1 w-1/3 justify-end overflow-hidden">
               <Link
                 href={nav[nextIndex].href}
-                className="text-lg font-black text-muted hover:text-foreground p-1"
+                className="text-lg font-black text-muted hover:text-foreground px-2 py-1.5 transition-colors shrink-0"
                 aria-label="Next Page"
               >
                 ›
               </Link>
               <Link
                 href={nav[nextIndex].href}
-                className="text-[9px] font-bold uppercase tracking-wider text-muted/40 whitespace-nowrap truncate max-w-[50px] transition-opacity hover:opacity-75"
+                className="text-[9px] font-bold uppercase tracking-wider text-muted/30 whitespace-nowrap truncate max-w-[40px] transition-opacity hover:opacity-75"
               >
                 {nav[nextIndex].label}
               </Link>

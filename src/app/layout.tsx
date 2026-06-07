@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SwipeNavigation from "@/components/SwipeNavigation";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,9 +53,11 @@ export default function RootLayout({
           }}
         />
         <Navbar />
-        <main className="flex-grow pt-24 sm:pt-28">
-          {children}
-        </main>
+        <SwipeNavigation>
+          <main className="flex-grow pt-24 sm:pt-28">
+            {children}
+          </main>
+        </SwipeNavigation>
         <Footer />
       </body>
     </html>
