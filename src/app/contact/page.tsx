@@ -39,19 +39,22 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
 function ContactContent() {
   const searchParams = useSearchParams();
   const initialPlan = searchParams.get("plan") || "";
-  const [plan, setPlan] = useState(initialPlan);
+  const initialCustom = searchParams.get("custom") || "";
+
+  const [plan, setPlan] = useState(initialPlan ? initialPlan : (initialCustom ? "custom" : ""));
+  const [details, setDetails] = useState(initialCustom);
 
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
 
-      {/* SECTION 1: HERO (Pure White) */}
+      {/* SECTION 1: HERO (Warm Sand) */}
       <HeroSection bgClass="bg-warm-light">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
             Start Your Project.
           </h1>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Ready to deploy an elite digital sales system that effortlessly captures leads? Select your scope below or message us directly to begin.
+            Ready to start? Select your package below or message me directly to begin. I reply within 24 hours.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
             <Link href="#message" className={`${btnPrimary} w-full sm:w-auto`}>
@@ -64,7 +67,7 @@ function ContactContent() {
         </div>
       </HeroSection>
 
-      {/* SECTION 2: MESSAGE FORM (White) */}
+      {/* SECTION 2: MESSAGE FORM (Cool Slate) */}
       <FullSection id="message" bgClass="bg-cool-light">
         <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
           <div className="text-center space-y-6 flex flex-col items-center">
@@ -72,7 +75,7 @@ function ContactContent() {
               COMMUNICATION
             </span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Direct Contact.
+              Project Brief.
             </h2>
           </div>
 
@@ -111,7 +114,13 @@ function ContactContent() {
 
               <div className="space-y-2 text-center sm:text-left">
                 <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
-                <textarea rows={5} className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none" placeholder="Describe your business requirements..."></textarea>
+                <textarea
+                  rows={5}
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
+                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
+                  placeholder="Describe your business requirements..."
+                ></textarea>
               </div>
 
               <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>

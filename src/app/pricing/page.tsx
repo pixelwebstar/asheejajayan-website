@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
@@ -57,30 +57,102 @@ export default function Pricing() {
     }
   ];
 
+  // Interactive Estimator Selections
+  const [selections, setSelections] = useState({
+    customWebDesign: true, // Fixed Base
+    mobileOptimization: true, // Included
+    crmLeadCapture: false,
+    googleMapsOptimization: false,
+    googleAdsCampaign: false,
+    customWebApplication: false,
+    paymentIntegration: false,
+    portalClientAccess: false,
+    supportMaintenance: false,
+  });
+
+  const handleToggle = (key: keyof typeof selections) => {
+    if (key === "customWebDesign" || key === "mobileOptimization") return;
+    setSelections((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  // Price calculation
+  const basePrice = 999;
+  let calculatedTotal = basePrice;
+  if (selections.crmLeadCapture) calculatedTotal += 500;
+  if (selections.googleMapsOptimization) calculatedTotal += 300;
+  if (selections.googleAdsCampaign) calculatedTotal += 500;
+  if (selections.customWebApplication) calculatedTotal += 2000;
+  if (selections.paymentIntegration) calculatedTotal += 800;
+  if (selections.portalClientAccess) calculatedTotal += 400;
+
+  const getCustomQuery = () => {
+    const list: string[] = [];
+    if (selections.crmLeadCapture) list.push("CRM Lead Capture ($500)");
+    if (selections.googleMapsOptimization) list.push("Google Maps Optimization ($300)");
+    if (selections.googleAdsCampaign) list.push("Google Ads Setup ($500)");
+    if (selections.customWebApplication) list.push("Custom Web Application ($2,000)");
+    if (selections.paymentIntegration) list.push("Payment Integration ($800)");
+    if (selections.portalClientAccess) list.push("CheckersMark Portal Access ($400)");
+    if (selections.supportMaintenance) list.push("Support Plan ($200/mo)");
+
+    const summary = `Custom project estimated at $${calculatedTotal}. Options selected: ${list.length > 0 ? list.join(", ") : "Base Custom Design"}`;
+    return encodeURIComponent(summary);
+  };
+
+  // FAQ Accordion State
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "Do I own the code?",
+      a: "Yes. 100%. We hand over all source files. No lock-in, no monthly platform builder fees."
+    },
+    {
+      q: "How long does a project take?",
+      a: "Essential takes ~1 week. Growth takes ~3 weeks. Custom web apps depend on scope, and we'll give you a locked-in timeline before starting."
+    },
+    {
+      q: "What if I need changes after launch?",
+      a: "30 days of post-launch support is included. After that, we offer optional support plans ($200/mo) or you can edit it yourself—you own the files."
+    },
+    {
+      q: "Do you charge monthly fees?",
+      a: "No. You pay once for the design and build. The only recurring cost is if you choose our support plan, which is entirely optional."
+    },
+    {
+      q: "Can I track my project progress?",
+      a: "Yes. Custom app and enterprise clients get access to the CheckersMark portal, where you can see status updates, exchange assets, and chat with us."
+    },
+    {
+      q: "What if I already have a website?",
+      a: "We can migrate your existing content, graphics, and pages to a hand-coded, high-performance architecture that loads instantly."
+    }
+  ];
+
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
 
-      {/* SECTION 1: HERO */}
+      {/* 1. SECTION 1: HERO (Warm Sand) */}
       <HeroSection bgClass="bg-warm-light">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
             Transparent Pricing Packages.
           </h1>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Select a plan below, fill out the custom request brief, and launch development. No hidden fees, no retainers.
+            Select a plan below, customize your options, and launch development. No hidden fees, no retainers.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
             <Link href="#plans" className={`${btnPrimary} w-full sm:w-auto`}>
               Explore Plans
             </Link>
-            <Link href="#checkout" className={`${btnSecondary} w-full sm:w-auto`}>
-              Go to Intake Form
+            <Link href="#estimator" className={`${btnSecondary} w-full sm:w-auto`}>
+              Build a Custom Quote
             </Link>
           </div>
         </div>
       </HeroSection>
 
-      {/* SECTION 2: PLAN CARDS (Centered Cards — Interactive) */}
+      {/* 2. SECTION 2: PLAN CARDS (Cool Slate) */}
       <FullSection id="plans" bgClass="bg-cool-light">
         <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -138,14 +210,120 @@ export default function Pricing() {
           </div>
 
           <div className="text-center">
-            <Link href="#custom" className={`${btnPrimary} w-full sm:w-auto`}>
-              Need Something Custom?
+            <Link href="#estimator" className={`${btnSecondary} w-full sm:w-auto`}>
+              Customize a Plan
             </Link>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 3: CUSTOM PROJECTS (Split — Left Heading / Right Feature List) */}
+      {/* 3. SECTION 3: INTERACTIVE ESTIMATOR (Warm Sand - New Section) */}
+      <FullSection id="estimator" bgClass="bg-warm-light">
+        <div className="max-w-4xl mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              BUILD YOUR QUOTE
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Interactive Estimator.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              Select your specifications below and watch the pricing update in real-time.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden p-6 sm:p-10 space-y-8">
+            <div className="space-y-4">
+              {[
+                { key: "customWebDesign", label: "Custom Website Design", price: "$999 (Base Plan)", fixed: true },
+                { key: "mobileOptimization", label: "Mobile-Responsive Layout", price: "Included", fixed: true },
+                { key: "crmLeadCapture", label: "CRM Lead Capture Database Integration", price: "+$500" },
+                { key: "googleMapsOptimization", label: "Google Business & Maps SEO Optimization", price: "+$300" },
+                { key: "googleAdsCampaign", label: "Google Ads Search Campaign Setup", price: "+$500" },
+                { key: "customWebApplication", label: "Custom Client Portal / Web Application Systems", price: "+$2,000" },
+                { key: "paymentIntegration", label: "Stripe / Apple Pay Payment Checkout Setup", price: "+$800" },
+                { key: "portalClientAccess", label: "CheckersMark Client Portal Dashboard Access", price: "+$400" },
+                { key: "supportMaintenance", label: "Ongoing Monthly Support & backups", price: "+$200/mo (Optional)" }
+              ].map((item) => {
+                const isChecked = selections[item.key as keyof typeof selections];
+                return (
+                  <div
+                    key={item.key}
+                    onClick={() => handleToggle(item.key as keyof typeof selections)}
+                    className={`flex items-center justify-between p-4 rounded-2xl border transition-all select-none cursor-pointer ${
+                      isChecked
+                        ? "border-slate-900 bg-slate-50/50"
+                        : "border-slate-100 hover:border-slate-200"
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        readOnly
+                        disabled={item.fixed}
+                        className="w-4 h-4 rounded text-slate-900 focus:ring-slate-900 border-slate-200 cursor-pointer"
+                      />
+                      <span className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                        {item.label}
+                      </span>
+                    </div>
+                    <span className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest shrink-0">
+                      {item.price}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Total display & submit CTA */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-200 pt-8">
+              <div className="text-center sm:text-left space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">ESTIMATED PRICE</span>
+                <div className="text-4xl font-black tracking-tight text-slate-900">
+                  ${calculatedTotal}
+                  {selections.supportMaintenance && <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest font-mono"> + $200/mo</span>}
+                </div>
+              </div>
+              <Link href={`/contact?custom=${getCustomQuery()}`} className={`${btnPrimary} w-full sm:w-auto`}>
+                Request This Quote
+              </Link>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 4. SECTION 4: WHAT'S INCLUDED IN EVERY PLAN (Cool Slate - New Section) */}
+      <FullSection id="included" bgClass="bg-cool-light">
+        <div className="max-w-4xl mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              STANDARD SERVICES
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Included in Every Build.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Mobile Layout", desc: "Your site fits perfectly on every smartphone screen size." },
+              { title: "Search Optimization", desc: "Basic SEO settings so Google indexes your pages accurately." },
+              { title: "Contact Capture", desc: "A clean contact form to capture name, email, and objectives." },
+              { title: "Revisions", desc: "One full round of content and layout changes before launch." },
+              { title: "Full Ownership", desc: "You own 100% of the custom source code files." },
+              { title: "Launch Support", desc: "30 days of performance monitoring and backup support." }
+            ].map((item) => (
+              <div key={item.title} className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-2">
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">+ {item.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 5. SECTION 5: CUSTOM CLIENT SOLUTIONS (Warm Sand) */}
       <FullSection id="custom" bgClass="bg-warm-light">
         <div className="max-w-5xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -167,7 +345,7 @@ export default function Pricing() {
               </div>
             </div>
 
-            {/* Right: Feature Rows with Dividers */}
+            {/* Right: Feature Rows */}
             <div className="lg:col-span-7 space-y-0">
               {[
                 { title: "Custom Integrations", desc: "Payment systems, third-party APIs, and custom automation workflows built to fit your operations." },
@@ -185,7 +363,51 @@ export default function Pricing() {
         </div>
       </FullSection>
 
+      {/* 6. SECTION 6: FAQ ACCORDION (Cool Slate - New Section) */}
+      <FullSection id="faq" bgClass="bg-cool-light">
+        <div className="max-w-4xl mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              QUESTIONS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Common Questions.
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none select-none"
+                  >
+                    <span className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                      {faq.q}
+                    </span>
+                    <span className="text-xl font-black text-slate-400 shrink-0 ml-4">
+                      {isOpen ? "−" : "+"}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="px-6 pb-6 pt-2 border-t border-slate-50">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                        {faq.a}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </FullSection>
+
     </div>
   );
 }
-

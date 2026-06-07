@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 
 const nav = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/project", label: "Projects" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
 ] as const;
 
 export default function Navbar() {
@@ -67,9 +69,9 @@ export default function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none border-b-2 px-1 sm:px-2 ${active
-                    ? "text-primary border-primary"
-                    : "text-muted border-transparent hover:text-foreground hover:border-border"
+                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none px-1 sm:px-2 ${active
+                    ? "text-primary"
+                    : "text-muted hover:text-foreground"
                     }`}
                 >
                   {label}

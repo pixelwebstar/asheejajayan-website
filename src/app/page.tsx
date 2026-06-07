@@ -137,6 +137,7 @@ const projects = [
     type: "landing" as const
   }
 ];
+
 const screenshotMap: Record<number, string> = {
   1: "/screenshots/mobwik.png",
   2: "/screenshots/dakeek.png",
@@ -148,8 +149,6 @@ const screenshotMap: Record<number, string> = {
   8: "/screenshots/ksingh.webm",
   9: "/screenshots/jsgastech.png"
 };
-
-
 
 function ThreeDGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -232,15 +231,13 @@ function ThreeDGallery() {
               zIndex = 20;
               pointerEvents = "auto";
             } else if (isLeftStack) {
-              // Cover Flow shift left + Y-rotation inward
               transform = `translate3d(calc(var(--flow-gap) * ${diff} - var(--flow-shift)), 0, -100px) rotateY(60deg) scale(calc(var(--flow-scale) * 0.85))`;
-              opacity = 1; // Opaque to prevent transparency overlaps
+              opacity = 1;
               zIndex = 10 + diff;
               pointerEvents = "auto";
             } else if (isRightStack) {
-              // Cover Flow shift right + Y-rotation inward
               transform = `translate3d(calc(var(--flow-gap) * ${diff} + var(--flow-shift)), 0, -100px) rotateY(-60deg) scale(calc(var(--flow-scale) * 0.85))`;
-              opacity = 1; // Opaque to prevent transparency overlaps
+              opacity = 1;
               zIndex = 10 - diff;
               pointerEvents = "auto";
             } else {
@@ -327,7 +324,7 @@ function ThreeDGallery() {
 
         {/* Two Standard Conversion CTAs */}
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-          <Link href="#pricing" className={btnPrimary}>
+          <Link href="#contact" className={btnPrimary}>
             Start Your Project
           </Link>
           <Link href="#services" className={btnSecondary}>
@@ -343,8 +340,8 @@ export default function Home() {
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
 
-      {/* 0. SECTION 0: THE HERO */}
-      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
+      {/* 1. SECTION 1: THE HERO (Warm Sand) */}
+      <HeroSection id="hero" bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
             Websites Built for Business Growth.
@@ -353,18 +350,35 @@ export default function Home() {
             No templates. No clutter. Just custom digital platforms designed to turn your traffic into qualified leads.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="#contact" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
-            <Link href="#services" className={`${btnSecondary} w-full sm:w-auto`}>
-              See How We Do It
+            <Link href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
+              See My Work
             </Link>
           </div>
         </div>
       </HeroSection>
 
-      {/* 1. SECTION 1: SERVICES (The "What" Grid) */}
-      <FullSection id="services" bgClass="bg-cool-light">
+      {/* 2. SECTION 2: SELECTED PROJECTS (Flat White Background for Screenshot Clarity) */}
+      <FullSection id="projects" bgClass="bg-white">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              SELECTED PROJECTS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Real Projects. Real Outcomes.
+            </h2>
+          </div>
+          <div className="w-full pt-4">
+            <ThreeDGallery />
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 3. SECTION 3: SERVICES OVERVIEW (Warm Sand) */}
+      <FullSection id="services" bgClass="bg-warm-light">
         <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <div className="max-w-3xl space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -405,48 +419,26 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 2. SECTION 2: SELECTED WORK (Case Studies) */}
-      <FullSection id="work" bgClass="bg-warm-light">
-        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
-          {/* Centered Heading */}
-          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              SELECTED WORK
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Real Projects. Real Outcomes.
-            </h2>
-          </div>
-
-          {/* ThreeD Gallery Curved Deck */}
-          <div className="w-full pt-4">
-            <ThreeDGallery />
-          </div>
-        </div>
-      </FullSection>
-
-      {/* 3. SECTION 3: HOW (Split — Left Heading / Right Process Rows) */}
-      <FullSection id="how" bgClass="bg-cool-light">
+      {/* 4. SECTION 4: HOW (Cool Slate - Split Layout) */}
+      <FullSection id="method" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
-            {/* Left Column: Heading & Summary (Stretched to match right column height) */}
+            {/* Left Column: Headline */}
             <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6 text-center lg:text-left items-center lg:items-start w-full">
               <div className="space-y-6 max-w-sm mx-auto lg:mx-0 w-full">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                   OUR METHOD
                 </span>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
-                  Architected for Growth.
+                  Built to Convert.
                 </h2>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm mx-auto lg:mx-0">
-                  We don't just design websites. We architect custom digital pipelines that convert visitors into paying clients.
+                  We don't just design websites. We build clean, custom systems that turn your visitors into customers.
                 </p>
               </div>
-
-
             </div>
 
-            {/* Right Column: Five Stacked Process Rows */}
+            {/* Right Column: Process Timeline */}
             <div className="lg:col-span-7 space-y-0">
               {[
                 { num: "01", title: "Discovery Call", desc: "We learn your business goals, target customers, and what success looks like for you." },
@@ -468,7 +460,7 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 4. SECTION 4: ROI COMPARISON (Custom Build vs. Templates) */}
+      {/* 5. SECTION 5: CUSTOM VS TEMPLATE COMPARISON (Warm Sand) */}
       <FullSection id="roi" bgClass="bg-warm-light">
         <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
           {/* Header */}
@@ -522,7 +514,7 @@ export default function Home() {
 
           {/* CTA */}
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#pricing" className={btnPrimary}>
+            <Link href="#contact" className={btnPrimary}>
               Start Your Project
             </Link>
             <Link href="#services" className={btnSecondary}>
@@ -532,84 +524,23 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 5. SECTION 5: WHAT (Wide Bento Grid — Lead Pipeline) */}
-      <FullSection id="what" bgClass="bg-cool-light">
+      {/* 6. SECTION 6: CLIENT TESTIMONIALS (Cool Slate) */}
+      <FullSection id="reviews" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-16">
-          {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
             <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-                THE VALUE DELIVERED
-              </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
-                What Your Business Gets.
-              </h2>
-              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto md:mx-0">
-                Every website we build is an automated lead-capture system. Here is exactly how it works to scale your operations.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Box 1: Lead Capture */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">01</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Customer Fills Form</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  When a customer wants to hire you, they fill out a simple contact form on your website with their name and email.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 2: Instant Save */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">02</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Leads Are Saved</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  Their details are saved automatically in your list. You do not have to write anything down, and you will never lose a lead.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 3: Phone Alert */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 md:col-span-2 lg:col-span-1 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">03</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Get Text Notification</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  You get a text message on your phone right away. This lets you call the customer back fast before they look for someone else.
-                </p>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </FullSection>
-
-      {/* 6. SECTION 6: CLIENT REVIEWS (Wide 3-Column Staggered Grid) */}
-      <FullSection id="reviews" bgClass="bg-warm-light">
-        <div className="max-w-[1500px] mx-auto w-full space-y-16">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
-            <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-                SOCIAL PROOF
+                CLIENT RESULTS
               </span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
                 What Our Clients Achieve.
               </h2>
             </div>
-
           </div>
 
           {/* 3-Column Review Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
-            {/* Column 1 (Pushed down slightly for staggered effect) */}
+            {/* Column 1 */}
             <div className="md:mt-12 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
               <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
                 &ldquo;Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.&rdquo;
@@ -637,7 +568,7 @@ export default function Home() {
               </footer>
             </div>
 
-            {/* Column 3 (Pushed down slightly) */}
+            {/* Column 3 */}
             <div className="md:mt-24 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
               <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
                 &ldquo;The CRM saves us hours every week. We never lose a lead and our response time dropped from hours to minutes. It's the best investment we've made.&rdquo;
@@ -654,10 +585,8 @@ export default function Home() {
         </div>
       </FullSection>
 
-
-
-      {/* 7. SECTION 7: INTAKE (Two-Column — Left Info / Right Form) */}
-      <FullSection id="pricing" bgClass="bg-cool-light">
+      {/* 7. SECTION 7: GET STARTED INTAKE FORM (Warm Sand) */}
+      <FullSection id="contact" bgClass="bg-warm-light">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Left Column: Heading + Selling Points */}
@@ -667,7 +596,7 @@ export default function Home() {
                   GET STARTED
                 </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                  Initiate Your Project.
+                  Start Your Project.
                 </h2>
                 <p className="text-base leading-relaxed text-slate-600 font-medium max-w-sm mx-auto lg:mx-0">
                   Submit your goals and I will return a custom project proposal within 24 hours.
@@ -706,7 +635,7 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Business Email</label>
+                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Business Email</label>
                     <input type="email" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
                   </div>
 
