@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 
 const nav = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/project", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
   { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export default function Navbar() {
@@ -60,7 +60,7 @@ export default function Navbar() {
       <div className="bg-white">
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12">
           <nav
-            className="flex h-10 sm:h-12 items-center overflow-x-auto whitespace-nowrap scrollbar-none justify-between"
+            className="flex h-10 sm:h-12 items-center overflow-x-auto whitespace-nowrap scrollbar-none justify-start md:justify-between gap-6 sm:gap-8"
             aria-label="Site Navigation"
           >
             {nav.map(({ href, label }) => {
@@ -69,7 +69,7 @@ export default function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none px-1 sm:px-2 ${active
+                  className={`inline-flex h-full items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-colors focus:outline-none shrink-0 px-1 sm:px-2 ${active
                     ? "text-primary"
                     : "text-muted hover:text-foreground"
                     }`}
