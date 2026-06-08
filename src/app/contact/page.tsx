@@ -1,182 +1,178 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import React from "react";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-5xl px-6 py-12 sm:px-12 sm:py-16 space-y-8";
 
-// Premium Button Styles
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
-
-function HeroSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
+function WireframeSection({
+  id,
+  num,
+  name,
+  bgClass,
+  headline,
+  objective,
+  content,
+  cta,
+  psychology,
+  appleStandard
+}: {
+  id: string;
+  num: string;
+  name: string;
+  bgClass: string;
+  headline: string;
+  objective: string;
+  content: string[];
+  cta: string;
+  psychology: string;
+  appleStandard: string;
+}) {
   return (
-    <section
-      id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100`}
-    >
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
-  return (
-    <section
-      id={id}
-      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
-    >
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function ContactContent() {
-  const searchParams = useSearchParams();
-  const initialPlan = searchParams.get("plan") || "";
-  const initialCustom = searchParams.get("custom") || "";
-
-  const [plan, setPlan] = useState(initialPlan ? initialPlan : (initialCustom ? "custom" : ""));
-  const [details, setDetails] = useState(initialCustom);
-
-  return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-
-      {/* SECTION 1: HERO (Warm Sand) */}
-      <HeroSection bgClass="bg-warm-light">
-        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            Start Your Project.
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Ready to start? Select your package below or message me directly to begin. I reply within 24 hours.
-          </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#message" className={`${btnPrimary} w-full sm:w-auto`}>
-              Send Inquiry
-            </Link>
-            <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
-              View Channels
-            </Link>
-          </div>
+    <section id={id} className={`w-full ${bgClass} border-b border-slate-200/60 overflow-hidden`}>
+      <div className={shell}>
+        {/* Section Label */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-900/10 pb-4">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+            {num} · {name}
+          </span>
+          <span className="text-[9px] font-bold uppercase tracking-widest bg-slate-900/5 px-2 py-0.5 rounded text-slate-600 font-mono">
+            Background: {bgClass === "bg-warm-light" ? "Warm Sand (#FAF5F0)" : bgClass === "bg-cool-light" ? "Cool Slate (#F0F4F8)" : "Flat White (#FFFFFF)"}
+          </span>
         </div>
-      </HeroSection>
 
-      {/* SECTION 2: MESSAGE FORM (Cool Slate) */}
-      <FullSection id="message" bgClass="bg-cool-light">
-        <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
-          <div className="text-center space-y-6 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              COMMUNICATION
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Project Brief.
-            </h2>
-          </div>
-
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
-                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
-                </div>
-                <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
-                  <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
-                </div>
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Scope</label>
-                <div className="relative">
-                  <select
-                    value={plan}
-                    onChange={(e) => setPlan(e.target.value)}
-                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
-                  >
-                    <option value="">Select a package...</option>
-                    <option value="essential">Essential Package ($999)</option>
-                    <option value="growth">Growth Package ($2,499)</option>
-                    <option value="enterprise">Enterprise Package ($4,999+)</option>
-                    <option value="custom">Custom Bespoke Solution</option>
-                  </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-400 font-bold select-none">
-                    ▼
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
-                <textarea
-                  rows={5}
-                  value={details}
-                  onChange={(e) => setDetails(e.target.value)}
-                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
-                  placeholder="Describe your business requirements..."
-                ></textarea>
-              </div>
-
-              <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
-                Submit Project Request
-              </button>
-            </form>
-          </div>
+        {/* Copy Headline */}
+        <div className="space-y-4">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Planned Headline:</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+            {headline}
+          </h2>
         </div>
-      </FullSection>
 
-      {/* SECTION 3: OTHER CHANNELS (Slate 50) */}
-      <FullSection id="channels" bgClass="bg-warm-light">
-        <div className="space-y-12 max-w-xl mx-auto text-center">
+        {/* Detailed Blueprint Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+          {/* Left Column: Objective & Copy */}
           <div className="space-y-6">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              CHANNELS
-            </span>
-            <h2 className="text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Global Presence.
-            </h2>
-          </div>
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🎯 Section Objective</h3>
+              <p className="text-sm text-slate-800 leading-relaxed font-medium">
+                {objective}
+              </p>
+            </div>
 
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-            <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Executive Email</span>
-              <div className="text-xl font-bold text-slate-900">hello@amrith.com</div>
-            </div>
-            <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Headquarters</span>
-              <div className="text-xl font-bold text-slate-900">Canada</div>
-            </div>
-            <div className="space-y-4">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Digital Profiles</span>
-              <div className="flex justify-center gap-8 pt-2 text-xs font-bold text-slate-900">
-                <a href="#" className="hover:text-slate-500 transition-colors uppercase tracking-widest">LinkedIn</a>
-                <a href="#" className="hover:text-slate-500 transition-colors uppercase tracking-widest">GitHub</a>
-              </div>
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">📝 Copywriting Content</h3>
+              <ul className="space-y-2 text-sm text-slate-600 leading-relaxed font-medium">
+                {content.map((item, idx) => (
+                  <li key={idx} className="flex gap-2 items-start">
+                    <span className="text-slate-400 shrink-0 font-mono">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Return to Pricing
-            </Link>
+          {/* Right Column: CTA & Psychology Walkthrough */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔘 Action Trigger (CTA)</h3>
+              <p className="text-sm text-slate-800 leading-relaxed font-medium">
+                {cta}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">💡 Client Psychology Walkthrough</h3>
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                {psychology}
+              </p>
+            </div>
+
+            <div className="space-y-2 border-t border-slate-900/10 pt-4">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔒 Apple Standard Note</h3>
+              <p className="text-xs text-slate-500 leading-relaxed font-medium italic">
+                {appleStandard}
+              </p>
+            </div>
           </div>
         </div>
-      </FullSection>
-
-    </div>
+      </div>
+    </section>
   );
 }
 
 export default function Contact() {
+  const sections = [
+    {
+      id: "hero",
+      num: "SECTION 01",
+      name: "PAGE HERO",
+      bgClass: "bg-warm-light",
+      headline: "Start Your Project.",
+      objective: "Welcome high-intent leads ready to submit their brief. Sets clear expectations about response timelines.",
+      content: [
+        "Subtitle: 'Ready to start? Fill out the project brief below or reach out directly. I reply with a custom proposal in under 24 hours.'",
+        "Primary Button: 'Go to Intake Form' (links to #message).",
+        "Secondary Button: 'Direct Channels' (links to #channels)."
+      ],
+      cta: "Primary button smooth-scrolls directly to the Intake Form card. Secondary scrolls to email/phone blocks.",
+      psychology: "Removes final transaction friction. Stating a '24-hour proposal promise' encourages immediate form completion.",
+      appleStandard: "No corporate fluff. Clean, action-oriented hero."
+    },
+    {
+      id: "message",
+      num: "SECTION 02",
+      name: "PROJECT BRIEF INTAKE FORM",
+      bgClass: "bg-cool-light",
+      headline: "Project Brief.",
+      objective: "Capture structured business requirements, budget selection, and timeline to write an instant proposal.",
+      content: [
+        "Fields: Full Name · Email Address · Project Scope Dropdown (Essential / Growth / Enterprise / Custom) · Project Details Textarea (pre-filled with custom estimator summary).",
+        "Submit Button: 'Submit Project Request'."
+      ],
+      cta: "Registers the brief in the lead database. Alerts Amrith's phone instantly, and automatically sets up a draft workspace in the CheckersMark portal.",
+      psychology: "Pre-filling their custom estimator quote details in the textarea builds consistency. Seeing their budget pre-selected confirms that they are in a structured, professional onboarding process.",
+      appleStandard: "Clean input boxes, large touch targets, no unnecessary fields to decrease form dropout."
+    },
+    {
+      id: "channels",
+      num: "SECTION 03",
+      name: "DIRECT CHANNELS",
+      bgClass: "bg-warm-light",
+      headline: "Direct Contact.",
+      objective: "Provide alternative communication lines for users who dislike form textareas.",
+      content: [
+        "Direct lines: Email: hello@amrith.com · Headquarters: Canada · Profiles: LinkedIn / GitHub.",
+        "Secure onboarding deposit note: 'We spend hours researching and analyzing your business model before our call. To protect this time and filter out casual inquiries, booking a strategy brief requires a small secure deposit via Stripe. Refundable if the project is not a fit.'"
+      ],
+      cta: "Clickable mailto, tel, and social URLs.",
+      psychology: "The Stripe onboarding deposit rule is a massive authority builder. Just like Apple's elite support, it tells the client: 'Amrith's time is highly valuable, and his research is thorough.' It filters out low-value tire-kickers.",
+      appleStandard: "Presents direct contact details simply. Bold, clean text, zero clutter."
+    }
+  ];
+
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white"></div>}>
-      <ContactContent />
-    </Suspense>
+    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+      {/* Page Header Info */}
+      <section className="bg-slate-900 text-white py-12 border-b border-slate-800">
+        <div className="mx-auto w-full max-w-5xl px-6 space-y-4">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+            INTERACTIVE BLUEPRINT MODE
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none">
+            Contact Page `/contact` Blueprint
+          </h1>
+          <p className="text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
+            This is a text-only representation of the Contact page layout. Scroll through to review the brief intake details, pre-fill parameter setups, and direct channels live.
+          </p>
+        </div>
+      </section>
+
+      {/* Render Wireframe Sections */}
+      {sections.map((sect) => (
+        <WireframeSection key={sect.id} {...sect} />
+      ))}
+    </div>
   );
 }
