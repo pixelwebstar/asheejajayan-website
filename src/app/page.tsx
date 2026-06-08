@@ -1,251 +1,658 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode, useState } from "react";
+import BrowserMockup from "@/components/BrowserMockup";
 
-const shell = "mx-auto w-full max-w-5xl px-6 py-12 sm:px-12 sm:py-16 space-y-8";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
-function WireframeSection({
-  id,
-  num,
-  name,
-  bgClass,
-  headline,
-  objective,
-  content,
-  cta,
-  psychology,
-  appleStandard
-}: {
-  id: string;
-  num: string;
-  name: string;
-  bgClass: string;
-  headline: string;
-  objective: string;
-  content: string[];
-  cta: string;
-  psychology: string;
-  appleStandard: string;
-}) {
+// Premium Button Styles
+const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
+const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
+
+function HeroSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
   return (
-    <section id={id} className={`w-full ${bgClass} border-b border-slate-200/60 overflow-hidden`}>
-      <div className={shell}>
-        {/* Section Label */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-900/10 pb-4">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-            {num} · {name}
-          </span>
-          <span className="text-[9px] font-bold uppercase tracking-widest bg-slate-900/5 px-2 py-0.5 rounded text-slate-600 font-mono">
-            Background: {bgClass === "bg-warm-light" ? "Warm Sand (#FAF5F0)" : bgClass === "bg-cool-light" ? "Cool Slate (#F0F4F8)" : "Flat White (#FFFFFF)"}
-          </span>
-        </div>
-
-        {/* Copy Headline */}
-        <div className="space-y-4">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Planned Headline:</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            {headline}
-          </h2>
-        </div>
-
-        {/* Detailed Blueprint Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-          {/* Left Column: Objective & Copy */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🎯 Section Objective</h3>
-              <p className="text-sm text-slate-800 leading-relaxed font-medium">
-                {objective}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">📝 Copywriting Content</h3>
-              <ul className="space-y-2 text-sm text-slate-600 leading-relaxed font-medium">
-                {content.map((item, idx) => (
-                  <li key={idx} className="flex gap-2 items-start">
-                    <span className="text-slate-400 shrink-0 font-mono">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Right Column: CTA & Psychology Walkthrough */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔘 Action Trigger (CTA)</h3>
-              <p className="text-sm text-slate-800 leading-relaxed font-medium">
-                {cta}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">💡 Client Psychology Walkthrough</h3>
-              <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                {psychology}
-              </p>
-            </div>
-
-            <div className="space-y-2 border-t border-slate-900/10 pt-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔒 Apple Standard Note</h3>
-              <p className="text-xs text-slate-500 leading-relaxed font-medium italic">
-                {appleStandard}
-              </p>
-            </div>
-          </div>
-        </div>
+    <section
+      id={id}
+      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
+    >
+      {bgImage && (
+        <>
+          {/* 1. Base image (Full opacity, crisp on edges) */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}
+          />
+          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+            }}
+          />
+          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
+            }}
+          />
+        </>
+      )}
+      <div className={`${shell} relative z-10 w-full`}>
+        {children}
       </div>
     </section>
   );
 }
 
-export default function Home() {
-  const sections = [
-    {
-      id: "hero",
-      num: "SECTION 01",
-      name: "PAGE HERO",
-      bgClass: "bg-warm-light",
-      headline: "Websites Built for Business Growth.",
-      objective: "Hook the client in 3 seconds. Establish the core value proposition: we hand-code fast, custom web platforms that automate client acquisition.",
-      content: [
-        "Subtitle: 'Most business websites are slow, bloated templates that leak leads and charge monthly fees. We hand-code custom platforms that load in 0.2 seconds, save leads automatically, and cost you $0 in monthly platform fees. You own 100% of the code.'",
-        "Primary Button: 'Start Your Project' (links to #contact).",
-        "Secondary Button: 'See My Work' (links to #projects)."
-      ],
-      cta: "Primary button routes the user to the Intake Brief form at the bottom of the page. Secondary button smooth-scrolls them to the Projects Gallery.",
-      psychology: "The visitor immediately registers: 'This developer has premium standards and thinks about my bottom line.' It contrasts your performance directly against slow, messy WordPress/Wix sites, triggering immediate curiosity.",
-      appleStandard: "No pleading language like 'Please hire me' or 'Affordable rates'. Directly states the value: load speed, ownership, and zero monthly fees."
-    },
-    {
-      id: "projects",
-      num: "SECTION 02",
-      name: "SELECTED PROJECTS GALLERY",
-      bgClass: "bg-white",
-      headline: "Real Projects. Real Outcomes.",
-      objective: "Provide immediate visual authority of custom systems you have engineered. Replaces the standard abstract agency graphics with real client outcomes.",
-      content: [
-        "Visual Element: Interactive 3D Browser Gallery displaying 6 mockups (CheckersMark Workspace, Dakeek Operations Portal, NovaCookers, KSingh, JSGasTech, Mobwik).",
-        "Sub-text displays the verified performance metric for the active project (e.g., 'Page load 0.2s · 100/100 Mobile Speed score').",
-        "Button 1: 'Start Your Project' (links to #contact).",
-        "Button 2: 'See How We Do It' (links to #services)."
-      ],
-      cta: "Buttons route either to the Project Brief Form or smooth-scroll them down to the services breakdown.",
-      psychology: "Placed immediately below the Hero (Serial Primacy). Before the user's analytical mind can ask, 'Is this guy actually good?' they are confronted with verified, highly responsive browser mockups of running applications.",
-      appleStandard: "Shows real screenshots inside sleek Chrome browser mockups with URL bars visible. Pure proof, zero mock-up fluff."
-    },
-    {
-      id: "services",
-      num: "SECTION 03",
-      name: "SERVICES OVERVIEW",
-      bgClass: "bg-warm-light",
-      headline: "Websites and Web Applications.",
-      objective: "Display the range of products you build. Connects the visual proof they just saw to your concrete capabilities.",
-      content: [
-        "Card 1: Custom Websites — Hand-coded to load instantly and make your business look highly professional.",
-        "Card 2: Web Applications — Customer portals, booking calendars, and internal databases custom-made for operations.",
-        "Card 3: CRM Database Integration — Forms that save leads automatically into your customer database so you never lose inquiries.",
-        "Card 4: Google Maps SEO — Optimizing local business map listings to rank first when clients search nearby.",
-        "Card 5: Google Ads Campaign — Targeted search ads to put you in front of clients who want to hire you today.",
-        "Card 6: Support & Backups — Performance monitoring, data backups, and updates so you never worry about technology."
-      ],
-      cta: "Cards are clickable, routing the user to the specific service anchor on the detailed `/services` page.",
-      psychology: "The client identifies their exact operational need. A plumber sees 'CRM Lead Database & Google Maps'; a B2B owner sees 'Web Applications & Portals.' They realize you build systems, not just static pages.",
-      appleStandard: "Speaks about benefits (saving leads, ranking first, zero tech worries) rather than framework specs (React, databases)."
-    },
-    {
-      id: "method",
-      num: "SECTION 04",
-      name: "OUR METHOD / TIMELINE",
-      bgClass: "bg-cool-light",
-      headline: "Built to Convert.",
-      objective: "De-risk the process. Show a clear, logical roadmap to remove the fear of developers who vanish after receiving payment.",
-      content: [
-        "Step 1: Discovery Call — We study your business model and target clients.",
-        "Step 2: Strategy & Layout — We map the structure and conversion layout before writing code.",
-        "Step 3: Custom Design — Your brand gets translated into a clean layout you approve.",
-        "Step 4: Hand-Coding — We build your site from scratch. No templates, no page builders, no bloat.",
-        "Step 5: Launch & Support — Your site goes live with backups and ongoing content updates."
-      ],
-      cta: "None. This section is purely educational to build operational comfort.",
-      psychology: "Robert the Plumber gets nervous about tech processes. This timeline makes the build look structured, safe, and transparent. They see that they are in control at every stage.",
-      appleStandard: "Avoids complex jargon like 'Sprint pipelines' or 'Git branches'. Explains the steps in plain English."
-    },
-    {
-      id: "roi",
-      num: "SECTION 05",
-      name: "CUSTOM VS TEMPLATE COMPARISON",
-      bgClass: "bg-warm-light",
-      headline: "Custom Build vs. Templates.",
-      objective: "Justify the pricing ($2,500+). Compare performance, risk, and long-term costs side-by-side using metrics.",
-      content: [
-        "Row 1: Code Size — Under 50KB vs 2–5MB of template bloat.",
-        "Row 2: Speed — Under 0.3 seconds vs 3–8 seconds template load.",
-        "Row 3: Monthly Fees — $0 you own the code vs $30–$300/mo platform builder fees.",
-        "Row 4: Security — Minimal risk with zero plugin dependencies vs High plugin exploit risks."
-      ],
-      cta: "Primary button: 'Start Your Project' (#contact) / Secondary: 'See How We Do It' (#services).",
-      psychology: "Appeals to System 2 logical thinking. If Evelyn (Shopify owner) is thinking 'Why shouldn't I just build a Squarespace site?' she realizes that templates charge monthly rent forever, whereas custom is an asset you own.",
-      appleStandard: "Presents hard, indisputable facts side-by-side. Focuses on financial and operational freedom."
-    },
-    {
-      id: "reviews",
-      num: "SECTION 06",
-      name: "CLIENT TESTIMONIALS",
-      bgClass: "bg-cool-light",
-      headline: "What Our Clients Achieve.",
-      objective: "Provide social proof. Show that other business owners have trusted you and gotten results.",
-      content: [
-        "Card 1: 'Our website opens instantly. Customer inquiries rose by 80%. We went from 3 calls a week to 3 calls a day.' — Marcus V. (Business Owner)",
-        "Card 2: 'Inquiries go straight to our phones now. Calls doubled in 30 days. The CRM eliminated hours of data entry.' — David K. (Local Business Owner)",
-        "Card 3: 'The CRM saves us hours. We never lose a lead and response time dropped from hours to minutes.' — Sarah L. (Service Company)"
-      ],
-      cta: "None.",
-      psychology: "Validates the technical claims of Section 5 with human outcomes. Seeing 'calls tripled' or 'CRM saves hours' makes the prospect desire the same system.",
-      appleStandard: "Avoids generic reviews. Displays outcomes that business owners actually care about (leads, phone calls, saved time)."
-    },
-    {
-      id: "contact",
-      num: "SECTION 07",
-      name: "GET STARTED INTAKE BRIEF",
-      bgClass: "bg-warm-light",
-      headline: "Start Your Project.",
-      objective: "Frictionless, low-commitment lead capture to initiate a project proposal.",
-      content: [
-        "Left Column Indicators: Response Time: Under 24 hours · Hidden Fees: None · Code Ownership: 100% yours · Commitment: Zero.",
-        "Right Column Fields: First Name · Last Name · Email Address · Project Objectives (Textarea).",
-        "Submit Button: 'Submit Project Request'."
-      ],
-      cta: "Launches the request. Upon submission, the CRM automatically registers the lead, alerts Amrith's phone, and routes the user to a success page.",
-      psychology: "The terminal action of the scroll journey. Placing the list of guarantees next to the form fields removes final buying anxiety.",
-      appleStandard: "Minimalist layout, clean input fields, clear response promises. Elegant and frictionless."
+function FullSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
+  return (
+    <section
+      id={id}
+      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100 overflow-hidden`}
+    >
+      {bgImage && (
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center opacity-45 pointer-events-none"
+          style={{
+            backgroundImage: `url(${bgImage})`,
+          }}
+        />
+      )}
+      <div className={`${shell} relative z-10 w-full`}>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+const projects = [
+  {
+    id: 1,
+    title: "Mobile Search Engine",
+    desc: "A search-optimized mobile database directory and wiki application.",
+    url: "https://mobwik.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 2,
+    title: "Operations Portal",
+    desc: "A custom real-time request tracker and operations dispatch system.",
+    url: "https://dakeek.ae",
+    type: "portal" as const
+  },
+  {
+    id: 3,
+    title: "Workspace Operating System",
+    desc: "A high-performance command center and calendar scheduling hub.",
+    url: "https://checkersmark.com",
+    type: "dashboard" as const
+  },
+  {
+    id: 4,
+    title: "Product Showroom",
+    desc: "A clean storefront and interactive catalog for kitchen appliances.",
+    url: "https://novacookers.vercel.app",
+    type: "shop" as const
+  },
+  {
+    id: 5,
+    title: "Collaboration Platform",
+    desc: "A client communication portal and real-time team coordination tool.",
+    url: "https://bonder.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 6,
+    title: "Interior Design Showcase",
+    desc: "A curated digital catalog displaying high-end lighting installations.",
+    url: "https://lumiereluminouse.netlify.app/",
+    type: "landing" as const
+  },
+  {
+    id: 7,
+    title: "Digital Publishing Archive",
+    desc: "A lightweight content management portal for digital archives.",
+    url: "https://sayahnam.vercel.app",
+    type: "portal" as const
+  },
+  {
+    id: 8,
+    title: "Professional Portfolio",
+    desc: "A minimalist digital resume and showcase for professional services.",
+    url: "https://ksinghconstruction.vercel.app",
+    type: "landing" as const
+  },
+  {
+    id: 9,
+    title: "Marketing Platform",
+    desc: "A search-optimized page built to maximize local service conversion.",
+    url: "https://jsgastech.com",
+    type: "landing" as const
+  }
+];
+
+const screenshotMap: Record<number, string> = {
+  1: "/screenshots/mobwik.png",
+  2: "/screenshots/dakeek.png",
+  3: "/screenshots/checkersmark.png",
+  4: "/screenshots/novacookers.png",
+  5: "/screenshots/bonder.png",
+  6: "/screenshots/lumiere.webm",
+  7: "/screenshots/sayahnam.png",
+  8: "/screenshots/ksingh.webm",
+  9: "/screenshots/jsgastech.png"
+};
+
+function ThreeDGallery() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lastInteraction, setLastInteraction] = useState(0);
+  const count = projects.length;
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % projects.length);
+    setLastInteraction(Date.now());
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setLastInteraction(Date.now());
+  };
+
+  const selectProject = (idx: number) => {
+    setActiveIndex(idx);
+    setLastInteraction(Date.now());
+  };
+
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
     }
-  ];
+  };
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      const timeSinceInteraction = Date.now() - lastInteraction;
+      if (timeSinceInteraction >= 15000) {
+        setActiveIndex((prev) => (prev + 1) % projects.length);
+      }
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [lastInteraction]);
 
   return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-      {/* Page Header Info */}
-      <section className="bg-slate-900 text-white py-12 border-b border-slate-800">
-        <div className="mx-auto w-full max-w-5xl px-6 space-y-4">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-            INTERACTIVE BLUEPRINT MODE
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none">
-            Home Page `/` Blueprint
-          </h1>
-          <p className="text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
-            This is a text-only representation of the Home page layout. Scroll through to review the copywriting headlines, section objectives, visual temperatures, and UX conversion notes live.
+    <div className="w-full flex flex-col items-center space-y-8">
+      {/* 3D Gallery Stage (Hidden on Mobile) */}
+      <div className="hidden lg:flex w-full h-[340px] items-center justify-center relative perspective-stage select-none overflow-visible pt-4">
+        <div className="relative w-[520px] h-[310px] preserve-3d">
+          {projects.map((project, idx) => {
+            let diff = idx - activeIndex;
+            if (diff < -count / 2) diff += count;
+            if (diff > count / 2) diff -= count;
+
+            const isActive = diff === 0;
+            const isLeftStack = diff < 0;
+            const isRightStack = diff > 0;
+
+            let transform = "";
+            let opacity = 1;
+            let zIndex = 1;
+            let pointerEvents: "auto" | "none" = "auto";
+
+            if (isActive) {
+              transform = "translate3d(0, 0, 140px) rotateY(0deg) scale(var(--flow-scale))";
+              opacity = 1;
+              zIndex = 20;
+              pointerEvents = "auto";
+            } else if (isLeftStack) {
+              transform = `translate3d(calc(var(--flow-gap) * ${diff} - var(--flow-shift)), 0, -100px) rotateY(60deg) scale(calc(var(--flow-scale) * 0.85))`;
+              opacity = 1;
+              zIndex = 10 + diff;
+              pointerEvents = "auto";
+            } else if (isRightStack) {
+              transform = `translate3d(calc(var(--flow-gap) * ${diff} + var(--flow-shift)), 0, -100px) rotateY(-60deg) scale(calc(var(--flow-scale) * 0.85))`;
+              opacity = 1;
+              zIndex = 10 - diff;
+              pointerEvents = "auto";
+            } else {
+              transform = "translate3d(0, 0, -250px) rotateY(180deg)";
+              opacity = 0;
+              zIndex = 1;
+              pointerEvents = "none";
+            }
+
+            return (
+              <div
+                key={project.id}
+                onClick={() => {
+                  if (isActive) {
+                    if (project.url !== "#") {
+                      window.open(project.url, "_blank", "noopener,noreferrer");
+                    }
+                  } else {
+                    selectProject(idx);
+                  }
+                }}
+                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] reflect-below ${
+                  isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
+                }`}
+                style={{
+                  transform,
+                  opacity,
+                  zIndex,
+                  pointerEvents,
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={true} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Flat Mobile Preview Slider (Visible on Mobile) */}
+      <div 
+        className="block lg:hidden w-full max-w-[480px] mx-auto px-4 select-none relative"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div 
+          onClick={() => {
+            if (projects[activeIndex].url !== "#") {
+              window.open(projects[activeIndex].url, "_blank", "noopener,noreferrer");
+            }
+          }}
+          className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150"
+        >
+          <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
+        </div>
+
+        {/* Mobile Pagination Indicator Dots */}
+        <div className="flex justify-center gap-1.5 mt-4">
+          {projects.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => selectProject(idx)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to project ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Active Project Info & Standard Navigation Panel */}
+      <div className="max-w-2xl mx-auto w-full text-center mt-12 lg:mt-16 space-y-6">
+        {/* Info Block */}
+        <div className="space-y-1.5 min-h-[64px] flex flex-col justify-center items-center">
+          <h3 className="text-xl font-black text-slate-900 tracking-tight">
+            {projects[activeIndex].title}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium max-w-lg">
+            {projects[activeIndex].desc}
           </p>
         </div>
-      </section>
 
-      {/* Render Wireframe Sections */}
-      {sections.map((sect) => (
-        <WireframeSection key={sect.id} {...sect} />
-      ))}
+        {/* Two Standard Conversion CTAs */}
+        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+          <Link href="#contact" className={btnPrimary}>
+            Start Your Project
+          </Link>
+          <Link href="#services" className={btnSecondary}>
+            See How We Do It
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+
+      {/* 1. SECTION 1: THE HERO (Warm Sand) */}
+      <HeroSection id="hero" bgClass="bg-warm-light" bgImage="/hero-bg.webp">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
+          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+            Websites Built for Business Growth.
+          </h1>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            Most business websites are slow, bloated, and expensive. We build custom platforms that load instantly, capture leads, and cost nothing in monthly fees. You own the code. It just works.
+          </p>
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
+            <Link href="#contact" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start Your Project
+            </Link>
+            <Link href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
+              See My Work
+            </Link>
+          </div>
+        </div>
+      </HeroSection>
+
+      {/* 2. SECTION 2: SELECTED PROJECTS (Flat White Background for Screenshot Clarity) */}
+      <FullSection id="projects" bgClass="bg-white">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              SELECTED PROJECTS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Real Projects. Real Outcomes.
+            </h2>
+          </div>
+          <div className="w-full pt-4">
+            <ThreeDGallery />
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 3. SECTION 3: SERVICES OVERVIEW (Warm Sand) */}
+      <FullSection id="services" bgClass="bg-warm-light">
+        <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              WHAT WE DO
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Websites and Web Applications.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              We design and code custom web systems that run fast, capture leads, and automate your sales pipeline.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 w-full text-left">
+            {[
+              { num: "01", name: "Websites", desc: "Custom-built marketing websites designed to load instantly and make your business look highly professional.", id: "websites" },
+              { num: "02", name: "Web Apps", desc: "Private customer portals, booking systems, and internal tools custom-made for your daily business operations.", id: "web-apps" },
+              { num: "03", name: "CRM Software", desc: "Forms that automatically save lead details into your customer database so you never lose inquiries.", id: "crm-software" },
+              { num: "04", name: "Google Business and Map", desc: "Optimizing your Google maps listing so you show up first when customers search locally.", id: "google-map" },
+              { num: "05", name: "Google Ads", desc: "Targeted campaigns that show your business to active customers who are looking to hire you today.", id: "google-ads" },
+              { num: "06", name: "Support & Operations", desc: "Daily database backups, performance monitoring, and content updates so you never worry about tech.", id: "support-ops" }
+            ].map((srv) => (
+              <Link
+                href={`/services#${srv.id}`}
+                key={srv.num}
+                className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-400 block tracking-widest">{srv.num}</span>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider group-hover:text-muted transition-colors">{srv.name}</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{srv.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 4. SECTION 4: HOW (Cool Slate - Split Layout) */}
+      <FullSection id="method" bgClass="bg-cool-light">
+        <div className="max-w-[1500px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
+            {/* Left Column: Headline */}
+            <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6 text-center lg:text-left items-center lg:items-start w-full">
+              <div className="space-y-6 max-w-sm mx-auto lg:mx-0 w-full">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                  OUR METHOD
+                </span>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
+                  Built to Convert.
+                </h2>
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm mx-auto lg:mx-0">
+                  We don't just design websites. We build clean, custom systems that turn your visitors into customers.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column: Process Timeline */}
+            <div className="lg:col-span-7 space-y-0">
+              {[
+                { num: "01", title: "Discovery Call", desc: "We learn your business goals, target customers, and what success looks like for you." },
+                { num: "02", title: "Strategy & Layout", desc: "We map the page structure and conversion flow before writing a single line of code." },
+                { num: "03", title: "Custom Design", desc: "Your brand identity is translated into a clean, premium visual design you approve." },
+                { num: "04", title: "Code & Build", desc: "We hand-code your site from scratch. No templates, no page builders, no bloat." },
+                { num: "05", title: "Launch & Support", desc: "Your site goes live with backups, monitoring, and ongoing content support included." }
+              ].map((step, idx) => (
+                <div key={step.num} className={`flex gap-6 items-start py-6 ${idx < 4 ? 'border-b border-slate-200' : ''}`}>
+                  <span className="text-2xl font-black text-slate-300 select-none leading-none pt-1 min-w-[40px]">{step.num}</span>
+                  <div className="space-y-1">
+                    <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 5. SECTION 5: CUSTOM VS TEMPLATE COMPARISON (Warm Sand) */}
+      <FullSection id="roi" bgClass="bg-warm-light">
+        <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              THE DIFFERENCE
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Custom Build vs. Templates.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              See why a hand-coded website outperforms page builders and pre-made themes on every metric that matters.
+            </p>
+          </div>
+
+          {/* Unified Comparison Table */}
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+            {/* Table Header */}
+            <div className="grid grid-cols-3 border-b border-slate-200">
+              <div className="p-5 lg:p-6">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">METRIC</span>
+              </div>
+              <div className="p-5 lg:p-6 border-l border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">TEMPLATE</span>
+              </div>
+              <div className="p-5 lg:p-6 border-l border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900 block">CUSTOM BUILD</span>
+              </div>
+            </div>
+            {/* Table Rows */}
+            {[
+              { label: "Code Size", ours: "Under 50 KB", theirs: "2–5 MB of Bloat" },
+              { label: "Load Speed", ours: "Under 0.3 Seconds", theirs: "3–8 Seconds" },
+              { label: "Conversion Rate", ours: "3–5× Higher", theirs: "Industry Average" },
+              { label: "Monthly SaaS Fees", ours: "$0 — You Own It", theirs: "$30–$300 / Month" },
+              { label: "Security Risk", ours: "Minimal — No Plugins", theirs: "High — Plugin Exploits" }
+            ].map((row, idx) => (
+              <div key={row.label} className={`grid grid-cols-3 ${idx < 4 ? 'border-b border-slate-100' : ''}`}>
+                <div className="p-5 lg:p-6 flex items-center">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</span>
+                </div>
+                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
+                  <span className="text-sm font-medium text-slate-400">{row.theirs}</span>
+                </div>
+                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
+                  <span className="text-sm font-bold text-emerald-600">{row.ours}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
+            <Link href="#contact" className={btnPrimary}>
+              Start Your Project
+            </Link>
+            <Link href="#services" className={btnSecondary}>
+              See How We Do It
+            </Link>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 6. SECTION 6: CLIENT TESTIMONIALS (Cool Slate) */}
+      <FullSection id="reviews" bgClass="bg-cool-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-16">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
+            <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                CLIENT RESULTS
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
+                What Our Clients Achieve.
+              </h2>
+            </div>
+          </div>
+
+          {/* 3-Column Review Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+            {/* Column 1 */}
+            <div className="md:mt-12 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
+                &ldquo;Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.&rdquo;
+              </p>
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">MV</div>
+                <div>
+                  <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Marcus V.</span>
+                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Business Owner</span>
+                </div>
+              </footer>
+            </div>
+
+            {/* Column 2 */}
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
+                &ldquo;Inquiries go straight to our phones now. Our customer calls doubled within 30 days. The custom CRM eliminated hours of manual data entry every single week.&rdquo;
+              </p>
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">DK</div>
+                <div>
+                  <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">David K.</span>
+                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Local Business Owner</span>
+                </div>
+              </footer>
+            </div>
+
+            {/* Column 3 */}
+            <div className="md:mt-24 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
+                &ldquo;The CRM saves us hours every week. We never lose a lead and our response time dropped from hours to minutes. It's the best investment we've made.&rdquo;
+              </p>
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 text-sm font-black">SL</div>
+                <div>
+                  <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Sarah L.</span>
+                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Service Company</span>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 7. SECTION 7: GET STARTED INTAKE FORM (Warm Sand) */}
+      <FullSection id="contact" bgClass="bg-warm-light">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left Column: Heading + Selling Points */}
+            <div className="lg:col-span-5 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start w-full">
+              <div className="space-y-4 w-full">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                  GET STARTED
+                </span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                  Start Your Project.
+                </h2>
+                <p className="text-base leading-relaxed text-slate-600 font-medium max-w-sm mx-auto lg:mx-0">
+                  Submit your goals and I will return a custom project proposal within 24 hours.
+                </p>
+              </div>
+
+              {/* Stacked Info Rows */}
+              <div className="space-y-0">
+                {[
+                  { label: "Response Time", value: "Under 24 hours" },
+                  { label: "Hidden Fees", value: "None — ever" },
+                  { label: "Code Ownership", value: "100% yours" },
+                  { label: "Obligation", value: "Zero commitment to proceed" }
+                ].map((row, idx) => (
+                  <div key={row.label} className={`flex justify-between items-center py-4 ${idx < 3 ? 'border-b border-slate-200' : ''}`}>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</span>
+                    <span className="text-sm font-bold text-slate-900">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Form */}
+            <div className="lg:col-span-7">
+              <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl border border-slate-100 shadow-sm">
+                <form onSubmit={(e) => e.preventDefault()} className="space-y-4 lg:space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
+                    <div className="space-y-2 text-left">
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">First Name</label>
+                      <input type="text" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John" />
+                    </div>
+                    <div className="space-y-2 text-left">
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Last Name</label>
+                      <input type="text" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="Doe" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 text-left">
+                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Business Email</label>
+                    <input type="email" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
+                  </div>
+
+                  <div className="space-y-2 text-left">
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Objectives</label>
+                    <textarea rows={4} className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none" placeholder="Describe your vision and requirements..."></textarea>
+                  </div>
+
+                  <button type="submit" className={`${btnPrimary} w-full py-4 lg:py-5 rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2`}>
+                    Submit Project Request
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FullSection>
     </div>
   );
 }

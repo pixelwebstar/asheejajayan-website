@@ -7,21 +7,21 @@
 
 ### 1. Page Hero Section Spec
 *   **Visual Background:** Warm Sand (`bg-warm-light`) with a radial-blurred chart overlay.
-*   **Headline:** "Selected Projects."
+*   **Headline:** "Projects."
 *   **Subtitle:** "Real systems designed, coded, and optimized for real business results."
 *   **Hero Actions:**
-    *   **Primary Button:** "Browse Projects" (smooth-scrolls to Section 2: Grid).
+    *   **Primary Button:** "See Projects" (smooth-scrolls to Section 2: Selected Work).
 
 ### 2. Page Section Breakdown (2 Sections)
 *   **Section 1: Hero**
     *   **Background:** Warm Sand (`bg-warm-light`)
     *   **Goal:** Set the results-oriented tone.
-    *   **CTA Button:** Yes ("Browse Projects" $\rightarrow$ `#projects`).
-*   **Section 2: Project Grid**
+    *   **CTA Button:** Yes ("See Projects" $\rightarrow$ `#projects`).
+*   **Section 2: Selected Work**
     *   **Background:** Cool Slate (`bg-cool-light`)
     *   **Goal:** Display clickable project cards (NovaCookers, CheckersMark, KSingh Construction, JSGasTech, Dakeek).
-    *   **Card details:** Each card shows: Thumbnail inside browser mockup, company name, industry tag (e.g., "E-commerce", "Local Service"), and one core speed or conversion outcome metric.
-    *   **CTA Button:** Yes (Clicking a card takes the visitor to that project's detail page at `/project/[slug]`).
+    *   **Card details:** Each card shows: Thumbnail inside browser mockup, company name, industry tag, and one core speed or conversion outcome metric.
+    *   **CTA Button:** None (Cool Slate section. Cards take the visitor to `/project/[slug]`).
 
 ---
 
@@ -41,7 +41,7 @@ Every case study page has exactly 5 sections to build a structured narrative:
 └───────────────────────────────┬─────────────────────────────────┘
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│ Section 3: The Custom Solution (bg-warm-light)                  │
+│ Section 3: Custom Solution (bg-warm-light)                      │
 │ Goal: Show Chrome mockup screenshots of UI & database logic     │
 └───────────────────────────────┬─────────────────────────────────┘
                                 ▼
@@ -66,10 +66,10 @@ Every case study page has exactly 5 sections to build a structured narrative:
 *   **Goal:** Outline what the client was dealing with before. Empathize with slow sites, dropped leads, or manual Excel files.
 *   **CTA Button:** None.
 
-### Section 3: The Custom Solution (What We Built)
+### Section 3: Custom Solution
 *   **Background:** Warm Sand (`bg-warm-light`)
 *   **Goal:** Present screenshot images inside Chrome-style browser mockups. Explain the architecture choices (Next.js, database integration, SEO optimizations).
-*   **CTA Button:** None.
+*   **CTA Button:** Yes ("View Technical Blueprint" $\rightarrow$ `/services`).
 
 ### Section 4: Verified Outcomes & Metrics
 *   **Background:** Cool Slate (`bg-cool-light`)
@@ -79,4 +79,4 @@ Every case study page has exactly 5 sections to build a structured narrative:
 ### Section 5: Case Study CTA (Terminal Section)
 *   **Background:** Warm Sand (`bg-warm-light`)
 *   **Goal:** Capture the hot prospect who wants the same outcome.
-*   **CTA Button:** Yes ("Request a Similar System" $\rightarrow$ `/pricing`).
+*   **CTA Button:** Yes ("Request a Similar System" $\rightarrow$ `/pricing#plans`).

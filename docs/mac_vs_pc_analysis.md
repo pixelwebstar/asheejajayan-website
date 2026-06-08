@@ -31,7 +31,7 @@ On our website, we are applying this exact comparative psychology. We do not sel
 
 Our existing blueprints ([00_master_strategy.md](file:///home/asheejajayan/Desktop/pixelwebstar/asheejajayan-portfolio/docs/00_master_strategy.md) and [page_01_home.md](file:///home/asheejajayan/Desktop/pixelwebstar/asheejajayan-portfolio/docs/page_01_home.md)) are already built around this comparative model:
 
-1.  **The "Custom vs. Templates" Chart (Home Section 5 / Pricing Section 4):**  
+1.  **The "Templates vs. Custom Build" Chart (Home Section 5 / Pricing Section 4):**  
     This is the literal "Mac vs. PC" ad on your page. It highlights the competitor’s friction (2–5MB of code, 3–8s load times, plugin security exploits, monthly fees) while positioning your custom build as the clean, green, obvious alternative.
 2.  **The Services Overview (Home Section 3 / Services Grid):**  
     Instead of listing technical frameworks (Next.js, Next-Auth, Tailwind CSS), we list **real business outcomes**: Websites that load instantly, private booking tools, and forms that automatically send leads to your phone.
@@ -45,8 +45,8 @@ Our existing blueprints ([00_master_strategy.md](file:///home/asheejajayan/Deskt
 To align even closer with the Apple ad psychology, we can inject specific "discomfort points" into the copywriting of the Home Page and Pricing Page:
 
 *   **The Home Hero Subtitle Optimization:**  
-    *   *Current:* "No templates. No clutter. Just custom digital platforms designed to turn your traffic into qualified leads."  
-    *   *Mac/PC Angle:* "Most business websites are slow, bloated templates that leak leads and charge monthly fees. We hand-code custom platforms that load in 0.2 seconds, save leads automatically, and cost you $0 in monthly platform fees."
+    *   *Current:* "Most business websites are slow, bloated, and expensive. We build custom platforms that load instantly, capture leads, and cost nothing in monthly fees. You own the code. It just works."  
+    *   *Mac/PC Angle:* "Most business websites are slow, bloated, and expensive. We build custom platforms that load instantly, capture leads, and cost nothing in monthly fees. You own the code. It just works."
 *   **The CRM / Lead capture pitch (Services page):**  
     *   *PC Friction:* "Tired of missing customer emails? Tired of contact forms that break during plugin updates without you knowing?"
     *   *Mac Solution:* "Leads are saved directly to a database, and an alert is sent straight to your phone. It just works."

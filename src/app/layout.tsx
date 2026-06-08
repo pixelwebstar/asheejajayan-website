@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SwipeNavigation from "@/components/SwipeNavigation";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,6 +53,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <SmoothScroll />
         <Navbar />
         <SwipeNavigation>
           <main className="flex-grow pt-24 sm:pt-28">

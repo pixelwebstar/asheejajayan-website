@@ -7,21 +7,21 @@
 
 ### 1. Page Hero Section Spec
 *   **Visual Background:** Warm Sand (`bg-warm-light`) with a radial-blurred growth chart image overlay.
-*   **Headline:** "Web Insights & Strategy."
+*   **Headline:** "Blog."
 *   **Subtitle:** "Articles written to help business owners understand speed, search optimization, and automated customer systems."
 *   **Hero Actions:**
-    *   **Primary Button:** "Explore Articles" (smooth-scrolls to Section 2: Post List).
+    *   **Primary Button:** "See Articles" (smooth-scrolls to Section 2: Articles).
 
 ### 2. Page Section Breakdown (2 Sections)
 *   **Section 1: Hero**
     *   **Background:** Warm Sand (`bg-warm-light`)
     *   **Goal:** Establish topical authority and value.
-    *   **CTA Button:** Yes ("Explore Articles" $\rightarrow$ `#articles`).
-*   **Section 2: Post List Grid**
+    *   **CTA Button:** Yes ("See Articles" $\rightarrow$ `#articles`).
+*   **Section 2: Articles**
     *   **Background:** Cool Slate (`bg-cool-light`)
     *   **Goal:** Display searchable blog post cards sorted chronologically.
-    *   **Card details:** Thumbnail, title, publish date, estimated reading time, short description excerpt, and category tag (e.g., "Speed", "SEO", "CRM").
-    *   **CTA Button:** Yes (Clicking a card navigates to `/blog/[slug]`).
+    *   **Card details:** Thumbnail, title, publish date, estimated reading time, short description excerpt, and category tag.
+    *   **CTA Button:** None (Cool Slate section. Cards link to `/blog/[slug]`).
 
 ---
 
@@ -35,8 +35,8 @@
     *   **CTA Button:** None.
 *   **Section 2: Article Body (Typography focus)**
     *   **Background:** Cool Slate (`bg-cool-light`) but with a white card background for the text body column.
-    *   **Goal:** Provide the core informational content. Layout uses highly readable typography settings: `prose lg:prose-xl mx-auto`.
-    *   **CTA Button:** Inline contextual text links to services or pricing pages.
+    *   **Goal:** Provide the core informational content. Layout uses highly readable typography settings.
+    *   **CTA Button:** None (Cool Slate section. Contextual inline text links only).
 *   **Section 3: Article Footer CTA (Terminal Section)**
     *   **Background:** Warm Sand (`bg-warm-light`)
     *   **Goal:** Capture the reader's interest at the end of the post.

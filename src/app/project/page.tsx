@@ -1,163 +1,217 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import BrowserMockup from "@/components/BrowserMockup";
 
-const shell = "mx-auto w-full max-w-5xl px-6 py-12 sm:px-12 sm:py-16 space-y-8";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
-function WireframeSection({
-  id,
-  num,
-  name,
-  bgClass,
-  headline,
-  objective,
-  content,
-  cta,
-  psychology,
-  appleStandard
-}: {
-  id: string;
-  num: string;
-  name: string;
-  bgClass: string;
-  headline: string;
-  objective: string;
-  content: string[];
-  cta: string;
-  psychology: string;
-  appleStandard: string;
-}) {
+const projects = [
+  {
+    id: "mobwik",
+    title: "Mobile Search Engine",
+    desc: "A search-optimized mobile database directory and wiki application built for instant access.",
+    url: "https://mobwik.vercel.app",
+    metrics: "Loads in 0.2s · 100/100 Mobile Score",
+    category: "Web Apps",
+    slug: "mobwik"
+  },
+  {
+    id: "dakeek",
+    title: "Operations Portal",
+    desc: "A custom real-time request tracker and operations dispatch system for field dispatching.",
+    url: "https://dakeek.ae",
+    metrics: "Real-time sync · Sub-second database writes",
+    category: "CRM",
+    slug: "dakeek"
+  },
+  {
+    id: "checkersmark",
+    title: "Workspace Operating System",
+    desc: "A high-performance command center, client portal, and calendar scheduling dashboard.",
+    url: "https://checkersmark.com",
+    metrics: "Built with CheckersMark core engine",
+    category: "Web Apps",
+    slug: "checkersmark"
+  },
+  {
+    id: "novacookers",
+    title: "Product Showroom",
+    desc: "A clean storefront catalog with rapid navigation for high-end kitchen appliances.",
+    url: "https://novacookers.vercel.app",
+    metrics: "Zero layout shift · Instant product loads",
+    category: "Marketing",
+    slug: "novacookers"
+  },
+  {
+    id: "ksingh",
+    title: "Professional Portfolio",
+    desc: "A minimalist digital resume and showcase built for structural consulting services.",
+    url: "https://ksinghconstruction.vercel.app",
+    metrics: "80% Lead Conversion Increase",
+    category: "Marketing",
+    slug: "ksingh"
+  },
+  {
+    id: "jsgastech",
+    title: "Marketing Platform",
+    desc: "A search-optimized page built to maximize local contractor customer inquiries.",
+    url: "https://jsgastech.com",
+    metrics: "Ranked #1 for targeted local search",
+    category: "Marketing",
+    slug: "jsgastech"
+  }
+];
+
+const categories = ["All", "Marketing", "Web Apps", "CRM"];
+
+const screenshotMap: Record<string, string> = {
+  mobwik: "/screenshots/mobwik.png",
+  dakeek: "/screenshots/dakeek.png",
+  checkersmark: "/screenshots/checkersmark.png",
+  novacookers: "/screenshots/novacookers.png",
+  ksingh: "/screenshots/ksingh.webm",
+  jsgastech: "/screenshots/jsgastech.png"
+};
+
+function HeroSection({ children, bgClass }: { children: ReactNode; bgClass: string }) {
   return (
-    <section id={id} className={`w-full ${bgClass} border-b border-slate-200/60 overflow-hidden`}>
-      <div className={shell}>
-        {/* Section Label */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-900/10 pb-4">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-            {num} · {name}
-          </span>
-          <span className="text-[9px] font-bold uppercase tracking-widest bg-slate-900/5 px-2 py-0.5 rounded text-slate-600 font-mono">
-            Background: {bgClass === "bg-warm-light" ? "Warm Sand (#FAF5F0)" : bgClass === "bg-cool-light" ? "Cool Slate (#F0F4F8)" : "Flat White (#FFFFFF)"}
-          </span>
-        </div>
+    <section className={`hero-section relative py-20 sm:py-32 ${bgClass} border-b border-gray-100 overflow-hidden`}>
+      {/* Background overlay image */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[url('/hero-bg.webp')] bg-cover bg-center" />
+      <div className={`${shell} relative z-10 w-full`}>
+        {children}
+      </div>
+    </section>
+  );
+}
 
-        {/* Copy Headline */}
-        <div className="space-y-4">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Planned Headline:</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            {headline}
-          </h2>
-        </div>
-
-        {/* Detailed Blueprint Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-          {/* Left Column: Objective & Copy */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🎯 Section Objective</h3>
-              <p className="text-sm text-slate-800 leading-relaxed font-medium">
-                {objective}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">📝 Copywriting Content</h3>
-              <ul className="space-y-2 text-sm text-slate-600 leading-relaxed font-medium">
-                {content.map((item, idx) => (
-                  <li key={idx} className="flex gap-2 items-start">
-                    <span className="text-slate-400 shrink-0 font-mono">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Right Column: CTA & Psychology Walkthrough */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔘 Action Trigger (CTA)</h3>
-              <p className="text-sm text-slate-800 leading-relaxed font-medium">
-                {cta}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">💡 Client Psychology Walkthrough</h3>
-              <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                {psychology}
-              </p>
-            </div>
-
-            <div className="space-y-2 border-t border-slate-900/10 pt-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 font-mono">🔒 Apple Standard Note</h3>
-              <p className="text-xs text-slate-500 leading-relaxed font-medium italic">
-                {appleStandard}
-              </p>
-            </div>
-          </div>
-        </div>
+function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
+  return (
+    <section id={id} className={`full-section relative py-16 sm:py-24 ${bgClass} border-b border-gray-100`}>
+      <div className={`${shell} relative z-10 w-full`}>
+        {children}
       </div>
     </section>
   );
 }
 
 export default function ProjectsIndex() {
-  const sections = [
-    {
-      id: "hero",
-      num: "SECTION 01",
-      name: "PAGE HERO",
-      bgClass: "bg-warm-light",
-      headline: "Selected Projects.",
-      objective: "Set the RESULT-oriented context for your portfolio, showing that you build high-performance custom code for businesses.",
-      content: [
-        "Subtitle: 'Real web systems and custom applications coded and optimized for business results. No page builders, no template bloat.'",
-        "Primary Button: 'Browse Projects' (links to #projects-list)."
-      ],
-      cta: "Primary button smooth-scrolls directly to the Projects Grid.",
-      psychology: "Reinforces the hand-coded engineering angle, telling the user: 'I build actual systems that solve bottlenecks, not just decorative graphic templates.'",
-      appleStandard: "No technical jargon. Clean, outcome-focused."
-    },
-    {
-      id: "projects-list",
-      num: "SECTION 02",
-      name: "PROJECTS GRID",
-      bgClass: "bg-cool-light",
-      headline: "Real Projects. Real Outcomes.",
-      objective: "Present project cards in a clean layout with tag filters so users can view relevant work immediately.",
-      content: [
-        "Interactive element: Filter tabs (All, Marketing, Web Apps, CRM).",
-        "Cards listed: 1. Mobwik (Mobile wiki, 0.2s load) · 2. Dakeek (Real-time Operations dispatch) · 3. CheckersMark (Workspace OS CRM) · 4. NovaCookers (Storefront catalog) · 5. KSingh (Structural consultant portfolio) · 6. JSGasTech (Local contractor campaign).",
-        "Each card shows a Chrome browser mockup URL and its verified performance outcomes."
-      ],
-      cta: "Clicking a card routes to that project's case study detail page `/project/[id]`.",
-      psychology: "Marcus-level clients can filter by 'Web Apps' to view databases; Robert can filter by 'Marketing' to see contractor sites, finding exactly what they need.",
-      appleStandard: "Chrome mockup cards, minimalist labels, clean layout."
-    }
-  ];
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProjects = projects.filter(
+    (proj) => activeCategory === "All" || proj.category === activeCategory
+  );
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+  };
+
+  const scrollToProjects = () => {
+    document.getElementById("projects-list")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-      {/* Page Header Info */}
-      <section className="bg-slate-900 text-white py-12 border-b border-slate-800">
-        <div className="mx-auto w-full max-w-5xl px-6 space-y-4">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-            INTERACTIVE BLUEPRINT MODE
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none">
-            Projects Index `/project` Blueprint
+      {/* Hero (Warm Sand) */}
+      <HeroSection bgClass="bg-warm-light">
+        <motion.div 
+          className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8"
+          initial="initial"
+          animate="whileInView"
+          variants={fadeInUp}
+        >
+          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+            Projects.
           </h1>
-          <p className="text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
-            This is a text-only representation of the Projects page layout. Scroll through to review sitemaps, category filters, and project tags live.
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            Real systems designed, coded, and optimized for real business results. No page builders, no bloat.
           </p>
-        </div>
-      </section>
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+            <button
+              onClick={scrollToProjects}
+              className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-full bg-slate-900 px-8 font-medium text-white transition-all hover:scale-[1.02] active:scale-95 w-full sm:w-auto"
+            >
+              <span className="mr-2">See Projects</span>
+              <svg className="w-4 h-4 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+          </div>
+        </motion.div>
+      </HeroSection>
 
-      {/* Render Wireframe Sections */}
-      {sections.map((sect) => (
-        <WireframeSection key={sect.id} {...sect} />
-      ))}
+      {/* Projects Grid (Cool Slate) */}
+      <FullSection id="projects-list" bgClass="bg-cool-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+          
+          <motion.div 
+            className="flex flex-wrap items-center justify-center gap-3"
+            initial="initial"
+            whileInView="whileInView"
+            variants={fadeInUp}
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
+                  activeCategory === cat 
+                  ? "bg-slate-900 text-white shadow-md scale-105" 
+                  : "bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-slate-200"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </motion.div>
+
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 w-full text-left">
+            <AnimatePresence>
+              {filteredProjects.map((proj) => (
+                <motion.div 
+                  key={proj.id} 
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="space-y-6 group"
+                >
+                  <Link href={`/project/${proj.slug}`} className="block">
+                    <div className="aspect-[520/310] relative rounded-3xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1 bg-white">
+                      <BrowserMockup url={proj.url} screenshotUrl={screenshotMap[proj.id]} title={proj.title} isVisible={true} />
+                      <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-500 z-20 pointer-events-none" />
+                    </div>
+                  </Link>
+                  <div className="space-y-3 px-2">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono bg-slate-200/50 px-2.5 py-1 rounded-sm">
+                        {proj.category}
+                      </span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">
+                        {proj.metrics}
+                      </span>
+                    </div>
+                    <Link href={`/project/${proj.slug}`} className="block">
+                      <h3 className="text-2xl font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                        {proj.title}
+                      </h3>
+                    </Link>
+                    <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                      {proj.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </FullSection>
     </div>
   );
 }

@@ -37,7 +37,7 @@ We have analyzed and implemented **nine distinct psychological frameworks** to c
 ### A. Simon Sinek’s Golden Circle: Why → How → What
 Most development agencies pitch the "What" (React, Next.js, code). Premium business buyers care about operational outcomes. We reverse the order:
 1.  **Why (The Belief):** *"We believe business owners should own their digital assets 100% and never lose clients to slow-loading sites or bloated templates."*
-2.  **How (The Process):** *"By hand-coded Next.js/React and Tailwind CSS, eliminating CMS lock-in fees, and integrating custom CRM pipelines."*
+2.  **How (The Process):** *"By hand-coded Next.js/React and Tailwind CSS, eliminating CMS lock-in fees, and integrating custom CRM databases."*
 3.  **What (The Output):** *"Fast, secure marketing websites, custom business tools, and installable client portals."*
 
 ### B. Fogg Behavior Model ($B = MAP$)
@@ -49,12 +49,12 @@ For a user to submit a project brief (Behavior), they must have the **Motivation
 ### C. AIDA Funnel Structure (Attention, Interest, Desire, Action)
 *   **Attention:** The Hero section (visually neat, warm Sand background, heavy bold typography).
 *   **Interest:** Placed immediately below the hero (Selected Projects 3D Gallery) to provide instant visual validation.
-*   **Desire:** The Comparison Table (Custom vs. Templates) and Services Grid to build intellectual demand.
+*   **Desire:** The Comparison Table (Templates vs. Custom Build) and Services Grid to build intellectual demand.
 *   **Action:** Dynamic forms and drawers to capture the lead.
 
 ### D. System 1 vs. System 2 Thinking (Dual-Process Theory)
 *   **System 1 (Intuitive, Fast, Visual):** Handled by the 3D gallery, smooth Lenis scrolling, instantly loading pages (<0.3s), and high-contrast layouts.
-*   **System 2 (Analytical, Slow, Logical):** Handled by the Custom vs. Templates metric comparison, exact pricing cards, and the Interactive Estimator math.
+*   **System 2 (Analytical, Slow, Logical):** Handled by the Templates vs. Custom Build metric comparison, exact pricing cards, and the Interactive Estimator math.
 
 ### E. Hick’s Law (Reducing Choice Fatigue)
 We strictly limit options to prevent decision paralysis:
@@ -103,7 +103,7 @@ The **Interactive Pricing Estimator** utilizes this principle. As users toggle f
 
 We chose a 7-page marketing site framework over single-page or micro-funnel alternatives:
 1.  **SEO Keyword Footprint:** Individual pages (Services, Pricing, Projects, Blog) allow us to optimize title tags and meta descriptions for distinct search intents (e.g., target clinic software search and contractor site search separately).
-2.  **Renaming to `/project`:** Legacy portfolios use `/work`. We use `/project` because it implies engineered solutions, business outcomes, and structured execution.
+2.  **Renaming to `/project`:** Legacy portfolios use `/work`. We use `/project` because it implies designed solutions, business outcomes, and structured execution.
 3.  **Renaming to `/blog`:** Essential for organic traffic. Static, high-value guides will launch in Stage 1 to accelerate Google indexing.
 
 ---

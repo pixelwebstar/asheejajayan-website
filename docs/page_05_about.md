@@ -7,9 +7,9 @@
 *   **Visual Background:** Warm Sand (`bg-warm-light`) with a radial-blurred chart overlay.
 *   **Headline:** "Amrith Sheeja Jayan."
 *   **Subtitle:** "A custom web developer based in Canada dedicated to building ultra-fast web systems that convert traffic into revenue."
-*   **Hero Psychology:** Humanizes the brand. Transitions from a faceless service to a real, experienced engineer.
+*   **Hero Psychology:** Humanizes the brand. Transitions from a faceless service to a real, experienced developer.
 *   **Hero Actions:**
-    *   **Primary Button:** "Read My Philosophy" (smooth-scrolls to Section 2).
+    *   **Primary Button:** "Read My Philosophy" (smooth-scrolls to Section 2: Why Hand-Code).
 
 ---
 
@@ -20,19 +20,19 @@
 *   **Goal:** Personal brand introduction.
 *   **CTA Button:** Yes ("Read My Philosophy" $\rightarrow$ `#philosophy`).
 
-### Section 2: Hand-Coding Philosophy
+### Section 2: Why Hand-Code?
 *   **Background:** Cool Slate (`bg-cool-light`)
 *   **Goal:** Intellectual differentiation. Explain *why* you refuse visual page-builders, Squarespace, or WordPress templates (bloat, monthly fees, slow speed, code ownership).
 *   **Design Layout:** 3-column principles grid: Custom Build, Load Speed, Full Ownership.
 *   **CTA Button:** None.
 
-### Section 3: Technical Capabilities Grid
+### Section 3: Capabilities
 *   **Background:** Warm Sand (`bg-warm-light`)
 *   **Goal:** Verify hard technical expertise.
 *   **Design Layout:** 4 grid cards (Frontend Mastery, Application logic, Databases, Automation).
-*   **CTA Button:** None.
+*   **CTA Button:** Yes ("View Pricing" $\rightarrow$ `/pricing`).
 
-### Section 4: Professional Timeline (Career Path)
+### Section 4: My History
 *   **Background:** Cool Slate (`bg-cool-light`)
 *   **Goal:** Establish longevity and reliability through your history.
 *   **Design Layout:** Clean chronological timeline of achievements.
@@ -41,4 +41,4 @@
 ### Section 5: Page CTA (Terminal Section)
 *   **Background:** Warm Sand (`bg-warm-light`)
 *   **Goal:** Redirect the reader's personal connection to a business inquiry.
-*   **CTA Button:** Yes ("Let's Build Together" $\rightarrow$ `/contact`).
+*   **CTA Button:** Yes ("Start Your Project" $\rightarrow$ `/pricing#plans` / "Direct Contact" $\rightarrow$ `/contact`).
