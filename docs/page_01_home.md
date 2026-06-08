@@ -25,13 +25,13 @@ Every section alternates color temperatures (`bg-warm-light` / `bg-cool-light`) 
 └───────────────────────────────┬─────────────────────────────────┘
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│ Section 2: Selected Projects (bg-cool-light)                    │
-│ Goals: Show immediate proof using 3D Cover Flow gallery         │
-└───────────────────────────────┬─────────────────────────────────┘
+│ Section 2: Services Overview (bg-cool-light)                    │
+│ Goals: Display range of products, click to deep dive            │
+│ └───────────────────────────────┬─────────────────────────────────┘
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│ Section 3: Services Overview (bg-warm-light)                    │
-│ Goals: Display range of products, click to deep dive            │
+│ Section 3: Selected Projects (bg-warm-light)                    │
+│ Goals: Show immediate proof using 3D Cover Flow gallery         │
 └───────────────────────────────┬─────────────────────────────────┘
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
@@ -60,17 +60,17 @@ Every section alternates color temperatures (`bg-warm-light` / `bg-cool-light`) 
 *   **Goal:** Establish value proposition instantly.
 *   **CTA Button:** Yes ("See Pricing" $\rightarrow$ `/pricing` / "View My Work" $\rightarrow$ `#projects`).
 
-### Section 2: Selected Projects (The Projects Gallery)
-*   **Background:** White (`bg-white`)
-*   **Goal:** Provide instant visual proof of execution. Show real browser screenshots (Dakeek, NovaCookers, KSingh) in Chrome frames rather than abstract vectors.
-*   **Connection/Flow:** Placed directly under the hero. If a buyer like Robert (Plumber) or Sarah (Orthodontist) doubts your credentials, they get visual validation before they can scroll away.
-*   **CTA Button:** Yes ("Start Your Project" $\rightarrow$ `/pricing#plans` / "How I Work" $\rightarrow$ `#services`).
-
-### Section 3: Services Overview
-*   **Background:** Warm Sand (`bg-warm-light`)
+### Section 2: Services Overview
+*   **Background:** Cool Slate (`bg-cool-light`)
 *   **Goal:** Show the 6-service matrix (Websites, Web Apps, CRM, Google Business, Google Ads, Support).
 *   **Connection/Flow:** Connects the visual proof they just saw to the technical systems you build.
 *   **CTA Button:** Yes ("View All Capabilities" $\rightarrow$ `/services#overview`). Each service card is a link leading to the specific anchor on the `/services` page.
+
+### Section 3: Selected Projects (The Projects Gallery)
+*   **Background:** Warm Sand (`bg-warm-light`)
+*   **Goal:** Provide instant visual proof of execution. Show real browser screenshots (Dakeek, NovaCookers, KSingh) in Chrome frames rather than abstract vectors.
+*   **Connection/Flow:** Placed directly under services. If a buyer like Robert (Plumber) or Sarah (Orthodontist) doubts your credentials, they get visual validation before they can scroll away.
+*   **CTA Button:** Yes ("Start Your Project" $\rightarrow$ `/pricing#plans` / "How I Work" $\rightarrow$ `#services`).
 
 ### Section 4: The Method (Process Timeline)
 *   **Background:** Cool Slate (`bg-cool-light`)

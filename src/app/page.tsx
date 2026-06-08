@@ -360,25 +360,8 @@ export default function Home() {
         </div>
       </HeroSection>
 
-      {/* 2. SECTION 2: SELECTED PROJECTS (Flat White Background for Screenshot Clarity) */}
-      <FullSection id="projects" bgClass="bg-white">
-        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
-          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              SELECTED PROJECTS
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Real Projects. Real Outcomes.
-            </h2>
-          </div>
-          <div className="w-full pt-4">
-            <ThreeDGallery />
-          </div>
-        </div>
-      </FullSection>
-
-      {/* 3. SECTION 3: SERVICES OVERVIEW (Warm Sand) */}
-      <FullSection id="services" bgClass="bg-warm-light">
+      {/* 2. SECTION 2: SERVICES OVERVIEW (Cool Slate) */}
+      <FullSection id="services" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <div className="max-w-3xl space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -415,6 +398,23 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 3. SECTION 3: SELECTED PROJECTS (Warm Sand) */}
+      <FullSection id="projects" bgClass="bg-warm-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              SELECTED PROJECTS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Real Projects. Real Outcomes.
+            </h2>
+          </div>
+          <div className="w-full pt-4">
+            <ThreeDGallery />
           </div>
         </div>
       </FullSection>
