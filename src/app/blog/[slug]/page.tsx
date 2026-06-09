@@ -11,7 +11,7 @@ const articleData: Record<string, {
   publishDate: string;
   content: React.ReactNode;
 }> = {
-  "how-much-does-custom-website-cost": {
+  "cost-custom-website": {
     title: "How Much Does a Custom Website Actually Cost?",
     category: "BUDGET",
     readTime: "4 min read",
@@ -39,7 +39,7 @@ const articleData: Record<string, {
       </div>
     )
   },
-  "custom-web-design-vs-wordpress": {
+  "wordpress-vs-custom": {
     title: "Custom Web Design vs WordPress: An Honest Comparison",
     category: "COMPARISON",
     readTime: "5 min read",
@@ -67,7 +67,7 @@ const articleData: Record<string, {
       </div>
     )
   },
-  "why-small-business-needs-crm": {
+  "crm-small-business": {
     title: "Why Your Small Business Needs a Customer Database (CRM)",
     category: "OPERATIONS",
     readTime: "3 min read",
@@ -200,7 +200,7 @@ export default function BlogDetail({ params }: PageProps) {
           </div>
 
           <motion.p {...fadeInUp} className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed">
-            Let's discuss building a fast, secure, hand-coded system designed to turn traffic into qualified inquiries.
+            Let&apos;s discuss building a fast, secure, hand-coded system designed to turn traffic into qualified inquiries.
           </motion.p>
 
           <motion.div {...fadeInUp} className="pt-2">

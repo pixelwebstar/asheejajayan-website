@@ -2,18 +2,46 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
 // Premium Button Styles
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
 const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
 
-function HeroSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
+function HeroSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
   return (
     <section
       id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100`}
+      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
+      {bgImage && (
+        <>
+          {/* 1. Base image (Full opacity, crisp on edges) */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}
+          />
+          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+            }}
+          />
+          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
+            }}
+          />
+        </>
+      )}
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -25,7 +53,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -35,27 +63,49 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
 }
 
 export default function Services() {
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Professional Web Services - Amrith Sheeja Jayan",
+    "description": "Premium custom web design, private customer portals, Next.js web applications, automated CRM databases, Google Map SEO optimization, and Google Ads management.",
+    "provider": {
+      "@type": "Person",
+      "name": "Amrith Sheeja Jayan"
+    },
+    "hasPart": [
+      { "@type": "WebPage", "name": "Marketing Websites", "description": "Custom marketing websites hand-coded from scratch for instant speeds and high conversion." },
+      { "@type": "WebPage", "name": "Web Applications", "description": "Private customer portals, custom dispatch boards, and internal tools." },
+      { "@type": "WebPage", "name": "CRM Software", "description": "Custom databases, lead capture pipeline, and auto text notifications." }
+    ]
+  };
+
   return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+    <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
 
       {/* 0. HERO SECTION (Warm Sand bg) */}
-      <HeroSection bgClass="bg-warm-light">
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-            WEB SYSTEMS CRAFT
-          </span>
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            Professional Web Services.
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Dedicated web components designed exclusively to elevate your brand authority and turn passive traffic into captured revenue.
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              SERVICES
+            </span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Custom design and development.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            We design professional websites, build secure customer databases, and optimize search rankings to increase your local sales.
           </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
+            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
-            <Link href="#overview" className={`${btnSecondary} w-full sm:w-auto`}>
-              Explore Systems
+            <Link href="/pricing#plans" className={`${btnSecondary} w-full sm:w-auto`}>
+              View Packages
             </Link>
           </div>
         </div>
@@ -120,7 +170,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl="/screenshots/novacookers.png" title="Product Showroom" />
+                <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl={["/screenshots/novacookers.png", "/screenshots/jsgastech.png"]} title="Product Showroom" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -148,7 +198,7 @@ export default function Services() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://checkersmark.com" screenshotUrl="/screenshots/checkersmark.png" title="Workspace Operating System" />
+                <BrowserMockup url="https://checkersmark.com" screenshotUrl={["/screenshots/checkersmark.png", "/screenshots/dakeek.png"]} title="Workspace Operating System" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -171,7 +221,7 @@ export default function Services() {
                 02 / WEB APPS
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase leading-[1.1]">
-                Custom Internal Software.
+                Web Applications.
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 We design and build custom client login portals, scheduling systems, and internal tools tailored exactly to how your business runs. Because you own the code, you get software that fits your workflow perfectly without paying expensive monthly per-user software fees.
@@ -198,7 +248,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://bonder.vercel.app" screenshotUrl="/screenshots/bonder.png" title="Collaboration Platform" />
+                <BrowserMockup url="https://bonder.vercel.app" screenshotUrl={["/screenshots/bonder.png", "/screenshots/sayahnam.png"]} title="Collaboration Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -226,7 +276,7 @@ export default function Services() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://jsgastech.com" screenshotUrl="/screenshots/jsgastech.png" title="Marketing Platform" />
+                <BrowserMockup url="https://jsgastech.com" screenshotUrl={["/screenshots/jsgastech.png", "/screenshots/novacookers.png"]} title="Marketing Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -276,7 +326,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl="/screenshots/mobwik.png" title="Mobile Search Engine" />
+                <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl={["/screenshots/mobwik.png", "/screenshots/jsgastech.png"]} title="Mobile Search Engine" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -304,7 +354,7 @@ export default function Services() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://ksinghconstruction.vercel.app" screenshotUrl="/screenshots/ksingh.webm" title="Professional Portfolio" />
+                <BrowserMockup url="https://ksinghconstruction.vercel.app" screenshotUrl={["/screenshots/ksingh.webm", "/screenshots/lumiere.webm"]} title="Professional Portfolio" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -359,6 +409,6 @@ export default function Services() {
           </div>
         </div>
       </FullSection>
-    </div>
+    </article>
   );
 }

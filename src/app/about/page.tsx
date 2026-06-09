@@ -1,18 +1,46 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
 // Premium Button Styles
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
 const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
 
-function HeroSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
+function HeroSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
   return (
     <section
       id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100`}
+      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
+      {bgImage && (
+        <>
+          {/* 1. Base image (Full opacity, crisp on edges) */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}
+          />
+          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+            }}
+          />
+          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
+            }}
+          />
+        </>
+      )}
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -24,7 +52,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -34,23 +62,42 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
 }
 
 export default function About() {
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Amrith Sheeja Jayan - Custom Developer",
+    "description": "Amrith Sheeja Jayan builds high-performance custom Next.js websites and automated CRM systems from scratch. Focused on sub-second load times and zero platform lock-in fees.",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Amrith Sheeja Jayan",
+      "jobTitle": "Web Developer",
+      "knowsAbout": ["Web Design", "CRM Integration", "Next.js", "PageSpeed Optimization"]
+    }
+  };
 
   return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+    <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
 
-      {/* SECTION 1: HERO (Pure White) */}
-      <HeroSection bgClass="bg-warm-light">
+      {/* SECTION 1: HERO (Warm Sand) */}
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            <span className="block md:inline">Amrith </span>
-            <span className="block md:inline">Sheeja </span>
-            <span className="block md:inline">Jayan</span>
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            I build high-performance custom websites. I do not build templates. I construct clean, fast digital platforms that command authority and capture leads effortlessly.
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              ABOUT ME
+            </span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Amrith Sheeja Jayan.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            I am a custom web developer building fast, secure websites for growing businesses. Focused on code performance and ownership.
           </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
+            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
             <Link href="#philosophy" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -192,6 +239,6 @@ export default function About() {
           </div>
         </div>
       </FullSection>
-    </div>
+    </article>
   );
 }

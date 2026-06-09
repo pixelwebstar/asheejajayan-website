@@ -92,6 +92,13 @@ body {
   }
 }
 
+/* Disable full-screen heights for long content pages (e.g. Blog) */
+.section-auto {
+  min-height: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
 /* Custom Scrollbar for Webkit Browsers */
 ::-webkit-scrollbar {
   width: 10px;
@@ -144,4 +151,15 @@ body {
     linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
   background-size: 16px 16px;
   background-position: center;
+}
+
+/* Hide default browser scrollbars on mobile viewports */
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+  html, body {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
 }

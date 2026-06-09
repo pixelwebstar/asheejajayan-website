@@ -5,7 +5,11 @@ import React, { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BrowserMockup from "@/components/BrowserMockup";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
+
+// Premium Button Styles
+const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
+const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
 
 const projects = [
   {
@@ -75,11 +79,37 @@ const screenshotMap: Record<string, string> = {
   jsgastech: "/screenshots/jsgastech.png"
 };
 
-function HeroSection({ children, bgClass }: { children: ReactNode; bgClass: string }) {
+function HeroSection({ children, bgClass, bgImage }: { children: ReactNode; bgClass: string; bgImage?: string }) {
   return (
-    <section className={`hero-section relative py-20 sm:py-32 ${bgClass} border-b border-gray-100 overflow-hidden`}>
-      {/* Background overlay image */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[url('/hero-bg.webp')] bg-cover bg-center" />
+    <section className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}>
+      {bgImage && (
+        <>
+          {/* 1. Base image (Full opacity, crisp on edges) */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}
+          />
+          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+            }}
+          />
+          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
+            }}
+          />
+        </>
+      )}
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -89,7 +119,7 @@ function HeroSection({ children, bgClass }: { children: ReactNode; bgClass: stri
 
 function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
   return (
-    <section id={id} className={`full-section relative py-16 sm:py-24 ${bgClass} border-b border-gray-100`}>
+    <section id={id} className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}>
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -118,29 +148,34 @@ export default function ProjectsIndex() {
   return (
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
       {/* Hero (Warm Sand) */}
-      <HeroSection bgClass="bg-warm-light">
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <motion.div 
           className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8"
-          initial="initial"
-          animate="whileInView"
-          variants={fadeInUp}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            Projects.
-          </h1>
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              PROJECTS
+            </span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Real work, real outcomes.
+            </h1>
+          </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Real systems designed, coded, and optimized for real business results. No page builders, no bloat.
+            Explore examples of websites designed to increase business sales, capture customer inquiries, and automate daily operations.
           </p>
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <button
               onClick={scrollToProjects}
-              className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-full bg-slate-900 px-8 font-medium text-white transition-all hover:scale-[1.02] active:scale-95 w-full sm:w-auto"
+              className={`${btnPrimary} w-full sm:w-auto cursor-pointer`}
             >
-              <span className="mr-2">See Projects</span>
-              <svg className="w-4 h-4 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+              See Case Studies
             </button>
+            <Link href="/contact#form" className={`${btnSecondary} w-full sm:w-auto`}>
+              Start Project
+            </Link>
           </div>
         </motion.div>
       </HeroSection>
@@ -198,7 +233,7 @@ export default function ProjectsIndex() {
                       </span>
                     </div>
                     <Link href={`/project/${proj.slug}`} className="block">
-                      <h3 className="text-2xl font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-2xl font-bold text-slate-900 tracking-tight group-hover:text-slate-600 transition-colors">
                         {proj.title}
                       </h3>
                     </Link>

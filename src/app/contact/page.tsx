@@ -4,18 +4,46 @@ import Link from "next/link";
 import React, { ReactNode, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
 // Premium Button Styles
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
 const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
 
-function HeroSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
+function HeroSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
   return (
     <section
       id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100`}
+      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
+      {bgImage && (
+        <>
+          {/* 1. Base image (Full opacity, crisp on edges) */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}
+          />
+          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
+            }}
+          />
+          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
+            }}
+          />
+        </>
+      )}
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -27,7 +55,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100`}
+      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -48,20 +76,25 @@ function ContactContent() {
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
 
       {/* SECTION 1: HERO (Warm Sand) */}
-      <HeroSection bgClass="bg-warm-light">
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            Start Your Project.
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-            Ready to start? Select your package below or message me directly to begin. I reply within 24 hours.
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              CONTACT
+            </span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Start growing your sales.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            Let us discuss your business goals and design a website built to get you more clients. Receive your custom proposal in 24 hours.
           </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#message" className={`${btnPrimary} w-full sm:w-auto`}>
-              Send Inquiry
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
+            <Link href="#form" className={`${btnPrimary} w-full sm:w-auto`}>
+              Inquire Now
             </Link>
             <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
-              View Channels
+              Direct Details
             </Link>
           </div>
         </div>

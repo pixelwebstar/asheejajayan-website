@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { use, useState, useEffect } from "react";
+import React, { use } from "react";
 import { motion } from "framer-motion";
 import BrowserMockup from "@/components/BrowserMockup";
 
@@ -252,7 +252,7 @@ export default function ProjectDetail({ params }: PageProps) {
           </div>
 
           <motion.p {...fadeInUp} className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed">
-            Let's discuss building a fast, secure, custom platform to streamline your operations and convert your traffic into revenue.
+            Let&apos;s discuss building a fast, secure, custom platform to streamline your operations and convert your traffic into revenue.
           </motion.p>
 
           <motion.div {...fadeInUp} className="pt-2">

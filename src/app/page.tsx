@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { ReactNode, useState } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
 // Premium Button Styles
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
@@ -55,7 +55,7 @@ function FullSection({ children, bgClass, id, bgImage }: { children: ReactNode; 
   return (
     <section
       id={id}
-      className={`full-section relative py-12 sm:py-16 ${bgClass} border-b border-gray-100 overflow-hidden`}
+      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
       {bgImage && (
         <div
@@ -152,22 +152,22 @@ const screenshotMap: Record<number, string> = {
 
 function ThreeDGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lastInteraction, setLastInteraction] = useState(0);
+  const [interactionCount, setInteractionCount] = useState(0);
   const count = projects.length;
 
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % projects.length);
-    setLastInteraction(Date.now());
+    setInteractionCount((c) => c + 1);
   };
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    setLastInteraction(Date.now());
+    setInteractionCount((c) => c + 1);
   };
 
   const selectProject = (idx: number) => {
     setActiveIndex(idx);
-    setLastInteraction(Date.now());
+    setInteractionCount((c) => c + 1);
   };
 
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -188,7 +188,7 @@ function ThreeDGallery() {
     const minSwipeDistance = 50;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-    
+
     if (isLeftSwipe) {
       handleNext();
     } else if (isRightSwipe) {
@@ -197,14 +197,18 @@ function ThreeDGallery() {
   };
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      const timeSinceInteraction = Date.now() - lastInteraction;
-      if (timeSinceInteraction >= 15000) {
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const delayTimer = setTimeout(() => {
+      interval = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % projects.length);
-      }
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [lastInteraction]);
+      }, 4500);
+    }, interactionCount > 0 ? 15000 : 0);
+
+    return () => {
+      clearTimeout(delayTimer);
+      if (interval) clearInterval(interval);
+    };
+  }, [interactionCount]);
 
   return (
     <div className="w-full flex flex-col items-center space-y-8">
@@ -259,9 +263,8 @@ function ThreeDGallery() {
                     selectProject(idx);
                   }
                 }}
-                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] reflect-below ${
-                  isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
-                }`}
+                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
+                  }`}
                 style={{
                   transform,
                   opacity,
@@ -278,13 +281,13 @@ function ThreeDGallery() {
       </div>
 
       {/* Flat Mobile Preview Slider (Visible on Mobile) */}
-      <div 
+      <div
         className="block lg:hidden w-full max-w-[480px] mx-auto px-4 select-none relative"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div 
+        <div
           onClick={() => {
             if (projects[activeIndex].url !== "#") {
               window.open(projects[activeIndex].url, "_blank", "noopener,noreferrer");
@@ -301,9 +304,8 @@ function ThreeDGallery() {
             <button
               key={idx}
               onClick={() => selectProject(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-300 hover:bg-slate-400"
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-300 hover:bg-slate-400"
+                }`}
               aria-label={`Go to project ${idx + 1}`}
             />
           ))}
@@ -336,20 +338,106 @@ function ThreeDGallery() {
   );
 }
 
+const criteriaData = [
+  {
+    id: "speed",
+    title: "Loading Speed",
+    standard: {
+      value: "Slow",
+      impact: "Causes client drop-off"
+    },
+    custom: {
+      value: "Instant",
+      impact: "Zero client delay, higher conversion"
+    }
+  },
+  {
+    id: "fees",
+    title: "Monthly Fees",
+    standard: {
+      value: "Ongoing",
+      impact: "Locked in forever"
+    },
+    custom: {
+      value: "None",
+      impact: "You own hosting & code"
+    }
+  },
+  {
+    id: "layout",
+    title: "Design Layout",
+    standard: {
+      value: "Generic",
+      impact: "Generic layouts"
+    },
+    custom: {
+      value: "Bespoke",
+      impact: "Custom conversion architecture"
+    }
+  },
+  {
+    id: "ownership",
+    title: "Code Ownership",
+    standard: {
+      value: "Locked",
+      impact: "Platform dependency & lock-in"
+    },
+    custom: {
+      value: "Full Ownership",
+      impact: "Complete source files, no rent"
+    }
+  },
+  {
+    id: "security",
+    title: "Security Risks",
+    standard: {
+      value: "Vulnerable",
+      impact: "High plugin dependencies"
+    },
+    custom: {
+      value: "Bulletproof",
+      impact: "Static code, no databases"
+    }
+  }
+];
+
 export default function Home() {
+  const [plan, setPlan] = useState("");
+  const [details, setDetails] = useState("");
+
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Amrith Sheeja Jayan - Custom Web Developer",
+    "description": "High-performance custom Next.js websites and CRM software built for small business growth. Load times under 0.3s. No templates, no page builders.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Amrith Sheeja Jayan"
+    }
+  };
+
   return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+    <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
 
       {/* 1. SECTION 1: THE HERO (Warm Sand) */}
       <HeroSection id="hero" bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-            Websites Built for Business Growth.
-          </h1>
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              PORTFOLIO
+            </span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Websites built for business growth.
+            </h1>
+          </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Most business websites are slow, bloated, and expensive. We build custom platforms that load instantly, capture leads, and cost nothing in monthly fees. You own the code. It just works.
+            We design and code high-performance websites that help business owners win more clients and automate customer follow-ups.
           </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
+          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <Link href="#contact" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
@@ -419,7 +507,7 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 4. SECTION 4: HOW (Cool Slate - Split Layout) */}
+      {/* 4. SECTION 4: HOW (Cool Slate - Split Timeline Layout) */}
       <FullSection id="method" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
@@ -429,11 +517,11 @@ export default function Home() {
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                   OUR METHOD
                 </span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.05]">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
                   Built to Convert.
                 </h2>
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm mx-auto lg:mx-0">
-                  We don't just design websites. We build clean, custom systems that turn your visitors into customers.
+                  We don&apos;t just design websites. We build clean, custom systems that turn your visitors into customers.
                 </p>
               </div>
             </div>
@@ -448,10 +536,10 @@ export default function Home() {
                 { num: "05", title: "Launch & Support", desc: "Your site goes live with backups, monitoring, and ongoing content support included." }
               ].map((step, idx) => (
                 <div key={step.num} className={`flex gap-6 items-start py-6 ${idx < 4 ? 'border-b border-slate-200' : ''}`}>
-                  <span className="text-2xl font-black text-slate-300 select-none leading-none pt-1 min-w-[40px]">{step.num}</span>
-                  <div className="space-y-1">
-                    <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">{step.desc}</p>
+                  <span className="text-2xl font-black text-slate-355 select-none leading-none pt-1 min-w-[40px]">{step.num}</span>
+                  <div className="space-y-1 text-left">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mt-1">{step.desc}</p>
                   </div>
                 </div>
               ))}
@@ -462,54 +550,71 @@ export default function Home() {
 
       {/* 5. SECTION 5: CUSTOM VS TEMPLATE COMPARISON (Warm Sand) */}
       <FullSection id="roi" bgClass="bg-warm-light">
-        <div className="max-w-6xl mx-auto w-full space-y-12 lg:space-y-16">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
               THE DIFFERENCE
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Custom Build vs. Templates.
+              Template vs. Custom.
             </h2>
             <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
               See why a hand-coded website outperforms page builders and pre-made themes on every metric that matters.
             </p>
           </div>
 
-          {/* Unified Comparison Table */}
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-3 border-b border-slate-200">
-              <div className="p-5 lg:p-6">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">METRIC</span>
+          {/* Criteria Comparison Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-[1400px] mx-auto items-stretch">
+            {/* Standard Card */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6 flex flex-col justify-between">
+              <div className="text-center border-b border-slate-100 pb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">OLD STANDARD</span>
+                <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mt-1">Standard Build</h3>
               </div>
-              <div className="p-5 lg:p-6 border-l border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">TEMPLATE</span>
-              </div>
-              <div className="p-5 lg:p-6 border-l border-slate-100">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900 block">CUSTOM BUILD</span>
+              <div className="space-y-4 flex-1">
+                {criteriaData.map((crit) => (
+                  <div key={crit.id} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start border-b border-slate-50 last:border-0 pb-4 last:pb-0">
+                    <div className="sm:col-span-4 shrink-0">
+                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block pt-0.5">{crit.title}</span>
+                    </div>
+                    <div className="sm:col-span-4 text-left">
+                      <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
+                      <div className="text-xs font-bold text-slate-800">{crit.standard.value}</div>
+                    </div>
+                    <div className="sm:col-span-4 text-left">
+                      <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
+                      <div className="text-[11px] text-slate-500 font-medium leading-relaxed">{crit.standard.impact}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-            {/* Table Rows */}
-            {[
-              { label: "Code Size", ours: "Under 50 KB", theirs: "2–5 MB of Bloat" },
-              { label: "Load Speed", ours: "Under 0.3 Seconds", theirs: "3–8 Seconds" },
-              { label: "Conversion Rate", ours: "3–5× Higher", theirs: "Industry Average" },
-              { label: "Monthly SaaS Fees", ours: "$0 — You Own It", theirs: "$30–$300 / Month" },
-              { label: "Security Risk", ours: "Minimal — No Plugins", theirs: "High — Plugin Exploits" }
-            ].map((row, idx) => (
-              <div key={row.label} className={`grid grid-cols-3 ${idx < 4 ? 'border-b border-slate-100' : ''}`}>
-                <div className="p-5 lg:p-6 flex items-center">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</span>
-                </div>
-                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
-                  <span className="text-sm font-medium text-slate-400">{row.theirs}</span>
-                </div>
-                <div className="p-5 lg:p-6 border-l border-slate-100 flex items-center">
-                  <span className="text-sm font-bold text-emerald-600">{row.ours}</span>
-                </div>
+
+            {/* Custom Card */}
+            <div className="bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-850 shadow-md space-y-6 text-white relative flex flex-col justify-between">
+              <div className="text-center border-b border-slate-800 pb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">NEW STANDARD</span>
+                <h3 className="text-lg font-black text-white uppercase tracking-widest mt-1">Custom Build</h3>
               </div>
-            ))}
+              <div className="space-y-4 flex-1">
+                {criteriaData.map((crit) => (
+                  <div key={crit.id} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start border-b border-slate-800 last:border-0 pb-4 last:pb-0">
+                    <div className="sm:col-span-4 shrink-0">
+                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block pt-0.5">{crit.title}</span>
+                    </div>
+                    <div className="sm:col-span-4 text-left">
+                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
+                      <div className="text-xs font-bold text-white">{crit.custom.value}</div>
+                    </div>
+                    <div className="sm:col-span-4 text-left">
+                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
+                      <div className="text-[11px] text-slate-300 font-medium leading-relaxed">{crit.custom.impact}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* CTA */}
@@ -524,18 +629,148 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 6. SECTION 6: CLIENT TESTIMONIALS (Cool Slate) */}
-      <FullSection id="reviews" bgClass="bg-cool-light">
-        <div className="max-w-[1500px] mx-auto w-full space-y-16">
+      {/* 6. SECTION 6: WHAT YOUR BUSINESS GETS (Cool Slate) */}
+      <FullSection id="what" bgClass="bg-cool-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
             <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-                CLIENT RESULTS
+                THE SYSTEM
               </span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
-                What Our Clients Achieve.
+                What Your Business Gets.
               </h2>
+              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto md:mx-0">
+                Every website we build is an automated lead-capture system. Here is exactly how it works to scale your operations.
+              </p>
             </div>
+          </div>
+
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Box 1: Lead Capture */}
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
+              <span className="text-6xl font-black text-slate-200 block leading-none">01</span>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Customer Fills Form</h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                  When a customer wants to hire you, they fill out a simple contact form on your website with their name and email.
+                </p>
+              </div>
+            </div>
+
+            {/* Box 2: Instant Save */}
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
+              <span className="text-6xl font-black text-slate-200 block leading-none">02</span>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Leads Are Saved</h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                  Their details are saved automatically in your list. You do not have to write anything down, and you will never lose a lead.
+                </p>
+              </div>
+            </div>
+
+            {/* Box 3: Phone Alert */}
+            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 md:col-span-2 lg:col-span-1 hover:shadow-md transition-shadow">
+              <span className="text-6xl font-black text-slate-200 block leading-none">03</span>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Get Text Notification</h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                  You get a text message on your phone right away. This lets you call the customer back fast before they look for someone else.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 7. SECTION 7: FOUNDER'S MANIFESTO (Warm Sand) */}
+      <FullSection id="manifesto" bgClass="bg-warm-light">
+        <div className="max-w-[1500px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Column: Portrait Card */}
+            <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
+              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5 w-full max-w-sm text-center">
+                <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
+                  <img
+                    src="/founder.png"
+                    alt="Amrith Sheeja Jayan Portrait"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-lg font-black tracking-tight text-slate-900">
+                    Amrith Sheeja Jayan
+                  </h3>
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">
+                    Founder / Lead Systems Developer
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Key Pillars */}
+            <div className="lg:col-span-7 space-y-8 text-left h-full flex flex-col justify-between">
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">
+                    MANIFESTO / THE STANDARDS
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                    Built to Perform. <br />Zero Compromise.
+                  </h2>
+                </div>
+
+                <div className="space-y-6 pt-2">
+                  {[
+                    {
+                      title: "Zero Platform Retainers",
+                      desc: "I hand-code web applications and databases from scratch. No monthly Squarespace or Shopify builder subscriptions. You own 100% of your production files."
+                    },
+                    {
+                      title: "Sub-0.3s Performance",
+                      desc: "Page builders load massive script packages that drive away mobile buyers. We use lightweight code to guarantee instant rendering on every screen."
+                    },
+                    {
+                      title: "Conversion-Rate Architecture",
+                      desc: "We analyze competitor traffic, design clear call-to-actions, and build automated lead databases so your site works 24/7 as a sales engine."
+                    }
+                  ].map((pillar) => (
+                    <div key={pillar.title} className="space-y-1.5 border-l-2 border-slate-900 pl-4 py-0.5">
+                      <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">{pillar.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{pillar.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-5 justify-start w-full sm:w-auto">
+                <Link href="/pricing#plans" className={`${btnPrimary} w-full sm:w-auto text-center`}>
+                  Start Your Project
+                </Link>
+                <Link href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
+                  Read My Story
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      {/* 8. SECTION 8: CLIENT TESTIMONIALS (Cool Slate) */}
+      <FullSection id="reviews" bgClass="bg-cool-light">
+        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+          {/* Centered Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              CLIENT RESULTS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              What Our Clients Achieve.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
+              Real feedback from business owners who upgraded their digital performance.
+            </p>
           </div>
 
           {/* 3-Column Review Grid */}
@@ -571,7 +806,7 @@ export default function Home() {
             {/* Column 3 */}
             <div className="md:mt-24 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
               <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
-                &ldquo;The CRM saves us hours every week. We never lose a lead and our response time dropped from hours to minutes. It's the best investment we've made.&rdquo;
+                &ldquo;The CRM saves us hours every week. We never lose a lead and our response time dropped from hours to minutes. It&apos;s the best investment we&apos;ve made.&rdquo;
               </p>
               <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
                 <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 text-sm font-black">SL</div>
@@ -585,74 +820,69 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 7. SECTION 7: GET STARTED INTAKE FORM (Warm Sand) */}
+      {/* 9. SECTION 9a: MESSAGE FORM (Warm Sand) */}
       <FullSection id="contact" bgClass="bg-warm-light">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left Column: Heading + Selling Points */}
-            <div className="lg:col-span-5 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start w-full">
-              <div className="space-y-4 w-full">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-                  GET STARTED
-                </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                  Start Your Project.
-                </h2>
-                <p className="text-base leading-relaxed text-slate-600 font-medium max-w-sm mx-auto lg:mx-0">
-                  Submit your goals and I will return a custom project proposal within 24 hours.
-                </p>
+        <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
+          <div className="text-center space-y-6 flex flex-col items-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              COMMUNICATION
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Project Brief.
+            </h2>
+          </div>
+
+          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="space-y-2 text-center sm:text-left">
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
+                </div>
+                <div className="space-y-2 text-center sm:text-left">
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                  <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
+                </div>
               </div>
 
-              {/* Stacked Info Rows */}
-              <div className="space-y-0">
-                {[
-                  { label: "Response Time", value: "Under 24 hours" },
-                  { label: "Hidden Fees", value: "None — ever" },
-                  { label: "Code Ownership", value: "100% yours" },
-                  { label: "Obligation", value: "Zero commitment to proceed" }
-                ].map((row, idx) => (
-                  <div key={row.label} className={`flex justify-between items-center py-4 ${idx < 3 ? 'border-b border-slate-200' : ''}`}>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{row.label}</span>
-                    <span className="text-sm font-bold text-slate-900">{row.value}</span>
+              <div className="space-y-2 text-center sm:text-left">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Scope</label>
+                <div className="relative">
+                  <select
+                    value={plan}
+                    onChange={(e) => setPlan(e.target.value)}
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
+                  >
+                    <option value="">Select a package...</option>
+                    <option value="essential">Essential Package ($999)</option>
+                    <option value="growth">Growth Package ($2,499)</option>
+                    <option value="enterprise">Enterprise Package ($4,999+)</option>
+                    <option value="custom">Custom Bespoke Solution</option>
+                  </select>
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-400 font-bold select-none">
+                    ▼
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
 
-            {/* Right Column: Form */}
-            <div className="lg:col-span-7">
-              <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl border border-slate-100 shadow-sm">
-                <form onSubmit={(e) => e.preventDefault()} className="space-y-4 lg:space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
-                    <div className="space-y-2 text-left">
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">First Name</label>
-                      <input type="text" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John" />
-                    </div>
-                    <div className="space-y-2 text-left">
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Last Name</label>
-                      <input type="text" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="Doe" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 text-left">
-                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Business Email</label>
-                    <input type="email" required className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
-                  </div>
-
-                  <div className="space-y-2 text-left">
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Objectives</label>
-                    <textarea rows={4} className="w-full px-5 py-3 lg:py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none" placeholder="Describe your vision and requirements..."></textarea>
-                  </div>
-
-                  <button type="submit" className={`${btnPrimary} w-full py-4 lg:py-5 rounded-xl text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2`}>
-                    Submit Project Request
-                  </button>
-                </form>
+              <div className="space-y-2 text-center sm:text-left">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
+                <textarea
+                  rows={5}
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
+                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
+                  placeholder="Describe your business requirements..."
+                ></textarea>
               </div>
-            </div>
+
+              <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
+                Submit Project Request
+              </button>
+            </form>
           </div>
         </div>
       </FullSection>
-    </div>
+    </article>
   );
 }
