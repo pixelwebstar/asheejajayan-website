@@ -97,11 +97,11 @@ export default function About() {
             I am a custom web developer building fast, secure websites for growing businesses. Focused on code performance and ownership.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Your Project
-            </Link>
             <Link href="#philosophy" className={`${btnSecondary} w-full sm:w-auto`}>
               Read Philosophy
+            </Link>
+            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start Your Project
             </Link>
           </div>
         </div>
@@ -230,11 +230,11 @@ export default function About() {
             Ready to deploy a custom digital platform that converts visitors into paying clients? Review our intake process or message me directly.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Submit Requirements
-            </Link>
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
               Direct Contact
+            </Link>
+            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+              Submit Requirements
             </Link>
           </div>
         </div>

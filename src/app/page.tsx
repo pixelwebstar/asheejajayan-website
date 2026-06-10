@@ -328,11 +328,11 @@ function ThreeDGallery() {
 
         {/* Two Standard Conversion CTAs */}
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-          <Link href="/contact" className={btnPrimary}>
-            Start Your Project
-          </Link>
           <Link href="#services" className={btnSecondary}>
             See How We Do It
+          </Link>
+          <Link href="/contact" className={btnPrimary}>
+            Start Your Project
           </Link>
         </div>
       </div>
@@ -440,11 +440,11 @@ export default function Home() {
             We design and code high-performance websites that help business owners win more clients and automate customer follow-ups.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Your Project
-            </Link>
             <Link href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
               See My Work
+            </Link>
+            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start Your Project
             </Link>
           </div>
         </div>
@@ -621,11 +621,11 @@ export default function Home() {
 
           {/* CTA */}
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="/contact" className={btnPrimary}>
-              Start Your Project
-            </Link>
             <Link href="#services" className={btnSecondary}>
               See How We Do It
+            </Link>
+            <Link href="/contact" className={btnPrimary}>
+              Start Your Project
             </Link>
           </div>
         </div>
@@ -716,11 +716,11 @@ export default function Home() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-5 justify-start w-full sm:w-auto">
-                <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
-                  Start Your Project
-                </Link>
                 <Link href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
                   Read My Story
+                </Link>
+                <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
+                  Start Your Project
                 </Link>
               </div>
             </div>

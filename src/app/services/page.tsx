@@ -101,11 +101,11 @@ export default function Services() {
             We design professional websites, build secure customer databases, and optimize search rankings to increase your local sales.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Your Project
-            </Link>
             <Link href="/pricing#plans" className={`${btnSecondary} w-full sm:w-auto`}>
               View Packages
+            </Link>
+            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start Your Project
             </Link>
           </div>
         </div>
@@ -400,11 +400,11 @@ export default function Services() {
             Review budget parameters or submit your goals below. I will analyze your requirements and send a project proposal within 24 hours.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Submit Requirements
-            </Link>
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
               Direct Contact
+            </Link>
+            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+              Submit Requirements
             </Link>
           </div>
         </div>

@@ -175,11 +175,11 @@ export default function Pricing() {
             Explore clear pricing plans built to match your business goals. Customize your options and receive a custom estimate instantly.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="#plans" className={`${btnPrimary} w-full sm:w-auto`}>
-              Explore Plans
-            </Link>
             <Link href="#estimator" className={`${btnSecondary} w-full sm:w-auto`}>
               Build a Custom Quote
+            </Link>
+            <Link href="#plans" className={`${btnPrimary} w-full sm:w-auto`}>
+              Explore Plans
             </Link>
           </div>
         </div>

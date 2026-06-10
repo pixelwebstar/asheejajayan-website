@@ -90,11 +90,11 @@ function ContactContent() {
             Let us discuss your business goals and design a website built to get you more clients. Receive your custom proposal in 24 hours.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="#form" className={`${btnPrimary} w-full sm:w-auto`}>
-              Inquire Now
-            </Link>
             <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
               Direct Details
+            </Link>
+            <Link href="#form" className={`${btnPrimary} w-full sm:w-auto`}>
+              Inquire Now
             </Link>
           </div>
         </div>

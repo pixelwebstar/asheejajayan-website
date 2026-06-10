@@ -133,11 +133,11 @@ export default function BlogIndex() {
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <button
               onClick={scrollToArticles}
-              className={`${btnPrimary} w-full sm:w-auto cursor-pointer`}
+              className={`${btnSecondary} w-full sm:w-auto cursor-pointer`}
             >
               See Articles
             </button>
-            <Link href="/contact#form" className={`${btnSecondary} w-full sm:w-auto`}>
+            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Project
             </Link>
           </div>
