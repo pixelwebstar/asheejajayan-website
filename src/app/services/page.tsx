@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
+import HeroSection from "@/components/HeroSection";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
@@ -8,46 +9,7 @@ const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
 const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
 
-function HeroSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
-  return (
-    <section
-      id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
-    >
-      {bgImage && (
-        <>
-          {/* 1. Base image (Full opacity, crisp on edges) */}
-          <div
-            className="absolute inset-0 z-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${bgImage})`,
-            }}
-          />
-          {/* 2. Localized Blur Mask: Blurs background details ONLY behind the text, fading to sharp at the edges */}
-          <div
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              maskImage: "radial-gradient(circle, black 15%, transparent 60%)",
-              WebkitMaskImage: "radial-gradient(circle, black 15%, transparent 60%)",
-            }}
-          />
-          {/* 3. Radial mask overlay: 92% opaque in the center, fading to 0% at the edges */}
-          <div
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(circle, rgba(250, 245, 240, 0.92) 0%, rgba(250, 245, 240, 0.65) 45%, rgba(250, 245, 240, 0) 80%)",
-            }}
-          />
-        </>
-      )}
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
+
 
 function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
   return (
