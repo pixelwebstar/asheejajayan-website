@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { ReactNode, useState } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
+import GravityBentoGrid from "@/components/GravityBentoGrid";
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 
@@ -646,41 +648,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Box 1: Lead Capture */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">01</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Customer Fills Form</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  When a customer wants to hire you, they fill out a simple contact form on your website with their name and email.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 2: Instant Save */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">02</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Leads Are Saved</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  Their details are saved automatically in your list. You do not have to write anything down, and you will never lose a lead.
-                </p>
-              </div>
-            </div>
-
-            {/* Box 3: Phone Alert */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 md:col-span-2 lg:col-span-1 hover:shadow-md transition-shadow">
-              <span className="text-6xl font-black text-slate-200 block leading-none">03</span>
-              <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Get Text Notification</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                  You get a text message on your phone right away. This lets you call the customer back fast before they look for someone else.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Gravity Bento Grid */}
+          <GravityBentoGrid />
         </div>
       </FullSection>
 
@@ -692,10 +661,12 @@ export default function Home() {
             <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
               <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5 w-full max-w-sm text-center">
                 <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
-                  <img
+                  <Image
                     src="/founder.png"
                     alt="Amrith Sheeja Jayan Portrait"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 384px"
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
                 <div className="space-y-1">

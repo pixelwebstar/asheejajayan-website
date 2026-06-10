@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface BrowserMockupProps {
   url: string;
@@ -65,10 +66,12 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 className="w-full h-full object-cover object-top select-none pointer-events-none opacity-90"
               />
             ) : (
-              <img
+              <Image
                 src={activeUrl}
                 alt={`${title} - slide ${activeIdx + 1}`}
-                className="w-full h-full object-cover object-top select-none pointer-events-none opacity-90"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover object-top select-none pointer-events-none opacity-90"
               />
             )}
 
