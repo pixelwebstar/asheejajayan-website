@@ -58,7 +58,7 @@ const Footer = () => {
             <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">RESOURCES</h4>
             <ul className="flex flex-col gap-4">
               {[
-                { label: "Start", href: "/ideas" },
+                { label: "Start", href: "/contact" },
                 { label: "FAQ", href: "/contact" },
                 { label: "Privacy", href: "#" },
                 { label: "Terms", href: "#" },

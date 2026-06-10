@@ -328,7 +328,7 @@ function ThreeDGallery() {
 
         {/* Two Standard Conversion CTAs */}
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-          <Link href="/ideas" className={btnPrimary}>
+          <Link href="/contact" className={btnPrimary}>
             Start Your Project
           </Link>
           <Link href="#services" className={btnSecondary}>
@@ -440,7 +440,7 @@ export default function Home() {
             We design and code high-performance websites that help business owners win more clients and automate customer follow-ups.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="/ideas" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
             <Link href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -621,7 +621,7 @@ export default function Home() {
 
           {/* CTA */}
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="/ideas" className={btnPrimary}>
+            <Link href="/contact" className={btnPrimary}>
               Start Your Project
             </Link>
             <Link href="#services" className={btnSecondary}>
@@ -634,15 +634,15 @@ export default function Home() {
       {/* 6. SECTION 6: WHAT YOUR BUSINESS GETS (Cool Slate) */}
       <FullSection id="what" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-slate-200 pb-8">
-            <div className="space-y-4 max-w-3xl text-center md:text-left w-full">
+          <div className="flex flex-col items-center text-center gap-6 border-b border-slate-200 pb-8 max-w-3xl mx-auto w-full">
+            <div className="space-y-4 w-full">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
                 THE SYSTEM
               </span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
                 What Your Business Gets.
               </h2>
-              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto md:mx-0">
+              <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
                 Every website we build is an automated lead-capture system. Here is exactly how it works to scale your operations.
               </p>
             </div>
@@ -716,7 +716,7 @@ export default function Home() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-5 justify-start w-full sm:w-auto">
-                <Link href="/ideas" className={`${btnPrimary} w-full sm:w-auto text-center`}>
+                <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
                   Start Your Project
                 </Link>
                 <Link href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>

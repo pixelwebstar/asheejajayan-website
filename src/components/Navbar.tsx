@@ -122,7 +122,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/ideas"
+              href="/contact"
               className="bg-foreground text-background text-[10px] sm:text-xs font-bold uppercase tracking-widest px-4 py-2 sm:px-5 sm:py-2.5 rounded hover:bg-foreground/90 transition-colors shrink-0"
             >
               Start Project
