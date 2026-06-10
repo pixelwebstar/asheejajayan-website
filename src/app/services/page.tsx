@@ -101,7 +101,7 @@ export default function Services() {
             We design professional websites, build secure customer databases, and optimize search rankings to increase your local sales.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="/ideas" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
             </Link>
             <Link href="/pricing#plans" className={`${btnSecondary} w-full sm:w-auto`}>
