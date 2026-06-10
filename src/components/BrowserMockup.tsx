@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface BrowserMockupProps {
@@ -15,12 +15,26 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
   const isArray = Array.isArray(screenshotUrl);
   const screenshotArray = isArray ? (screenshotUrl as string[]) : [screenshotUrl as string];
   const [activeIdx, setActiveIdx] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (isVisible) {
       setHasBeenVisible(true);
     }
   }, [isVisible]);
+
+  const activeUrl = hasBeenVisible ? screenshotArray[activeIdx] : "";
+  const isVideo = activeUrl.endsWith(".webm");
+
+  useEffect(() => {
+    if (isVideo && videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch((err) => {
+        console.warn("Autoplay blocked or failed:", err);
+      });
+    }
+  }, [activeUrl, isVideo]);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,9 +47,6 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
     e.stopPropagation();
     setActiveIdx((prev) => (prev + 1) % screenshotArray.length);
   };
-
-  const activeUrl = hasBeenVisible ? screenshotArray[activeIdx] : "";
-  const isVideo = activeUrl.endsWith(".webm");
 
   return (
     <div className="w-full h-full bg-white rounded-t-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative">
@@ -60,12 +71,13 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
           <>
             {isVideo ? (
               <video
+                ref={videoRef}
                 src={activeUrl}
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover object-top select-none pointer-events-none opacity-90"
+                className="w-full h-full object-cover object-top select-none pointer-events-none"
               />
             ) : (
               <Image
@@ -73,7 +85,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 alt={`${title} - slide ${activeIdx + 1}`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover object-top select-none pointer-events-none opacity-90"
+                className="object-cover object-top select-none pointer-events-none"
               />
             )}
 

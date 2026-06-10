@@ -45,10 +45,10 @@ const run = async () => {
       const context = await browser.newContext({
         recordVideo: {
           dir: tempDir, // store raw playwright files in temp
-          size: { width: 1280, height: 684 }
+          size: { width: 1920, height: 1080 }
         },
-        viewport: { width: 1280, height: 684 },
-        deviceScaleFactor: 1.5,
+        viewport: { width: 1920, height: 1080 },
+        deviceScaleFactor: 1.0,
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
       });
       const page = await context.newPage();
@@ -64,8 +64,8 @@ const run = async () => {
         const startTime = Date.now();
         await page.goto(p.url, { waitUntil: 'load', timeout: 60000 });
         const loadTime = (Date.now() - startTime) / 1000;
-        console.log(`  Page loaded in ${loadTime.toFixed(2)}s. Waiting for loading animation to settle (10s)...`);
-        await page.waitForTimeout(10000);
+        console.log(`  Page loaded in ${loadTime.toFixed(2)}s. Waiting for loading animation to settle (5s)...`);
+        await page.waitForTimeout(5000);
         console.log('  Recording video stream (6s)...');
         await page.waitForTimeout(6000);
         
@@ -78,8 +78,8 @@ const run = async () => {
           console.log('  Trimming video (cutting loading animation)...');
           const { execSync } = require('child_process');
           try {
-            // Trim starting exactly at loadTime + 10.0 seconds, duration 5 seconds
-            const startTrim = (loadTime + 10.0).toFixed(2);
+            // Trim starting exactly at loadTime + 5.0 seconds, duration 5 seconds
+            const startTrim = (loadTime + 5.0).toFixed(2);
             execSync(`ffmpeg -y -i "${tempPath}" -ss ${startTrim} -t 5 "${destPath}"`);
             console.log(`  Video saved and trimmed successfully via FFmpeg.`);
           } catch (e) {
@@ -96,8 +96,8 @@ const run = async () => {
     } else {
       // Take high-resolution static screenshot
       const context = await browser.newContext({
-        viewport: { width: 1280, height: 684 },
-        deviceScaleFactor: 1.5,
+        viewport: { width: 1920, height: 1080 },
+        deviceScaleFactor: 1.0,
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
       });
       const page = await context.newPage();

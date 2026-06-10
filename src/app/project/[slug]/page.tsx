@@ -16,7 +16,7 @@ const projectData: Record<string, {
     metric: "Loads in 0.2s · Offline sync database",
     problem: "Field operators in remote areas could not access reference wiki manuals because mobile internet connections were unstable or slow. Page load failures resulted in crew dispatch delay and operations bottlenecks.",
     solution: "We designed and coded a Progressive Web App (PWA) using Next.js. The system caches documents locally on the device's storage. When offline, a service worker intercepts lookups and answers requests instantly.",
-    mockup: "/screenshots/mobwik.png",
+    mockup: "/screenshots/mobwik.webp",
     url: "https://mobwik.com",
     outcomes: [
       "100/100 Mobile PageSpeed score",
@@ -29,7 +29,7 @@ const projectData: Record<string, {
     metric: "Dispatch lag reduced by 90% · Loads in 0.4s",
     problem: "Traditional courier operations relied on dispatchers typing delivery addresses into SMS manually. Drivers were delayed waiting for coordinates, leading to order dropouts and double-booked dispatch runs.",
     solution: "We built an operations dispatch board using React. Coordination details sync directly to couriers' phones in real-time. Drivers update dispatch records instantly, removing manual dispatcher bottlenecks.",
-    mockup: "/screenshots/dakeek.png",
+    mockup: "/screenshots/dakeek.webp",
     url: "https://dakeek.com",
     outcomes: [
       "Driver address delivery in milliseconds",
@@ -42,7 +42,7 @@ const projectData: Record<string, {
     metric: "Lead response time reduced to seconds",
     problem: "Client inquiries from standard contact forms were saved in manual spreadsheets or cluttered emails. Response times dragged to hours, causing hot prospects to hire competitors instead.",
     solution: "We integrated a custom CRM database. Contact forms trigger instant text alerts on developer phones. Lead records are structured and saved automatically to a secure admin portal.",
-    mockup: "/screenshots/checkersmark.png",
+    mockup: "/screenshots/checkersmark.webp",
     url: "https://checkersmark.com",
     outcomes: [
       "Average response time under 10 minutes",
@@ -55,7 +55,7 @@ const projectData: Record<string, {
     metric: "99/100 Mobile PageSpeed score",
     problem: "E-commerce catalog templates loaded tons of external scripts, taking over 6 seconds to render on standard mobile connections. Shoppers abandoned the catalog before seeing kitchen product specs.",
     solution: "We custom-coded a storefront catalog database. Removing visual builder clutter reduced code size to under 50KB. Catalog search filters compile instantly on the client.",
-    mockup: "/screenshots/novacookers.png",
+    mockup: "/screenshots/novacookers.webp",
     url: "https://novacookers.com",
     outcomes: [
       "Catalog load speed is 0.3s",
@@ -81,7 +81,7 @@ const projectData: Record<string, {
     metric: "Inquiries increased by 110%",
     problem: "A local gas safety contractor ran search ads, but the traffic landed on a generic homepage. Visitors could not find booking calendars, leading to wasted ad spend and low client conversion.",
     solution: "We created a target landing page focused on local search queries. Scheduling buttons scroll directly to booking forms, streamlining the path to purchase.",
-    mockup: "/screenshots/jsgastech.png",
+    mockup: "/screenshots/jsgastech.webp",
     url: "https://jsgastech.com",
     outcomes: [
       "Wasted Google Ads click-spend cut in half",

@@ -72,12 +72,12 @@ const projects = [
 const categories = ["All", "Marketing", "Web Apps", "CRM"];
 
 const screenshotMap: Record<string, string> = {
-  mobwik: "/screenshots/mobwik.png",
-  dakeek: "/screenshots/dakeek.png",
-  checkersmark: "/screenshots/checkersmark.png",
-  novacookers: "/screenshots/novacookers.png",
+  mobwik: "/screenshots/mobwik.webp",
+  dakeek: "/screenshots/dakeek.webp",
+  checkersmark: "/screenshots/checkersmark.webp",
+  novacookers: "/screenshots/novacookers.webp",
   ksingh: "/screenshots/ksingh.webm",
-  jsgastech: "/screenshots/jsgastech.png"
+  jsgastech: "/screenshots/jsgastech.webp"
 };
 
 

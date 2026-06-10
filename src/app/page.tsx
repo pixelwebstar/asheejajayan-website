@@ -103,15 +103,15 @@ const projects = [
 ];
 
 const screenshotMap: Record<number, string> = {
-  1: "/screenshots/mobwik.png",
-  2: "/screenshots/dakeek.png",
-  3: "/screenshots/checkersmark.png",
-  4: "/screenshots/novacookers.png",
-  5: "/screenshots/bonder.png",
+  1: "/screenshots/mobwik.webp",
+  2: "/screenshots/dakeek.webp",
+  3: "/screenshots/checkersmark.webp",
+  4: "/screenshots/novacookers.webp",
+  5: "/screenshots/bonder.webp",
   6: "/screenshots/lumiere.webm",
-  7: "/screenshots/sayahnam.png",
+  7: "/screenshots/sayahnam.webp",
   8: "/screenshots/ksingh.webm",
-  9: "/screenshots/jsgastech.png"
+  9: "/screenshots/jsgastech.webp"
 };
 
 function ThreeDGallery() {

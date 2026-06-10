@@ -139,7 +139,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl={["/screenshots/novacookers.png", "/screenshots/jsgastech.png"]} title="Product Showroom" />
+                <BrowserMockup url="https://novacookers.vercel.app" screenshotUrl={["/screenshots/novacookers.webp", "/screenshots/jsgastech.webp"]} title="Product Showroom" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -167,7 +167,7 @@ export default function Services() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://checkersmark.com" screenshotUrl={["/screenshots/checkersmark.png", "/screenshots/dakeek.png"]} title="Workspace Operating System" />
+                <BrowserMockup url="https://checkersmark.com" screenshotUrl={["/screenshots/checkersmark.webp", "/screenshots/dakeek.webp"]} title="Workspace Operating System" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -217,7 +217,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://bonder.vercel.app" screenshotUrl={["/screenshots/bonder.png", "/screenshots/sayahnam.png"]} title="Collaboration Platform" />
+                <BrowserMockup url="https://bonder.vercel.app" screenshotUrl={["/screenshots/bonder.webp", "/screenshots/sayahnam.webp"]} title="Collaboration Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -245,7 +245,7 @@ export default function Services() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center text-left">
             <div className="lg:col-span-7 order-last lg:order-first w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://jsgastech.com" screenshotUrl={["/screenshots/jsgastech.png", "/screenshots/novacookers.png"]} title="Marketing Platform" />
+                <BrowserMockup url="https://jsgastech.com" screenshotUrl={["/screenshots/jsgastech.webp", "/screenshots/novacookers.webp"]} title="Marketing Platform" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">
@@ -295,7 +295,7 @@ export default function Services() {
             </div>
             <div className="lg:col-span-7 w-full space-y-6">
               <div className="w-full aspect-[520/310] lg:aspect-auto lg:h-[280px]">
-                <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl={["/screenshots/mobwik.png", "/screenshots/jsgastech.png"]} title="Mobile Search Engine" />
+                <BrowserMockup url="https://mobwik.vercel.app" screenshotUrl={["/screenshots/mobwik.webp", "/screenshots/jsgastech.webp"]} title="Mobile Search Engine" />
               </div>
               {/* Core Benefits */}
               <div className="grid grid-cols-3 gap-4 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">

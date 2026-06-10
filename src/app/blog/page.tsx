@@ -20,7 +20,7 @@ const articles = [
     readTime: "4 min read",
     tag: "BUDGET",
     slug: "cost-custom-website",
-    mockup: "/screenshots/novacookers.png",
+    mockup: "/screenshots/novacookers.webp",
     url: "https://novacookers.vercel.app"
   },
   {
@@ -30,7 +30,7 @@ const articles = [
     readTime: "5 min read",
     tag: "COMPARISON",
     slug: "wordpress-vs-custom",
-    mockup: "/screenshots/jsgastech.png",
+    mockup: "/screenshots/jsgastech.webp",
     url: "https://jsgastech.com"
   },
   {
@@ -40,7 +40,7 @@ const articles = [
     readTime: "3 min read",
     tag: "OPERATIONS",
     slug: "crm-small-business",
-    mockup: "/screenshots/checkersmark.png",
+    mockup: "/screenshots/checkersmark.webp",
     url: "https://checkersmark.com"
   }
 ];
