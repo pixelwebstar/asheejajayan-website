@@ -659,13 +659,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Column: Portrait Card */}
             <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
-              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5 w-full max-w-sm text-center">
+              <div className="bg-white p-6 lg:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-5 lg:space-y-6 w-full max-w-sm lg:max-w-[440px] text-center">
                 <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
                   <Image
-                    src="/founder.png"
+                    src="/founder.webp"
                     alt="Amrith Sheeja Jayan Portrait"
                     fill
-                    sizes="(max-width: 768px) 100vw, 384px"
+                    sizes="(max-width: 768px) 100vw, 440px"
                     className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
