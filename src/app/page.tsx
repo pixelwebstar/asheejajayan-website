@@ -175,7 +175,7 @@ function ThreeDGallery() {
   }, [interactionCount]);
 
   return (
-    <div className="w-full flex flex-col items-center space-y-8">
+    <div className="w-full flex flex-col items-center space-y-8 no-swipe">
       {/* 3D Gallery Stage (Hidden on Mobile) */}
       <div className="hidden lg:flex w-full h-[340px] items-center justify-center relative perspective-stage select-none overflow-visible pt-4">
         <div className="relative w-[520px] h-[310px] preserve-3d">

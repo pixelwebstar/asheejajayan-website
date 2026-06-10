@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import React, { use } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import BrowserMockup from "@/components/BrowserMockup";
 
 const projectData: Record<string, {
@@ -98,9 +95,19 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default function ProjectDetail({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const slug = resolvedParams.slug;
+export async function generateStaticParams() {
+  return [
+    { slug: "mobwik" },
+    { slug: "dakeek" },
+    { slug: "checkersmark" },
+    { slug: "novacookers" },
+    { slug: "ksingh" },
+    { slug: "jsgastech" },
+  ];
+}
+
+export default async function ProjectDetail({ params }: PageProps) {
+  const { slug } = await params;
   const project = projectData[slug];
 
   if (!project) {
@@ -117,13 +124,6 @@ export default function ProjectDetail({ params }: PageProps) {
     );
   }
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
-  };
-
   return (
     <div className="w-full text-slate-900 bg-white antialiased selection:bg-slate-900 selection:text-white">
       
@@ -131,50 +131,35 @@ export default function ProjectDetail({ params }: PageProps) {
       <section className="relative w-full bg-warm-light py-20 sm:py-32 border-b border-slate-200/60 overflow-hidden flex items-center min-h-[40vh]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(15,23,42,0.02),transparent_60%)] pointer-events-none" />
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12 flex flex-col items-start space-y-6 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-900/5 border border-slate-900/10"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-900 block"></span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-900/5 border border-slate-900/10 animate-fade-in-up">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-900 block animate-pulse"></span>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 font-mono">
               CASE STUDY DETAILS
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]"
-          >
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.1] animate-fade-in-up animate-delay-100">
             {project.clientName}
-          </motion.h1>
+          </h1>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex text-[10px] font-bold uppercase tracking-widest bg-slate-900/5 border border-slate-900/10 text-slate-800 px-3 py-1 rounded font-mono"
-          >
+          <div className="inline-flex text-[10px] font-bold uppercase tracking-widest bg-slate-900/5 border border-slate-900/10 text-slate-800 px-3 py-1 rounded font-mono animate-fade-in-up animate-delay-200">
             {project.metric}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* 2. THE BUSINESS PROBLEM (Cool Slate - NO CTA buttons) */}
       <section className="w-full bg-cool-light py-20 sm:py-32 border-b border-slate-200/60">
         <div className="mx-auto w-full max-w-3xl px-6 sm:px-12 space-y-6">
-          <motion.span {...fadeInUp} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block animate-fade-in-up">
             SECTION 02 · THE BUSINESS PROBLEM
-          </motion.span>
-          <motion.h2 {...fadeInUp} className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900">
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 animate-fade-in-up animate-delay-100">
             Pain Points & Limitations.
-          </motion.h2>
-          <motion.p {...fadeInUp} className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+          </h2>
+          <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed animate-fade-in-up animate-delay-100">
             {project.problem}
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -182,17 +167,17 @@ export default function ProjectDetail({ params }: PageProps) {
       <section className="w-full bg-warm-light py-20 sm:py-32 border-b border-slate-200/60">
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <motion.div {...fadeInUp} className="space-y-6">
+            <div className="space-y-6 animate-fade-in-up">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block">
                 SECTION 03 · THE IMPLEMENTATION
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900">
+              <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 animate-fade-in-up animate-delay-100">
                 Custom Solution.
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed animate-fade-in-up animate-delay-100">
                 {project.solution}
               </p>
-              <div className="pt-2">
+              <div className="pt-2 animate-fade-in-up animate-delay-200">
                 <Link 
                   href="/services" 
                   className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all focus:outline-none"
@@ -200,15 +185,15 @@ export default function ProjectDetail({ params }: PageProps) {
                   View Technical Blueprint
                 </Link>
               </div>
-            </motion.div>
-            <motion.div {...fadeInUp} className="aspect-[4/3] rounded-xl overflow-hidden border border-slate-200/80 bg-white shadow-md">
+            </div>
+            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-slate-200/80 bg-white shadow-md animate-fade-in-up animate-delay-200">
               <BrowserMockup 
                 url={project.url} 
                 screenshotUrl={project.mockup} 
                 title={project.clientName} 
                 isVisible={true}
               />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -216,23 +201,22 @@ export default function ProjectDetail({ params }: PageProps) {
       {/* 4. VERIFIED OUTCOMES & METRICS (Cool Slate - NO CTA buttons) */}
       <section className="w-full bg-cool-light py-20 sm:py-32 border-b border-slate-200/60">
         <div className="mx-auto w-full max-w-3xl px-6 sm:px-12 space-y-6">
-          <motion.span {...fadeInUp} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block animate-fade-in-up">
             SECTION 04 · VERIFIED OUTCOMES
-          </motion.span>
-          <motion.h2 {...fadeInUp} className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900">
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 animate-fade-in-up animate-delay-100">
             Performance & Business Impact.
-          </motion.h2>
+          </h2>
           
           <ul className="space-y-4 pt-4">
             {project.outcomes.map((outcome, idx) => (
-              <motion.li 
+              <li 
                 key={idx}
-                {...fadeInUp}
-                className="flex items-start gap-3 text-sm sm:text-base font-semibold text-slate-800"
+                className="flex items-start gap-3 text-sm sm:text-base font-semibold text-slate-800 animate-fade-in-up animate-delay-100"
               >
                 <span className="text-slate-400 shrink-0 font-mono">0{idx + 1} /</span>
                 <span>{outcome}</span>
-              </motion.li>
+              </li>
             ))}
           </ul>
         </div>
@@ -243,26 +227,26 @@ export default function ProjectDetail({ params }: PageProps) {
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12 flex flex-col items-start space-y-6 relative z-10">
           
           <div className="space-y-3">
-            <motion.span {...fadeInUp} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block animate-fade-in-up">
               SECTION 05 · REPLICABLE VALUE
-            </motion.span>
-            <motion.h2 {...fadeInUp} className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 animate-fade-in-up animate-delay-100">
               Request a Similar System.
-            </motion.h2>
+            </h2>
           </div>
 
-          <motion.p {...fadeInUp} className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed animate-fade-in-up animate-delay-100">
             Let&apos;s discuss building a fast, secure, custom platform to streamline your operations and convert your traffic into revenue.
-          </motion.p>
+          </p>
 
-          <motion.div {...fadeInUp} className="pt-2">
+          <div className="pt-2 animate-fade-in-up animate-delay-200">
             <Link
               href="/pricing#plans"
               className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all text-center focus:outline-none"
             >
               Request a Similar System
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 

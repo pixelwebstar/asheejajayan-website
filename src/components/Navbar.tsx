@@ -108,7 +108,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border no-swipe">
       {/* Row 1: Brand & Actions (Intense, solid cool slate-blue trust color) */}
       <div className="border-b border-border bg-[#F0F4F8]">
         <div className="mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28">

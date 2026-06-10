@@ -1,6 +1,13 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import HeroSection from "@/components/HeroSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Amrith Sheeja Jayan - Custom Systems Developer",
+  description: "Learn about Amrith Sheeja Jayan, a custom web developer focused on performance, codebase ownership, and building high-conversion platforms.",
+};
+
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 

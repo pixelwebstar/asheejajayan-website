@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface BrowserMockupProps {
@@ -11,14 +11,16 @@ interface BrowserMockupProps {
 }
 
 export default function BrowserMockup({ url, screenshotUrl, title, isVisible = true }: BrowserMockupProps) {
-  const [hasBeenVisible, setHasBeenVisible] = useState(false);
+  const [hasBeenVisible, setHasBeenVisible] = useState(isVisible);
   const isArray = Array.isArray(screenshotUrl);
   const screenshotArray = isArray ? (screenshotUrl as string[]) : [screenshotUrl as string];
   const [activeIdx, setActiveIdx] = useState(0);
 
-  if (isVisible && !hasBeenVisible) {
-    setHasBeenVisible(true);
-  }
+  useEffect(() => {
+    if (isVisible) {
+      setHasBeenVisible(true);
+    }
+  }, [isVisible]);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();

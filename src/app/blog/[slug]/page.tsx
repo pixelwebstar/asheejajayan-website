@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import React, { use } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 
 const articleData: Record<string, {
   title: string;
@@ -101,9 +98,16 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default function BlogDetail({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const slug = resolvedParams.slug;
+export async function generateStaticParams() {
+  return [
+    { slug: "cost-custom-website" },
+    { slug: "wordpress-vs-custom" },
+    { slug: "crm-small-business" },
+  ];
+}
+
+export default async function BlogDetail({ params }: PageProps) {
+  const { slug } = await params;
   const article = articleData[slug];
 
   if (!article) {
@@ -120,13 +124,6 @@ export default function BlogDetail({ params }: PageProps) {
     );
   }
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
-  };
-
   return (
     <div className="w-full text-slate-900 bg-white antialiased selection:bg-slate-900 selection:text-white">
       
@@ -134,55 +131,37 @@ export default function BlogDetail({ params }: PageProps) {
       <section className="relative w-full bg-warm-light py-20 sm:py-32 border-b border-slate-200/60 overflow-hidden flex items-center min-h-[40vh]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(15,23,42,0.02),transparent_60%)] pointer-events-none" />
         <div className="mx-auto w-full max-w-3xl px-6 sm:px-12 flex flex-col items-start space-y-6 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="flex gap-4 items-center text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono"
-          >
+          <div className="flex gap-4 items-center text-[10px] font-bold uppercase tracking-widest text-slate-500 font-mono animate-fade-in-up">
             <span>{article.category}</span>
             <span>·</span>
             <span>{article.readTime}</span>
-          </motion.div>
+          </div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]"
-          >
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1] animate-fade-in-up animate-delay-100">
             {article.title}
-          </motion.h1>
+          </h1>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-[10px] font-bold uppercase tracking-widest text-slate-400 font-mono"
-          >
+          <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 font-mono animate-fade-in-up animate-delay-200">
             PUBLISHED BY AMRITH · {article.publishDate}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* 2. ARTICLE BODY (Cool Slate background, White text card - NO CTA buttons) */}
       <section className="w-full bg-cool-light py-12 sm:py-20 border-b border-slate-200/60">
         <div className="mx-auto w-full max-w-3xl px-6 sm:px-12">
-          <motion.div 
-            {...fadeInUp}
-            className="bg-white rounded-2xl border border-slate-200/60 p-6 sm:p-12 shadow-sm text-slate-700 text-sm sm:text-base leading-relaxed font-medium font-sans"
-          >
+          <div className="bg-white rounded-2xl border border-slate-200/60 p-6 sm:p-12 shadow-sm text-slate-700 text-sm sm:text-base leading-relaxed font-medium font-sans animate-fade-in-up animate-delay-100">
             {article.content}
             
             <div className="pt-8 mt-12 border-t border-slate-100 flex justify-between items-center">
               <Link 
                 href="/blog"
-                className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 animate-fade-in-up animate-delay-200"
               >
                 ← Back to Blog
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -191,26 +170,26 @@ export default function BlogDetail({ params }: PageProps) {
         <div className="mx-auto w-full max-w-5xl px-6 sm:px-12 flex flex-col items-start space-y-6 relative z-10">
           
           <div className="space-y-3">
-            <motion.span {...fadeInUp} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 font-mono block animate-fade-in-up">
               FINAL ARTICLE PROMPT
-            </motion.span>
-            <motion.h2 {...fadeInUp} className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 animate-fade-in-up animate-delay-100">
               Want to optimize your website?
-            </motion.h2>
+            </h2>
           </div>
 
-          <motion.p {...fadeInUp} className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 font-medium max-w-xl leading-relaxed animate-fade-in-up animate-delay-100">
             Let&apos;s discuss building a fast, secure, hand-coded system designed to turn traffic into qualified inquiries.
-          </motion.p>
+          </p>
 
-          <motion.div {...fadeInUp} className="pt-2">
+          <div className="pt-2 animate-fade-in-up animate-delay-200">
             <Link
               href="/pricing"
               className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all text-center focus:outline-none"
             >
               See Pricing
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 

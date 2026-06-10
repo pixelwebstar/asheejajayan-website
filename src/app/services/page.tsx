@@ -2,6 +2,13 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
 import HeroSection from "@/components/HeroSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services & Custom Development - Amrith Sheeja Jayan",
+  description: "High-performance Next.js marketing websites, CRM databases, Google Business listing optimization, and custom web application support.",
+};
+
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
 

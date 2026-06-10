@@ -28,7 +28,8 @@ export default function SwipeNavigation({ children }: { children: React.ReactNod
         target.tagName === "TEXTAREA" ||
         target.tagName === "SELECT" ||
         target.closest("form") ||
-        target.closest("button")
+        target.closest("button") ||
+        target.closest(".no-swipe")
       ) {
         return;
       }
