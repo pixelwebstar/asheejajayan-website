@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import React, { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import BrowserMockup from "@/components/BrowserMockup";
 import HeroSection from "@/components/HeroSection";
 
@@ -78,11 +77,8 @@ export default function BlogIndex() {
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
       {/* Hero (Warm Sand) */}
       <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
-        <motion.div 
-          className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        <div 
+          className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8 animate-fade-in-up"
         >
           <div className="space-y-3">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -106,7 +102,7 @@ export default function BlogIndex() {
               Start Project
             </Link>
           </div>
-        </motion.div>
+        </div>
       </HeroSection>
 
       {/* Blog List & Search (Cool Slate) */}
@@ -137,6 +133,7 @@ export default function BlogIndex() {
               <input
                 type="text"
                 placeholder="Search articles..."
+                aria-label="Search articles"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-5 py-2.5 rounded-full border border-slate-200 bg-slate-50/50 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-xs font-bold uppercase tracking-wider transition-all placeholder:text-slate-400"
@@ -149,19 +146,13 @@ export default function BlogIndex() {
 
           {/* Articles Grid */}
           <div className="max-w-5xl mx-auto w-full">
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              <AnimatePresence mode="popLayout">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                 {filteredArticles.map((art, i) => {
                   const isFeatured = i === 0 && searchQuery === "" && activeCategory === "All";
                   return (
-                    <motion.div
+                    <div
                       key={art.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className={`group ${isFeatured ? "md:col-span-2" : ""}`}
+                      className={`group animate-fade-in-up ${isFeatured ? "md:col-span-2" : ""}`}
                     >
                       <Link href={`/blog/${art.slug}`} className="block h-full">
                         <div className={`bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full text-left`}>
@@ -202,17 +193,16 @@ export default function BlogIndex() {
                           </div>
                         </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   );
                 })}
-              </AnimatePresence>
 
               {filteredArticles.length === 0 && (
                 <div className="col-span-full py-16 text-center text-slate-400 font-medium text-sm">
                   No matching articles found.
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
 
         </div>

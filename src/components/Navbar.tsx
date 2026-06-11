@@ -2,38 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-const spinVariants = {
-  initial: (dir: number) => ({
-    x: dir * 24,
-    rotateY: dir * 45,
-    opacity: 0,
-  }),
-  animate: {
-    x: 0,
-    rotateY: 0,
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 200,
-      damping: 20,
-      mass: 0.8,
-    },
-  },
-  exit: (dir: number) => ({
-    x: -dir * 24,
-    rotateY: -dir * 45,
-    opacity: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 200,
-      damping: 20,
-      mass: 0.8,
-    },
-  }),
-};
+import { useEffect, useState, useCallback, useRef } from "react";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -45,26 +14,34 @@ const nav = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
-export default function Navbar() {
-  const pathname = usePathname();
-  const [scrollProgress, setScrollProgress] = useState(0);
+/* ─── Isolated scroll progress bar ─── */
+function ScrollProgressBar() {
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        setScrollProgress((window.scrollY / scrollHeight) * 100);
-      } else {
-        setScrollProgress(0);
+      if (scrollHeight > 0 && barRef.current) {
+        barRef.current.style.width = `${(window.scrollY / scrollHeight) * 100}%`;
       }
     };
 
-    // Run initially
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, []);
+
+  return (
+    <div
+      ref={barRef}
+      className="absolute bottom-0 left-0 h-[3px] bg-slate-900 z-50 transition-[width] duration-75 ease-out"
+      style={{ width: "0%" }}
+    />
+  );
+}
+
+export default function Navbar() {
+  const pathname = usePathname();
 
   const activeIndex = nav.findIndex((item) => {
     if (item.href === "/") return pathname === "/";
@@ -73,39 +50,20 @@ export default function Navbar() {
   const currentIndex = activeIndex === -1 ? 0 : activeIndex;
   const prevIndex = (currentIndex - 1 + nav.length) % nav.length;
   const nextIndex = (currentIndex + 1) % nav.length;
-  const [prevPathname, setPrevPathname] = useState(pathname);
-  const [direction, setDirection] = useState(0);
 
-  if (pathname !== prevPathname) {
-    const prevActiveIndex = nav.findIndex((item) => {
-      if (item.href === "/") return prevPathname === "/";
-      return prevPathname.startsWith(item.href);
-    });
-    const lastIdx = prevActiveIndex === -1 ? 0 : prevActiveIndex;
-
-    if (currentIndex !== lastIdx) {
-      let dir = currentIndex > lastIdx ? 1 : -1;
-      // Handle wrapping
-      if (lastIdx === 0 && currentIndex === nav.length - 1) dir = -1;
-      if (lastIdx === nav.length - 1 && currentIndex === 0) dir = 1;
-      setDirection(dir);
-    }
-    setPrevPathname(pathname);
-  }
-
-  const handleLogoClick = (e: React.MouseEvent) => {
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
     if (pathname === "/") {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [pathname]);
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
+  const handleNavClick = useCallback((e: React.MouseEvent, href: string) => {
     if (pathname === href) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border no-swipe">
@@ -157,33 +115,18 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Mobile Carousel Nav (Visible on mobile only) */}
+          {/* Mobile Carousel Nav (Visible on mobile only) — CSS transitions instead of Framer Motion */}
           <nav
             className="flex md:hidden h-12 items-center justify-between relative select-none w-full"
             aria-label="Site Navigation Mobile"
           >
             {/* Prev Page Column */}
-            <div 
-              className="w-[30%] h-full flex items-center justify-center relative overflow-hidden"
-              style={{ perspective: "150px", transformStyle: "preserve-3d" }}
-            >
+            <div className="w-[30%] h-full flex items-center justify-center relative overflow-hidden">
               <Link
                 href={nav[prevIndex].href}
-                className="w-full h-full relative block focus-visible:outline-none select-none"
+                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-muted/40 hover:text-muted/60 transition-colors whitespace-nowrap truncate max-w-[80px]"
               >
-                <AnimatePresence mode="sync" custom={direction}>
-                  <motion.div
-                    key={prevIndex}
-                    custom={direction}
-                    variants={spinVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="absolute inset-y-0 left-0 right-3 flex items-center justify-center text-[9px] font-bold uppercase tracking-wider text-muted/40 hover:text-muted/60 transition-colors whitespace-nowrap truncate max-w-[80px] mx-auto"
-                  >
-                    {nav[prevIndex].label}
-                  </motion.div>
-                </AnimatePresence>
+                {nav[prevIndex].label}
               </Link>
             </div>
 
@@ -197,28 +140,13 @@ export default function Navbar() {
             </Link>
 
             {/* Active Page Column */}
-            <div 
-              className="w-[40%] h-full flex items-center justify-center relative overflow-hidden"
-              style={{ perspective: "150px", transformStyle: "preserve-3d" }}
-            >
+            <div className="w-[40%] h-full flex items-center justify-center relative overflow-hidden">
               <Link
                 href={nav[currentIndex].href}
-                className="w-full h-full relative block focus-visible:outline-none select-none"
+                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[10px] font-black uppercase tracking-[0.2em] text-primary whitespace-nowrap truncate max-w-[90px]"
                 onClick={(e) => handleNavClick(e, nav[currentIndex].href)}
               >
-                <AnimatePresence mode="sync" custom={direction}>
-                  <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={spinVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="absolute inset-0 flex items-center justify-center text-[10px] font-black uppercase tracking-[0.2em] text-primary whitespace-nowrap truncate max-w-[90px] mx-auto"
-                  >
-                    {nav[currentIndex].label}
-                  </motion.div>
-                </AnimatePresence>
+                {nav[currentIndex].label}
               </Link>
             </div>
 
@@ -232,38 +160,20 @@ export default function Navbar() {
             </Link>
 
             {/* Next Page Column */}
-            <div 
-              className="w-[30%] h-full flex items-center justify-center relative overflow-hidden"
-              style={{ perspective: "150px", transformStyle: "preserve-3d" }}
-            >
+            <div className="w-[30%] h-full flex items-center justify-center relative overflow-hidden">
               <Link
                 href={nav[nextIndex].href}
-                className="w-full h-full relative block focus-visible:outline-none select-none"
+                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-muted/40 hover:text-muted/60 transition-colors whitespace-nowrap truncate max-w-[80px]"
               >
-                <AnimatePresence mode="sync" custom={direction}>
-                  <motion.div
-                    key={nextIndex}
-                    custom={direction}
-                    variants={spinVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="absolute inset-y-0 left-3 right-0 flex items-center justify-center text-[9px] font-bold uppercase tracking-wider text-muted/40 hover:text-muted/60 transition-colors whitespace-nowrap truncate max-w-[80px] mx-auto"
-                  >
-                    {nav[nextIndex].label}
-                  </motion.div>
-                </AnimatePresence>
+                {nav[nextIndex].label}
               </Link>
             </div>
           </nav>
         </div>
       </div>
 
-      {/* Scroll Progress Bar indicator */}
-      <div
-        className="absolute bottom-0 left-0 h-[3px] bg-slate-900 z-50 transition-all duration-75 ease-out"
-        style={{ width: `${scrollProgress}%` }}
-      />
+      {/* Scroll Progress Bar — isolated to prevent re-renders */}
+      <ScrollProgressBar />
     </header>
   );
 }

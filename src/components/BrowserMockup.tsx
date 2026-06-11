@@ -79,6 +79,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 loop
                 muted
                 playsInline
+                preload="none"
                 className="w-full h-full object-cover object-top select-none pointer-events-none"
               />
             ) : (
@@ -86,6 +87,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 src={activeUrl}
                 alt={`${title} - slide ${activeIdx + 1}`}
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover object-top select-none pointer-events-none"
               />

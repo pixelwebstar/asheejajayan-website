@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import React, { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import BrowserMockup from "@/components/BrowserMockup";
 import HeroSection from "@/components/HeroSection";
 
@@ -99,12 +98,7 @@ export default function ProjectsIndex() {
     (proj) => activeCategory === "All" || proj.category === activeCategory
   );
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  };
+
 
   const scrollToProjects = () => {
     document.getElementById("projects-list")?.scrollIntoView({ behavior: "smooth" });
@@ -114,11 +108,8 @@ export default function ProjectsIndex() {
     <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
       {/* Hero (Warm Sand) */}
       <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
-        <motion.div 
-          className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        <div 
+          className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8 animate-fade-in-up"
         >
           <div className="space-y-3">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -142,18 +133,15 @@ export default function ProjectsIndex() {
               Start Project
             </Link>
           </div>
-        </motion.div>
+        </div>
       </HeroSection>
 
       {/* Projects Grid (Cool Slate) */}
       <FullSection id="projects-list" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           
-          <motion.div 
+          <div 
             className="flex flex-wrap items-center justify-center gap-3"
-            initial="initial"
-            whileInView="whileInView"
-            variants={fadeInUp}
           >
             {categories.map((cat) => (
               <button
@@ -168,19 +156,13 @@ export default function ProjectsIndex() {
                 {cat}
               </button>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 w-full text-left">
-            <AnimatePresence>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 w-full text-left">
               {filteredProjects.map((proj) => (
-                <motion.div 
+                <div 
                   key={proj.id} 
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
-                  className="space-y-6 group"
+                  className="space-y-6 group animate-fade-in-up"
                 >
                   <Link href={`/project/${proj.slug}`} className="block">
                     <div className="aspect-[520/310] relative rounded-3xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1 bg-white">
@@ -206,10 +188,9 @@ export default function ProjectsIndex() {
                       {proj.desc}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </FullSection>
     </div>
