@@ -25,6 +25,7 @@ export default function HeroSection({ children, bgClass, id, bgImage }: HeroSect
               alt="Hero Background"
               fill
               priority
+              quality={60}
               sizes="100vw"
               className="object-cover object-center"
             />

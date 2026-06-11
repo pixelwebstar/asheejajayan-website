@@ -21,7 +21,7 @@ const Footer = () => {
 
           {/* Pages - Column 2 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
-            <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">PAGES</h4>
+            <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">PAGES</h2>
             <ul className="flex flex-col gap-4">
               {["Home", "About", "Services", "Pricing", "Contact"].map((item) => (
                 <li key={item}>
@@ -38,7 +38,7 @@ const Footer = () => {
 
           {/* Services - Column 3 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
-            <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">SERVICES</h4>
+            <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">SERVICES</h2>
             <ul className="flex flex-col gap-4">
               {["Websites", "Layouts", "Automation", "Support", "SEO"].map((item) => (
                 <li key={item}>
@@ -55,10 +55,10 @@ const Footer = () => {
 
           {/* Resources - Column 4 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
-            <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">RESOURCES</h4>
+            <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">RESOURCES</h2>
             <ul className="flex flex-col gap-4">
               {[
-                { label: "Start", href: "/contact" },
+                { label: "Start Project", href: "/contact" },
                 { label: "FAQ", href: "/contact" },
                 { label: "Privacy", href: "#" },
                 { label: "Terms", href: "#" },
@@ -78,7 +78,7 @@ const Footer = () => {
 
           {/* Contact - Column 5 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
-            <h4 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">CONTACT</h4>
+            <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">CONTACT</h2>
             <ul className="flex flex-col gap-4">
               {[
                 { label: "Booking", href: "/#pricing" },

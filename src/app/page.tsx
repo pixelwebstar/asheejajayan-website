@@ -127,7 +127,7 @@ export default function Home() {
       <HeroSection id="hero" bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               PORTFOLIO
             </span>
             <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
@@ -152,7 +152,7 @@ export default function Home() {
       <FullSection id="services" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <div className="max-w-3xl space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               WHAT WE DO
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -178,7 +178,7 @@ export default function Home() {
                 className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-400 block tracking-widest">{srv.num}</span>
+                  <span className="text-xs font-bold text-slate-500 block tracking-widest">{srv.num}</span>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider group-hover:text-muted transition-colors">{srv.name}</h3>
@@ -194,7 +194,7 @@ export default function Home() {
       <FullSection id="projects" bgClass="bg-warm-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               SELECTED PROJECTS
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -214,7 +214,7 @@ export default function Home() {
             {/* Left Column: Headline */}
             <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6 text-center lg:text-left items-center lg:items-start w-full">
               <div className="space-y-6 max-w-sm mx-auto lg:mx-0 w-full">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
                   OUR METHOD
                 </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -236,7 +236,7 @@ export default function Home() {
                 { num: "05", title: "Launch & Support", desc: "Your site goes live with backups, monitoring, and ongoing content support included." }
               ].map((step, idx) => (
                 <div key={step.num} className={`flex gap-6 items-start py-6 ${idx < 4 ? 'border-b border-slate-200' : ''}`}>
-                  <span className="text-2xl font-black text-slate-355 select-none leading-none pt-1 min-w-[40px]">{step.num}</span>
+                  <span className="text-2xl font-black text-slate-500 select-none leading-none pt-1 min-w-[40px]" aria-hidden="true">{step.num}</span>
                   <div className="space-y-1 text-left">
                     <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
                     <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mt-1">{step.desc}</p>
@@ -253,7 +253,7 @@ export default function Home() {
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               THE DIFFERENCE
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -269,22 +269,22 @@ export default function Home() {
             {/* Standard Card */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6 flex flex-col justify-between">
               <div className="text-center border-b border-slate-100 pb-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">OLD STANDARD</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">OLD STANDARD</span>
                 <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mt-1">Standard Build</h3>
               </div>
               <div className="space-y-4 flex-1">
                 {criteriaData.map((crit) => (
                   <div key={crit.id} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start border-b border-slate-50 last:border-0 pb-4 last:pb-0">
                     <div className="sm:col-span-4 shrink-0">
-                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block pt-0.5">{crit.title}</span>
+                      <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block pt-0.5">{crit.title}</span>
                     </div>
                     <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
+                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
                       <div className="text-xs font-bold text-slate-800">{crit.standard.value}</div>
                     </div>
                     <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
-                      <div className="text-[11px] text-slate-500 font-medium leading-relaxed">{crit.standard.impact}</div>
+                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
+                      <div className="text-[11px] text-slate-600 font-medium leading-relaxed">{crit.standard.impact}</div>
                     </div>
                   </div>
                 ))}
@@ -304,11 +304,11 @@ export default function Home() {
                       <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block pt-0.5">{crit.title}</span>
                     </div>
                     <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
+                      <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
                       <div className="text-xs font-bold text-white">{crit.custom.value}</div>
                     </div>
                     <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
+                      <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
                       <div className="text-[11px] text-slate-300 font-medium leading-relaxed">{crit.custom.impact}</div>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default function Home() {
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           <div className="flex flex-col items-center text-center gap-6 border-b border-slate-200 pb-8 max-w-3xl mx-auto w-full">
             <div className="space-y-4 w-full">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
                 THE SYSTEM
               </span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
@@ -372,7 +372,7 @@ export default function Home() {
                   <h3 className="text-lg font-black tracking-tight text-slate-900">
                     Amrith Sheeja Jayan
                   </h3>
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">
+                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">
                     Founder / Lead Systems Developer
                   </span>
                 </div>
@@ -383,7 +383,7 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-8 text-left h-full flex flex-col justify-between">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
                     MANIFESTO / THE STANDARDS
                   </span>
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -432,7 +432,7 @@ export default function Home() {
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           {/* Centered Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               CLIENT RESULTS
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -454,7 +454,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">MV</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Marcus V.</span>
-                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Business Owner</span>
                 </div>
               </footer>
             </div>
@@ -468,7 +468,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">DK</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">David K.</span>
-                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Local Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Local Business Owner</span>
                 </div>
               </footer>
             </div>
@@ -482,7 +482,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 text-sm font-black">SL</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Sarah L.</span>
-                  <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-widest">Service Company</span>
+                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Service Company</span>
                 </div>
               </footer>
             </div>
@@ -494,7 +494,7 @@ export default function Home() {
       <FullSection id="contact" bgClass="bg-warm-light">
         <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
           <div className="text-center space-y-6 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               COMMUNICATION
             </span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">

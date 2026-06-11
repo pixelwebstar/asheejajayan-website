@@ -187,18 +187,18 @@ export default function ThreeDGallery() {
             }
 
             return (
-              <div
+              <Link
                 key={project.id}
-                onClick={() => {
-                  if (isActive) {
-                    if (project.url !== "#") {
-                      window.open(project.url, "_blank", "noopener,noreferrer");
-                    }
-                  } else {
+                href={project.url !== "#" ? project.url : ""}
+                target={project.url !== "#" ? "_blank" : undefined}
+                rel={project.url !== "#" ? "noopener noreferrer" : undefined}
+                onClick={(e) => {
+                  if (!isActive) {
+                    e.preventDefault();
                     selectProject(idx);
                   }
                 }}
-                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
+                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] block ${isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
                   }`}
                 style={{
                   transform,
@@ -207,9 +207,10 @@ export default function ThreeDGallery() {
                   pointerEvents,
                   transformStyle: "preserve-3d",
                 }}
+                aria-label={isActive ? `Open ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}` : `Select ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}`}
               >
                 <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={true} />
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -222,16 +223,15 @@ export default function ThreeDGallery() {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div
-          onClick={() => {
-            if (projects[activeIndex].url !== "#") {
-              window.open(projects[activeIndex].url, "_blank", "noopener,noreferrer");
-            }
-          }}
-          className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150"
+        <Link
+          href={projects[activeIndex].url !== "#" ? projects[activeIndex].url : ""}
+          target={projects[activeIndex].url !== "#" ? "_blank" : undefined}
+          rel={projects[activeIndex].url !== "#" ? "noopener noreferrer" : undefined}
+          className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150 block"
+          aria-label={`Open ${projects[activeIndex].title} - ${projects[activeIndex].url.replace("https://", "").replace("www.", "")}`}
         >
           <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
-        </div>
+        </Link>
 
         {/* Mobile Pagination Indicator Dots */}
         <div className="flex justify-center gap-1.5 mt-4">
@@ -239,10 +239,11 @@ export default function ThreeDGallery() {
             <button
               key={idx}
               onClick={() => selectProject(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-300 hover:bg-slate-400"
-                }`}
+              className="p-2 transition-all duration-300 focus-visible:outline-none flex items-center justify-center"
               aria-label={`Go to project ${idx + 1}`}
-            />
+            >
+              <span className={`block h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-400 hover:bg-slate-500 w-2"}`} />
+            </button>
           ))}
         </div>
       </div>

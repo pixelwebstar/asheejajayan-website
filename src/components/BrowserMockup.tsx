@@ -61,7 +61,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
         </div>
         {/* Address bar */}
-        <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[8px] font-bold text-slate-400 uppercase tracking-widest text-center truncate font-mono shadow-sm">
+        <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[8px] font-bold text-slate-500 uppercase tracking-widest text-center truncate font-mono shadow-sm">
           {url.replace("https://", "").replace("www.", "")}
         </div>
         <div className="w-10"></div>

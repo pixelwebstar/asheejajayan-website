@@ -36,7 +36,7 @@ export default function GravityBentoGrid() {
           key={card.id}
           className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-8 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
         >
-          <span className="text-6xl font-black text-slate-200 block leading-none select-none">{card.num}</span>
+          <span className="text-6xl font-black text-slate-500 block leading-none select-none" aria-hidden="true">{card.num}</span>
           <div className="space-y-3">
             <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{card.title}</h3>
             <p className="text-sm text-slate-600 leading-relaxed font-medium">
