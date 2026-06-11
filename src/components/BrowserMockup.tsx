@@ -18,9 +18,11 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     if (isVisible) {
-      setHasBeenVisible(true);
+      timeout = setTimeout(() => setHasBeenVisible(true), 0);
     }
+    return () => clearTimeout(timeout);
   }, [isVisible]);
 
   const activeUrl = hasBeenVisible ? screenshotArray[activeIdx] : "";
