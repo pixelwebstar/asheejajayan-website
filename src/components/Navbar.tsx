@@ -124,7 +124,7 @@ export default function Navbar() {
             <div className="w-[30%] h-full flex items-center justify-center relative overflow-hidden">
               <Link
                 href={nav[prevIndex].href}
-                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-muted/60 hover:text-muted/80 transition-colors whitespace-nowrap truncate max-w-[80px]"
+                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-700 transition-colors whitespace-nowrap truncate max-w-[80px]"
               >
                 {nav[prevIndex].label}
               </Link>
@@ -133,7 +133,7 @@ export default function Navbar() {
             {/* Left Arrow (Positioned absolutely on the 30% line) */}
             <Link
               href={nav[prevIndex].href}
-              className="absolute left-[30%] -translate-x-1/2 top-1/2 -translate-y-1/2 text-lg font-bold text-muted/60 hover:text-foreground/80 px-2 py-1.5 transition-colors shrink-0 z-10 select-none focus-visible:outline-none"
+              className="absolute left-[30%] -translate-x-1/2 top-1/2 -translate-y-1/2 text-lg font-bold text-slate-500 hover:text-slate-700 px-2 py-1.5 transition-colors shrink-0 z-10 select-none focus-visible:outline-none"
               aria-label="Previous Page"
             >
               ‹
@@ -153,7 +153,7 @@ export default function Navbar() {
             {/* Right Arrow (Positioned absolutely on the 70% line) */}
             <Link
               href={nav[nextIndex].href}
-              className="absolute left-[70%] -translate-x-1/2 top-1/2 -translate-y-1/2 text-lg font-bold text-muted/60 hover:text-foreground/80 px-2 py-1.5 transition-colors shrink-0 z-10 select-none focus-visible:outline-none"
+              className="absolute left-[70%] -translate-x-1/2 top-1/2 -translate-y-1/2 text-lg font-bold text-slate-500 hover:text-slate-700 px-2 py-1.5 transition-colors shrink-0 z-10 select-none focus-visible:outline-none"
               aria-label="Next Page"
             >
               ›
@@ -163,7 +163,7 @@ export default function Navbar() {
             <div className="w-[30%] h-full flex items-center justify-center relative overflow-hidden">
               <Link
                 href={nav[nextIndex].href}
-                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-muted/60 hover:text-muted/80 transition-colors whitespace-nowrap truncate max-w-[80px]"
+                className="w-full h-full flex items-center justify-center focus-visible:outline-none select-none text-[9px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-700 transition-colors whitespace-nowrap truncate max-w-[80px]"
               >
                 {nav[nextIndex].label}
               </Link>
