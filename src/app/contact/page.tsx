@@ -78,17 +78,17 @@ function ContactContent() {
             <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                  <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
                   <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
                 </div>
                 <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                  <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
                   <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
                 </div>
               </div>
 
               <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Scope</label>
+                <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
                 <div className="relative">
                   <select
                     value={plan}
@@ -108,7 +108,7 @@ function ContactContent() {
               </div>
 
               <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
+                <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
                 <textarea
                   rows={5}
                   value={details}

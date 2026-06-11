@@ -13,17 +13,17 @@ export default function ContactForm() {
       <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="space-y-2 text-center sm:text-left">
-            <label htmlFor="contact-name" className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+            <label htmlFor="contact-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
             <input id="contact-name" type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
           </div>
           <div className="space-y-2 text-center sm:text-left">
-            <label htmlFor="contact-email" className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+            <label htmlFor="contact-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
             <input id="contact-email" type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
           </div>
         </div>
 
         <div className="space-y-2 text-center sm:text-left">
-          <label htmlFor="contact-scope" className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Project Scope</label>
+          <label htmlFor="contact-scope" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
           <div className="relative">
             <select
               id="contact-scope"
@@ -44,7 +44,7 @@ export default function ContactForm() {
         </div>
 
         <div className="space-y-2 text-center sm:text-left">
-          <label htmlFor="contact-details" className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiry Details</label>
+          <label htmlFor="contact-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
           <textarea
             id="contact-details"
             rows={5}

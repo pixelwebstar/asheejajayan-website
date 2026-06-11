@@ -239,7 +239,7 @@ export default function Home() {
                   <span className="text-2xl font-black text-slate-500 select-none leading-none pt-1 min-w-[40px]" aria-hidden="true">{step.num}</span>
                   <div className="space-y-1 text-left">
                     <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mt-1">{step.desc}</p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium mt-1">{step.desc}</p>
                   </div>
                 </div>
               ))}

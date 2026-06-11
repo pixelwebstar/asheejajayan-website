@@ -255,7 +255,7 @@ export default function ThreeDGallery() {
           <h3 className="text-xl font-black text-slate-900 tracking-tight">
             {projects[activeIndex].title}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium max-w-lg">
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium max-w-lg">
             {projects[activeIndex].desc}
           </p>
         </div>

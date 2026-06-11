@@ -350,7 +350,7 @@ export default function Pricing() {
               ].map((item, idx) => (
                 <div key={item.title} className={`py-6 ${idx < 3 ? 'border-b border-slate-200' : ''}`}>
                   <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium mt-1">{item.desc}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium mt-1">{item.desc}</p>
                 </div>
               ))}
             </div>
