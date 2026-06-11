@@ -49,31 +49,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col bg-background">
-        {/* Smart dynamic viewport height: 
-            Updates dynamically on desktop or orientation change, 
-            but ignores vertical mobile browser chrome shifts to prevent jank */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var vh = window.innerHeight;
-                var vw = window.innerWidth;
-                var setVh = function() {
-                  document.documentElement.style.setProperty('--vh', vh + 'px');
-                };
-                setVh();
-                window.addEventListener('resize', function() {
-                  // Update if width > 768 (desktop) OR if width changed (mobile orientation change)
-                  if (window.innerWidth > 768 || window.innerWidth !== vw) {
-                    vw = window.innerWidth;
-                    vh = window.innerHeight;
-                    setVh();
-                  }
-                });
-              })();
-            `,
-          }}
-        />
         <Navbar />
         <SwipeNavigation>
           <main className="flex-grow pt-24 sm:pt-28">

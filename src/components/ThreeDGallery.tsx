@@ -209,7 +209,7 @@ export default function ThreeDGallery() {
                 }}
                 aria-label={isActive ? `Open ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}` : `Select ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}`}
               >
-                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={true} />
+                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={Math.abs(diff) <= 1} />
               </Link>
             );
           })}
@@ -239,7 +239,7 @@ export default function ThreeDGallery() {
             <button
               key={idx}
               onClick={() => selectProject(idx)}
-              className="p-2 transition-all duration-300 focus-visible:outline-none flex items-center justify-center"
+              className="p-2 min-w-[48px] min-h-[48px] transition-all duration-300 focus-visible:outline-none flex items-center justify-center"
               aria-label={`Go to project ${idx + 1}`}
             >
               <span className={`block h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-400 hover:bg-slate-500 w-2"}`} />

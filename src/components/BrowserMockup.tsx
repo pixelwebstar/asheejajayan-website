@@ -80,6 +80,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 muted
                 playsInline
                 preload="none"
+                title="Decorative background video"
                 className="w-full h-full object-cover object-top select-none pointer-events-none"
               />
             ) : (
@@ -98,14 +99,14 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
               <>
                 <button
                   onClick={handlePrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center text-xs font-bold transition-all shadow-md z-30 opacity-0 group-hover:opacity-100 cursor-pointer select-none"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center text-xs font-bold transition-all shadow-md z-30 opacity-0 group-hover:opacity-100 cursor-pointer select-none"
                   aria-label="Previous screenshot"
                 >
                   &larr;
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center text-xs font-bold transition-all shadow-md z-30 opacity-0 group-hover:opacity-100 cursor-pointer select-none"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white flex items-center justify-center text-xs font-bold transition-all shadow-md z-30 opacity-0 group-hover:opacity-100 cursor-pointer select-none"
                   aria-label="Next screenshot"
                 >
                   &rarr;

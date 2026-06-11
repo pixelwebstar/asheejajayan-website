@@ -79,7 +79,7 @@ body {
 .hero-section,
 .full-section {
   /* On mobile, use min-height so content can expand without getting cut off */
-  min-height: calc(var(--vh, 100vh) - var(--navbar-h));
+  min-height: calc(100dvh - var(--navbar-h));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,7 +90,7 @@ body {
   /* On large and tall desktop displays, lock every section to exactly one page size */
   .hero-section,
   .full-section {
-    height: calc(var(--vh, 100vh) - var(--navbar-h));
+    height: calc(100dvh - var(--navbar-h));
     min-height: auto;
     overflow: hidden;
   }
