@@ -5,6 +5,7 @@ import GravityBentoGrid from "@/components/GravityBentoGrid";
 import HeroSection from "@/components/HeroSection";
 import ThreeDGallery from "@/components/ThreeDGallery";
 import ContactForm from "@/components/ContactForm";
+import MethodTimeline from "@/components/MethodTimeline";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -207,44 +208,10 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 4. SECTION 4: HOW (Cool Slate - Split Timeline Layout) */}
+      {/* 4. SECTION 4: HOW (Interactive timeline utilizing left empty space) */}
       <FullSection id="method" bgClass="bg-cool-light">
         <div className="max-w-[1500px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
-            {/* Left Column: Headline */}
-            <div className="lg:col-span-5 flex flex-col justify-between h-full py-2 lg:py-6 text-center lg:text-left items-center lg:items-start w-full">
-              <div className="space-y-6 max-w-sm mx-auto lg:mx-0 w-full">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-                  OUR METHOD
-                </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                  Built to Convert.
-                </h2>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-sm mx-auto lg:mx-0">
-                  We don&apos;t just design websites. We build clean, custom systems that turn your visitors into customers.
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column: Process Timeline */}
-            <div className="lg:col-span-7 space-y-0">
-              {[
-                { num: "01", title: "Discovery Call", desc: "We learn your business goals, target customers, and what success looks like for you." },
-                { num: "02", title: "Strategy & Layout", desc: "We map the page structure and conversion flow before writing a single line of code." },
-                { num: "03", title: "Custom Design", desc: "Your brand identity is translated into a clean, premium visual design you approve." },
-                { num: "04", title: "Code & Build", desc: "We hand-code your site from scratch. No templates, no page builders, no bloat." },
-                { num: "05", title: "Launch & Support", desc: "Your site goes live with backups, monitoring, and ongoing content support included." }
-              ].map((step, idx) => (
-                <div key={step.num} className={`flex gap-6 items-start py-6 ${idx < 4 ? 'border-b border-slate-200' : ''}`}>
-                  <span className="text-2xl font-black text-slate-500 select-none leading-none pt-1 min-w-[40px]" aria-hidden="true">{step.num}</span>
-                  <div className="space-y-1 text-left">
-                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{step.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium mt-1">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <MethodTimeline />
         </div>
       </FullSection>
 
