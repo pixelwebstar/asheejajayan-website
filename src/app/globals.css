@@ -185,6 +185,22 @@ body {
   animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes timelineSwitch {
+  from {
+    opacity: 0;
+    transform: scale(0.985) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-timeline-switch {
+  opacity: 0;
+  animation: timelineSwitch 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .animate-delay-100 {
   animation-delay: 100ms;
 }
@@ -195,4 +211,13 @@ body {
 
 .animate-delay-300 {
   animation-delay: 300ms;
+}
+
+@keyframes progressRun {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }

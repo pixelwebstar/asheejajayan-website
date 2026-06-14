@@ -87,22 +87,38 @@ const screenshotMap: Record<number, string> = {
 
 export default function ThreeDGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [interactionCount, setInteractionCount] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const resumeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const count = projects.length;
 
-  const handleNext = () => {
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
     setActiveIndex((prev) => (prev + 1) % projects.length);
-    setInteractionCount((c) => c + 1);
+    setIsPaused(true);
   };
 
-  const handlePrev = () => {
+  const handlePrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
     setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    setInteractionCount((c) => c + 1);
+    setIsPaused(true);
   };
 
-  const selectProject = (idx: number) => {
+  const selectProject = (idx: number, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
     setActiveIndex(idx);
-    setInteractionCount((c) => c + 1);
+    setIsPaused(true);
   };
 
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -111,6 +127,11 @@ export default function ThreeDGallery() {
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
+    setIsPaused(true);
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
@@ -132,18 +153,35 @@ export default function ThreeDGallery() {
   };
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval> | undefined;
-    const delayTimer = setTimeout(() => {
-      interval = setInterval(() => {
-        setActiveIndex((prev) => (prev + 1) % projects.length);
-      }, 4500);
-    }, interactionCount > 0 ? 15000 : 0);
+    if (isPaused) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % projects.length);
+    }, 4500);
 
     return () => {
-      clearTimeout(delayTimer);
-      if (interval) clearInterval(interval);
+      clearInterval(interval);
     };
-  }, [interactionCount]);
+  }, [isPaused]);
+
+  useEffect(() => {
+    const handleDocumentClick = () => {
+      if (isPaused) {
+        if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+        resumeTimerRef.current = setTimeout(() => {
+          setIsPaused(false);
+          resumeTimerRef.current = null;
+        }, 5000);
+      }
+    };
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    };
+  }, [isPaused]);
 
   return (
     <div className="w-full flex flex-col items-center space-y-8 no-swipe">
@@ -238,7 +276,7 @@ export default function ThreeDGallery() {
           {projects.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => selectProject(idx)}
+              onClick={(e) => selectProject(idx, e)}
               className="p-2 min-w-[48px] min-h-[48px] transition-all duration-300 focus-visible:outline-none flex items-center justify-center"
               aria-label={`Go to project ${idx + 1}`}
             >
