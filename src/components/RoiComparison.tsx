@@ -13,32 +13,32 @@ const criteriaData: CriterionData[] = [
   {
     id: "speed",
     title: "Loading Speed",
-    standard: { value: "Slow", impact: "Causes client drop-off" },
-    custom: { value: "Instant", impact: "Zero client delay" }
+    standard: { value: "3.5 Seconds", impact: "Slower on mobile screens" },
+    custom: { value: "1.2 Seconds", impact: "Loads fast on all devices" }
   },
   {
     id: "fees",
     title: "Monthly Fees",
-    standard: { value: "Ongoing", impact: "Locked in forever" },
-    custom: { value: "None", impact: "You own the code" }
+    standard: { value: "Ongoing", impact: "Pay every month forever" },
+    custom: { value: "None", impact: "No monthly design fees" }
   },
   {
     id: "layout",
-    title: "Design Layout",
-    standard: { value: "Generic", impact: "Cookie-cutter templates" },
-    custom: { value: "Bespoke", impact: "Custom architecture" }
+    title: "Website Design",
+    standard: { value: "Template", impact: "Pre-made design layout" },
+    custom: { value: "Custom", impact: "Built exactly for your brand" }
   },
   {
     id: "ownership",
-    title: "Code Ownership",
-    standard: { value: "Locked", impact: "Platform dependency" },
-    custom: { value: "Full Ownership", impact: "Complete source files" }
+    title: "File Ownership",
+    standard: { value: "Locked", impact: "Hosted on their platform only" },
+    custom: { value: "100% Owned", impact: "You own all website files" }
   },
   {
     id: "customers",
     title: "Google Ranking",
-    standard: { value: "Page 2+", impact: "Invisible to searchers" },
-    custom: { value: "Rank #1", impact: "SEO optimized markup" }
+    standard: { value: "Page 2 or 3", impact: "Harder for customers to find" },
+    custom: { value: "Page 1", impact: "Better search visibility" }
   }
 ];
 
@@ -106,7 +106,7 @@ export default function RoiComparison() {
     if (stageId === "all") return `${prefix} STANDARD`;
     if (stageId === "speed") return `${prefix} SPEED`;
     if (stageId === "fees") return `${prefix} FEES`;
-    if (stageId === "layout") return `${prefix} LAYOUT`;
+    if (stageId === "layout") return `${prefix} DESIGN`;
     if (stageId === "ownership") return `${prefix} OWNERSHIP`;
     if (stageId === "customers") return `${prefix} RANKING`;
     return `${prefix} STANDARD`;
@@ -132,7 +132,7 @@ export default function RoiComparison() {
     transform: isBack ? "rotateY(180deg)" : "rotateY(0deg)",
   });
 
-  // ── Render helpers ──
+  // ── Render helper
   const renderStandardCard = (stageId: string) => {
     if (stageId === "all") {
       return (
@@ -166,61 +166,139 @@ export default function RoiComparison() {
 
     if (stageId === "speed") {
       title = "Loading Speed";
-      desc = "Bloated template builders load dozens of unused CSS and JavaScript files, resulting in high mobile visitor drop-offs.";
+      desc = "Standard template sites often load extra files they don't need, which makes the website take longer to load on phones.";
       visual = (
-        <div className="w-full space-y-2 p-2.5 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono">
-          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800">
-            <span>Browser Paint Load</span>
-            <span className="text-slate-900">3.8s</span>
+        <div className="w-full space-y-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[9px] text-slate-500">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800 border-b border-slate-100 pb-1">
+            <span>Page Loading Order</span>
+            <span className="text-slate-900 font-mono">3.5s total</span>
           </div>
-          <div className="h-1.5 bg-slate-200 rounded-full w-full overflow-hidden">
-            <div className="h-full bg-slate-400 rounded-full animate-[fillSlow_4s_linear_forwards]" />
+          <div className="space-y-1.5 pt-1">
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>system-scripts.js (280KB)</span>
+                <span className="text-slate-900 font-bold">1.2s</span>
+              </div>
+              <div className="h-1.5 bg-slate-200 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-slate-400 rounded-full w-[40%]" />
+              </div>
+            </div>
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>layout-styles.css (140KB)</span>
+                <span className="text-slate-900 font-bold">0.8s</span>
+              </div>
+              <div className="h-1.5 bg-slate-200 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-slate-400 rounded-full w-[60%]" />
+              </div>
+            </div>
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>header-image.jpg (1.5MB)</span>
+                <span className="text-slate-900 font-bold">2.4s</span>
+              </div>
+              <div className="h-1.5 bg-slate-200 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-slate-400 rounded-full w-[90%]" />
+              </div>
+            </div>
           </div>
         </div>
       );
     } else if (stageId === "fees") {
       title = "Monthly Fees";
-      desc = "Platform dependencies tie your business to lifetime subscription fees, shutting down when payments stop.";
+      desc = "Template builders charge monthly subscription fees to keep your website live on the internet.";
       visual = (
-        <div className="w-full space-y-1.5 p-2.5 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[10px]">
-          <div className="flex justify-between text-slate-600">
-            <span>Ongoing SaaS</span>
+        <div className="w-full space-y-1.5 p-3 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[9.5px] text-slate-500">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800 border-b border-slate-100 pb-1">
+            <span>Monthly Website Costs</span>
             <span className="text-slate-900 font-bold">${feesStandard}.00/mo</span>
+          </div>
+          <div className="space-y-1 pt-1">
+            <div className="flex justify-between">
+              <span>Website builder subscription</span>
+              <span className="text-slate-900 font-bold">$39/mo</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Template theme renewal</span>
+              <span className="text-slate-900 font-bold">$15/mo</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Plugin / extension fees</span>
+              <span className="text-slate-900 font-bold">$26/mo</span>
+            </div>
           </div>
         </div>
       );
     } else if (stageId === "layout") {
-      title = "Design Layout";
-      desc = "Cookie-cutter themes restrict your site to standard grid designs, diluting your brand's unique identity.";
+      title = "Website Design";
+      desc = "Pre-made templates have fixed layouts, making it harder to customize the style exactly how you want.";
       visual = (
-        <div className="w-full p-2.5 bg-slate-50 border border-slate-100 rounded-xl space-y-1.5 text-left">
-          <div className="h-4 bg-slate-200 rounded w-full flex items-center justify-center text-[8px] font-mono text-slate-400">Standard Grid</div>
+        <div className="w-full space-y-1.5 p-3 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[9.5px] text-slate-500">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800 border-b border-slate-100 pb-1">
+            <span>Template Layout Grid</span>
+            <span className="text-slate-400">[Fixed Layout]</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-3 text-center text-[8px] text-slate-400">
+              Left Block
+            </div>
+            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-3 text-center text-[8px] text-slate-400">
+              Right Block
+            </div>
+          </div>
+          <div className="text-[7.5px] text-slate-400 font-sans text-center">
+            Template layouts have pre-set sections that are hard to move.
+          </div>
         </div>
       );
     } else if (stageId === "ownership") {
-      title = "Code Ownership";
-      desc = "Source files are locked inside proprietary platforms, making migration to own hosting impossible without rebuilding.";
+      title = "File Ownership";
+      desc = "Your website files are stored inside their system, meaning you cannot easily move them to another host.";
       visual = (
-        <div className="w-full space-y-1.5 p-2.5 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[10px] text-slate-600">
-          <div className="flex justify-between font-bold text-slate-900">
-            <span>Locked Platform</span>
+        <div className="w-full space-y-1.5 p-3 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[9.5px] text-slate-500">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800 border-b border-slate-100 pb-1">
+            <span>Server File Access</span>
+            <span className="text-slate-400">[Locked Access]</span>
+          </div>
+          <div className="space-y-1 pt-1">
+            <div className="flex justify-between">
+              <span>Direct File Access (FTP)</span>
+              <span className="text-slate-900 font-bold">Inaccessible</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Database Download</span>
+              <span className="text-slate-900 font-bold">Disabled</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Website File Transfer</span>
+              <span className="text-slate-900 font-bold">Not Supported</span>
+            </div>
           </div>
         </div>
       );
     } else if (stageId === "customers") {
       title = "Google Ranking";
-      desc = "Bloated code and slow load times push your website down in Google search, making you invisible to searchers.";
+      desc = "Slower page loads can make Google rank your website lower in search results.";
       visual = (
-        <div className="w-full space-y-1 p-2.5 bg-slate-50 border border-slate-100 rounded-xl text-left text-[10px] font-mono text-slate-500">
-          <div className="font-bold text-slate-900">Rank: 18 (Page 2)</div>
+        <div className="w-full space-y-1.5 p-3 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[9.5px] text-slate-500">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-slate-800 border-b border-slate-100 pb-1">
+            <span>Google Search Results</span>
+            <span className="text-slate-400">[Search: "Web Designer"]</span>
+          </div>
+          <div className="space-y-1 pt-1 pl-1 border-l border-slate-200">
+            <div className="text-slate-400">1. Competitor Website (Loads Faster)</div>
+            <div className="text-slate-400">2. Competitor Agency (Loads Faster)</div>
+            <div className="font-bold text-slate-900">18. Your Website (Loads Slower)</div>
+          </div>
         </div>
       );
     }
 
     return (
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full w-full">
+        {/* Header */}
         <div className="text-center border-b border-slate-100 pb-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-550 block">{getSubTitle(stageId, false)}</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">{getSubTitle(stageId, false)}</span>
           <h3 className="text-base sm:text-lg font-black text-slate-900 uppercase tracking-widest mt-1">Standard Build</h3>
         </div>
         <div key={stageId} className="flex-1 flex flex-col justify-center py-2 space-y-2">
@@ -271,57 +349,137 @@ export default function RoiComparison() {
 
     if (stageId === "speed") {
       title = "Loading Speed";
-      desc = "Optimized source code delivers instant rendering with clean semantic markup for perfect Lighthouse scores.";
+      desc = "Custom websites are built with clean code and only load the files they actually need, making pages open much faster.";
       visual = (
-        <div className="w-full space-y-2 p-2.5 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-slate-400">
-          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white">
-            <span>Browser Paint Load</span>
-            <span className="text-white">0.1s (Instant)</span>
+        <div className="w-full space-y-2 p-3 bg-slate-950 border border-slate-850 rounded-xl text-left font-mono text-slate-400">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white border-b border-slate-800 pb-1">
+            <span>Page Loading Order</span>
+            <span className="text-white font-mono">1.2s total</span>
           </div>
-          <div className="h-1.5 bg-slate-800 rounded-full w-full overflow-hidden">
-            <div className="h-full bg-white rounded-full animate-[fillFast_1s_cubic-bezier(0.1,0.9,0.2,1)_forwards]" />
+          <div className="space-y-1.5 pt-1">
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>website-page.html (12KB)</span>
+                <span className="text-white font-bold">0.4s</span>
+              </div>
+              <div className="h-1.5 bg-slate-800 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-white rounded-full w-[33%]" />
+              </div>
+            </div>
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>clean-styles.css (35KB)</span>
+                <span className="text-white font-bold">0.4s</span>
+              </div>
+              <div className="h-1.5 bg-slate-800 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-white rounded-full w-[66%]" />
+              </div>
+            </div>
+            <div className="space-y-0.5">
+              <div className="flex justify-between">
+                <span>clean-scripts.js (25KB)</span>
+                <span className="text-white font-bold">0.4s</span>
+              </div>
+              <div className="h-1.5 bg-slate-800 rounded-full w-full overflow-hidden">
+                <div className="h-full bg-white rounded-full w-full" />
+              </div>
+            </div>
           </div>
         </div>
       );
     } else if (stageId === "fees") {
       title = "Monthly Fees";
-      desc = "No monthly SaaS rent or license fees. Enjoy free edge hosting and dynamic functions.";
+      desc = "Since you own the code, you can use free or low-cost hosting services without paying monthly design fees.";
       visual = (
-        <div className="w-full space-y-1.5 p-2.5 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-[10px] text-slate-400">
-          <div className="flex justify-between font-bold text-white">
-            <span>Recurring Outflow</span>
-            <span>$0.00/mo</span>
+        <div className="w-full space-y-1.5 p-3 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-[10px] text-slate-400">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white border-b border-slate-800 pb-1">
+            <span>Hosting & Support Costs</span>
+            <span className="text-white font-mono">$0.00/mo</span>
+          </div>
+          <div className="space-y-1 pt-1">
+            <div className="flex justify-between">
+              <span>Cloud website hosting</span>
+              <span className="text-white font-bold">$0.00/mo</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Security certificate (SSL)</span>
+              <span className="text-white font-bold">$0.00/mo</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Contact forms & database</span>
+              <span className="text-white font-bold">$0.00/mo</span>
+            </div>
           </div>
         </div>
       );
     } else if (stageId === "layout") {
-      title = "Design Layout";
-      desc = "Handcrafted front-end styles built from the ground up, allowing infinite layout flexibility and perfect branding.";
+      title = "Website Design";
+      desc = "Custom code gives you complete control over the layout, allowing any design structure you need.";
       visual = (
-        <div className="w-full p-2.5 bg-slate-955 border border-slate-850 rounded-xl space-y-1.5 text-left">
-          <div className="h-4 bg-slate-900 rounded w-full flex items-center justify-center text-[8px] font-mono text-slate-455">Bespoke Architecture</div>
+        <div className="w-full p-2.5 bg-slate-955 border border-slate-855 rounded-xl space-y-1.5 text-left font-mono text-[9.5px]">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white border-b border-slate-800 pb-1">
+            <span>Custom Layout Grid</span>
+            <span className="text-slate-500">[Flexible Layout]</span>
+          </div>
+          <div className="grid grid-cols-12 gap-2 pt-1">
+            <div className="bg-slate-900 border border-slate-800 rounded p-2 col-span-8 text-[7.5px] text-white flex items-center justify-center font-bold">
+              Main Column (8/12)
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded p-2 col-span-4 text-[7.5px] text-slate-500 flex items-center justify-center">
+              Sidebar (4/12)
+            </div>
+          </div>
+          <div className="text-[7.5px] text-slate-500 font-sans text-center">
+            Complete control over layout columns, alignment, and spacing.
+          </div>
         </div>
       );
     } else if (stageId === "ownership") {
-      title = "Code Ownership";
-      desc = "Direct access to full source files. Version controlled in a private repository, giving you total freedom.";
+      title = "File Ownership";
+      desc = "You get the complete website files, giving you the freedom to move or host your website anywhere.";
       visual = (
-        <div className="w-full space-y-1.5 p-2.5 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-[10px] text-slate-400">
-          <div className="font-bold text-white">100% Independent</div>
+        <div className="w-full space-y-1.5 p-3 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-[9.5px] text-slate-400">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white border-b border-slate-800 pb-1">
+            <span>Source Code Repository</span>
+            <span className="text-white">[Full Access]</span>
+          </div>
+          <div className="space-y-1 pt-1">
+            <div className="flex justify-between">
+              <span>Website Files Status</span>
+              <span className="text-white font-bold">100% Privately Owned</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Server Transfer</span>
+              <span className="text-white font-bold">Allowed / Free to move</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Hosting Support</span>
+              <span className="text-white font-bold">Any provider you choose</span>
+            </div>
+          </div>
         </div>
       );
     } else if (stageId === "customers") {
       title = "Google Ranking";
-      desc = "Clean semantic markup and instant edge performance satisfy Google's core vitals, ranking your business at the top.";
+      desc = "Fast loading times and clean coding help Google read and rank your website higher.";
       visual = (
-        <div className="w-full space-y-1 p-2.5 bg-slate-955 border border-slate-800 rounded-xl text-left text-[10px] font-mono text-slate-400">
-          <div className="font-bold text-white">Rank: 1 (SEO Optimized)</div>
+        <div className="w-full space-y-1.5 p-3 bg-slate-955 border border-slate-850 rounded-xl text-left font-mono text-[9.5px] text-slate-400">
+          <div className="flex justify-between items-center text-[10px] font-sans font-bold text-white border-b border-slate-800 pb-1">
+            <span>Google Search Results</span>
+            <span className="text-slate-550">[Search: "Web Designer"]</span>
+          </div>
+          <div className="space-y-1 pt-1 pl-1 border-l border-slate-800">
+            <div className="font-bold text-white">1. Your Website (Loads Faster)</div>
+            <div className="text-slate-500">2. Competitor Website</div>
+            <div className="text-slate-500">3. Competitor Agency</div>
+          </div>
         </div>
       );
     }
 
     return (
       <div className="bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-850 shadow-md flex flex-col justify-between h-full w-full text-white">
+        {/* Header */}
         <div className="text-center border-b border-slate-800 pb-3">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">{getSubTitle(stageId, true)}</span>
           <h3 className="text-base sm:text-lg font-black text-white uppercase tracking-widest mt-1">Custom Build</h3>
