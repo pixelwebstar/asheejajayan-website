@@ -25,12 +25,18 @@ const initialCards: CardData[] = [
     num: "03",
     title: "Get Text Notification",
     desc: "You get a text message on your phone right away. This lets you call the customer back fast before they look for someone else."
+  },
+  {
+    id: "box-4",
+    num: "04",
+    title: "Instant Auto-Response",
+    desc: "Send automated text or email replies immediately to keep customers engaged while you prepare to call."
   }
 ];
 
 export default function GravityBentoGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
       {initialCards.map((card) => (
         <div
           key={card.id}

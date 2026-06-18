@@ -7,6 +7,7 @@ import ThreeDGallery from "@/components/ThreeDGallery";
 import ContactForm from "@/components/ContactForm";
 import MethodTimeline from "@/components/MethodTimeline";
 import type { Metadata } from "next";
+import RoiComparison from "@/components/RoiComparison";
 
 export const metadata: Metadata = {
   title: "Amrith Sheeja Jayan - Web Developer",
@@ -42,68 +43,6 @@ function FullSection({ children, bgClass, id, bgImage }: { children: ReactNode; 
   );
 }
 
-const criteriaData = [
-  {
-    id: "speed",
-    title: "Loading Speed",
-    standard: {
-      value: "Slow",
-      impact: "Causes client drop-off"
-    },
-    custom: {
-      value: "Instant",
-      impact: "Zero client delay, higher conversion"
-    }
-  },
-  {
-    id: "fees",
-    title: "Monthly Fees",
-    standard: {
-      value: "Ongoing",
-      impact: "Locked in forever"
-    },
-    custom: {
-      value: "None",
-      impact: "You own hosting & code"
-    }
-  },
-  {
-    id: "layout",
-    title: "Design Layout",
-    standard: {
-      value: "Generic",
-      impact: "Generic layouts"
-    },
-    custom: {
-      value: "Bespoke",
-      impact: "Custom conversion architecture"
-    }
-  },
-  {
-    id: "ownership",
-    title: "Code Ownership",
-    standard: {
-      value: "Locked",
-      impact: "Platform dependency & lock-in"
-    },
-    custom: {
-      value: "Full Ownership",
-      impact: "Complete source files, no rent"
-    }
-  },
-  {
-    id: "security",
-    title: "Security Risks",
-    standard: {
-      value: "Vulnerable",
-      impact: "High plugin dependencies"
-    },
-    custom: {
-      value: "Bulletproof",
-      impact: "Static code, no databases"
-    }
-  }
-];
 
 export default function Home() {
   const schemaMarkup = {
@@ -231,58 +170,8 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Criteria Comparison Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-[1400px] mx-auto items-stretch">
-            {/* Standard Card */}
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6 flex flex-col justify-between">
-              <div className="text-center border-b border-slate-100 pb-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">OLD STANDARD</span>
-                <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest mt-1">Standard Build</h3>
-              </div>
-              <div className="space-y-4 flex-1">
-                {criteriaData.map((crit) => (
-                  <div key={crit.id} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start border-b border-slate-50 last:border-0 pb-4 last:pb-0">
-                    <div className="sm:col-span-4 shrink-0">
-                      <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block pt-0.5">{crit.title}</span>
-                    </div>
-                    <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
-                      <div className="text-xs font-bold text-slate-800">{crit.standard.value}</div>
-                    </div>
-                    <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
-                      <div className="text-[11px] text-slate-600 font-medium leading-relaxed">{crit.standard.impact}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Custom Card */}
-            <div className="bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-850 shadow-md space-y-6 text-white relative flex flex-col justify-between">
-              <div className="text-center border-b border-slate-800 pb-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block">NEW STANDARD</span>
-                <h3 className="text-lg font-black text-white uppercase tracking-widest mt-1">Custom Build</h3>
-              </div>
-              <div className="space-y-4 flex-1">
-                {criteriaData.map((crit) => (
-                  <div key={crit.id} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 items-start border-b border-slate-800 last:border-0 pb-4 last:pb-0">
-                    <div className="sm:col-span-4 shrink-0">
-                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block pt-0.5">{crit.title}</span>
-                    </div>
-                    <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block sm:hidden mb-0.5">Value</span>
-                      <div className="text-xs font-bold text-white">{crit.custom.value}</div>
-                    </div>
-                    <div className="sm:col-span-4 text-left">
-                      <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest block sm:hidden mb-0.5">Impact</span>
-                      <div className="text-[11px] text-slate-300 font-medium leading-relaxed">{crit.custom.impact}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Interactive 3D Card Comparison */}
+          <RoiComparison />
 
           {/* CTA */}
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">

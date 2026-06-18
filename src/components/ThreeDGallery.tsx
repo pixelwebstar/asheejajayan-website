@@ -270,20 +270,6 @@ export default function ThreeDGallery() {
         >
           <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
         </Link>
-
-        {/* Mobile Pagination Indicator Dots */}
-        <div className="flex justify-center gap-1.5 mt-4">
-          {projects.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={(e) => selectProject(idx, e)}
-              className="p-2 min-w-[48px] min-h-[48px] transition-all duration-300 focus-visible:outline-none flex items-center justify-center"
-              aria-label={`Go to project ${idx + 1}`}
-            >
-              <span className={`block h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? "bg-slate-900 w-4" : "bg-slate-400 hover:bg-slate-500 w-2"}`} />
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Active Project Info & Standard Navigation Panel */}

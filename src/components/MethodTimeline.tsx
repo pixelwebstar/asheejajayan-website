@@ -261,11 +261,27 @@ export default function MethodTimeline() {
     }
     setActiveStep(num);
     setIsPaused(true);
+
+    // Smooth scroll to selected step on mobile/tablet viewports
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setTimeout(() => {
+        const element = document.getElementById(`step-card-${num}`);
+        if (element) {
+          const navbarHeight = window.innerWidth >= 640 ? 112 : 96;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - navbarHeight - 16; // 16px buffer
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 150); // Small timeout to wait for height animation to trigger
+    }
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-stretch w-full min-h-[580px]">
-      <div className="lg:col-span-1 flex flex-col justify-between self-stretch py-4 lg:py-6 w-full lg:sticky lg:top-24 lg:border-r lg:border-slate-200/80 lg:pr-16 text-left items-start h-full min-h-[520px]">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-stretch w-full min-h-0 lg:min-h-[580px]">
+      <div className="lg:col-span-1 flex flex-col justify-between self-stretch py-4 lg:py-6 w-full lg:sticky lg:top-24 lg:border-r lg:border-slate-200/80 lg:pr-16 text-left items-start h-full min-h-0 lg:min-h-[520px]">
         <div className="flex flex-col justify-start w-full text-left max-w-[500px] pb-6 space-y-1.5">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block font-mono">
             OUR METHOD
@@ -401,13 +417,14 @@ export default function MethodTimeline() {
         </div>
       </div>
 
-      <div className="lg:col-span-1 flex flex-col justify-start self-stretch py-4 lg:py-6 w-full lg:pl-16 h-full">
+      <div className="lg:col-span-1 flex flex-col justify-center self-stretch py-4 lg:py-6 w-full lg:pl-16 h-full">
         <div className="w-full text-left">
           {steps.map((step) => {
             const isActive = step.num === activeStep;
             return (
               <div
                 key={step.num}
+                id={`step-card-${step.num}`}
                 onClick={(e) => handleStepSelect(step.num, e)}
                 className="flex gap-6 items-start py-5 border-b border-slate-200/80 last:border-0 cursor-pointer group select-none transition-all duration-300"
                 role="button"
@@ -434,40 +451,52 @@ export default function MethodTimeline() {
                     {step.desc}
                   </p>
 
-                  {isActive && (
-                    <div className="block lg:hidden mt-4 pt-4 border-t border-slate-100 space-y-3 animate-timeline-switch">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block font-mono">
-                        Things Covered
-                      </span>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <ul className="space-y-2 text-sm text-slate-600 font-medium">
+                  <div
+                    className={`block lg:hidden grid transition-[grid-template-rows,opacity,margin,padding] duration-300 ease-in-out ${
+                      isActive
+                        ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-slate-100"
+                        : "grid-rows-[0fr] opacity-0 mt-0 pt-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden space-y-5">
+                      {/* Things Covered */}
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block font-mono">
+                          Things Covered
+                        </span>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-600 font-medium">
                           {step.deliverables.map((item, dIdx) => (
                             <li key={dIdx} className="flex items-start gap-2">
-                              <span className="text-slate-400 shrink-0 select-none">
+                              <span className="text-slate-400 font-mono text-[10px] shrink-0 pt-0.5">
                                 {String(dIdx + 1).padStart(2, "0")}.
                               </span>
-                              <span>{item}</span>
+                              <span className="text-slate-700">{item}</span>
                             </li>
                           ))}
                         </ul>
-                        <div className="space-y-1.5 pl-4 border-l border-slate-100 flex flex-col justify-between">
-                          <div className="space-y-1">
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
-                              What We Do
-                            </span>
-                            <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                              {step.focusDesc}
-                            </p>
-                          </div>
-                          <div className="pt-2 border-t border-slate-50 text-[9px] text-slate-500 font-medium">
-                            <span className="font-bold uppercase tracking-wider block font-mono text-[8px] text-slate-500 mb-0.5">Next Step:</span>
+                      </div>
+
+                      {/* What We Do & Next Step Stacked */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
+                            What We Do
+                          </span>
+                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                            {step.focusDesc}
+                          </p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
+                            Next Step
+                          </span>
+                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
                             {step.nextStep}
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             );
