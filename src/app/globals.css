@@ -2,6 +2,24 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-fade-in-up,
+  .animate-timeline-switch {
+    animation: none !important;
+    opacity: 1;
+  }
 }
 
 @theme inline {
@@ -12,7 +30,7 @@ html {
   --color-surface-2: var(--surface-2);
   --color-border: var(--border);
   --color-muted: var(--muted);
-  --font-sans: var(--font-inter);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --color-warm-light: #FAF5F0;
   /* Clean light champagne/warm sand */
   --color-cool-light: #F0F4F8;
@@ -47,8 +65,9 @@ body {
 
 /* Navbar height tokens — keep in sync with Navbar.tsx */
 :root {
-  --navbar-h: 96px;
-  /* h-14 (56px) + h-10 (40px) = 96px */
+  --navbar-h: 104px;
+  /* h-14 (56px) + h-12 (48px) */
+  --vh: 1vh;
 
   /* 3D Gallery parameters (Tablet / Intermediate screens) */
   --flow-shift: 185px;
@@ -65,34 +84,44 @@ body {
 
 @media (min-width: 1200px) {
   :root {
-    --flow-shift: 260px;
+    --flow-shift: 220px;
     --flow-scale: 1.05;
-    --flow-gap: 55px;
+    --flow-gap: 48px;
   }
 }
 
 /*
-  Viewport height is captured ONCE on page load via JS (see layout.tsx)
-  and stored in --vh. This prevents dynamic resizing from mobile browser
-  chrome or window drag — height only recalculates on full page reload.
+  Viewport height is stored in --vh via JS (see layout.tsx).
+  On mobile, --vh only updates when width changes so the browser URL bar
+  sliding in/out does not resize full-height sections.
 */
 .hero-section,
 .full-section {
   /* On mobile, use min-height so content can expand without getting cut off */
-  min-height: calc(100dvh - var(--navbar-h));
+  min-height: calc(var(--vh) * 100 - var(--navbar-h));
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
+.full-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 @media (min-width: 1200px) and (min-height: 850px) {
   /* On large and tall desktop displays, lock every section to exactly one page size */
   .hero-section,
   .full-section {
-    height: calc(100dvh - var(--navbar-h));
+    height: calc(var(--vh) * 100 - var(--navbar-h));
     min-height: auto;
     overflow: hidden;
+  }
+
+  /* Coverflow cards stick out past the section; don't clip the side stacks */
+  #projects.full-section {
+    overflow: visible;
   }
 }
 
@@ -141,6 +170,34 @@ body {
 
 .preserve-3d {
   transform-style: preserve-3d;
+}
+
+#projects.full-section {
+  overflow: visible;
+}
+
+.hero-bg-blur {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  mask-image: radial-gradient(circle, black 15%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle, black 15%, transparent 60%);
+}
+
+.hero-bg-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(250, 245, 240, 0.92) 0%,
+    rgba(250, 245, 240, 0.65) 45%,
+    rgba(250, 245, 240, 0) 80%
+  );
 }
 
 .reflect-below {

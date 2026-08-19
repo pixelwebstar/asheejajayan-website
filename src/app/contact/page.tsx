@@ -63,7 +63,7 @@ function ContactContent() {
       </HeroSection>
 
       {/* SECTION 2: MESSAGE FORM (Cool Slate) */}
-      <FullSection id="message" bgClass="bg-cool-light">
+      <FullSection id="form" bgClass="bg-cool-light">
         <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
           <div className="text-center space-y-6 flex flex-col items-center">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
@@ -78,22 +78,24 @@ function ContactContent() {
             <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
-                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
+                  <label htmlFor="contact-page-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
+                  <input id="contact-page-name" type="text" name="name" autoComplete="name" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
                 </div>
                 <div className="space-y-2 text-center sm:text-left">
-                  <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
-                  <input type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
+                  <label htmlFor="contact-page-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
+                  <input id="contact-page-email" type="email" name="email" autoComplete="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
                 </div>
               </div>
 
               <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
+                <label htmlFor="contact-page-scope" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
                 <div className="relative">
                   <select
+                    id="contact-page-scope"
+                    name="scope"
                     value={plan}
                     onChange={(e) => setPlan(e.target.value)}
-                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
                   >
                     <option value="">Select a package...</option>
                     <option value="essential">Essential Package ($999)</option>
@@ -101,19 +103,21 @@ function ContactContent() {
                     <option value="enterprise">Enterprise Package ($4,999+)</option>
                     <option value="custom">Custom Bespoke Solution</option>
                   </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-400 font-bold select-none">
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-600 font-bold select-none">
                     ▼
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2 text-center sm:text-left">
-                <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
+                <label htmlFor="contact-page-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
                 <textarea
+                  id="contact-page-details"
+                  name="details"
                   rows={5}
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
-                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
+                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
                   placeholder="Describe your business requirements..."
                 ></textarea>
               </div>
@@ -140,24 +144,24 @@ function ContactContent() {
 
           <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
             <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Executive Email</span>
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Executive Email</span>
               <div className="text-xl font-bold text-slate-900">hello@amrith.com</div>
             </div>
             <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Headquarters</span>
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Headquarters</span>
               <div className="text-xl font-bold text-slate-900">Canada</div>
             </div>
             <div className="space-y-4">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Digital Profiles</span>
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Digital Profiles</span>
               <div className="flex justify-center gap-8 pt-2 text-xs font-bold text-slate-900">
-                <a href="#" className="hover:text-slate-500 transition-colors uppercase tracking-widest">LinkedIn</a>
-                <a href="#" className="hover:text-slate-500 transition-colors uppercase tracking-widest">GitHub</a>
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors uppercase tracking-widest min-h-11 inline-flex items-center">LinkedIn</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors uppercase tracking-widest min-h-11 inline-flex items-center">GitHub</a>
               </div>
             </div>
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="/pricing" className={`${btnPrimary} w-full sm:w-auto`}>
               Return to Pricing
             </Link>
           </div>

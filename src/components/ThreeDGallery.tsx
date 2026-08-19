@@ -88,8 +88,19 @@ const screenshotMap: Record<number, string> = {
 export default function ThreeDGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [isLg, setIsLg] = useState(false);
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const resumeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const count = projects.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => setIsLg(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const handleNext = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -153,7 +164,18 @@ export default function ThreeDGallery() {
   };
 
   useEffect(() => {
-    if (isPaused) {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "80px", threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || !inView) {
       return;
     }
 
@@ -164,7 +186,7 @@ export default function ThreeDGallery() {
     return () => {
       clearInterval(interval);
     };
-  }, [isPaused]);
+  }, [isPaused, inView]);
 
   useEffect(() => {
     const handleDocumentClick = () => {
@@ -184,7 +206,7 @@ export default function ThreeDGallery() {
   }, [isPaused]);
 
   return (
-    <div className="w-full flex flex-col items-center space-y-8 no-swipe">
+    <div ref={rootRef} className="w-full flex flex-col items-center space-y-8 no-swipe">
       {/* 3D Gallery Stage (Hidden on Mobile) */}
       <div className="hidden lg:flex w-full h-[340px] items-center justify-center relative perspective-stage select-none overflow-visible pt-4">
         <div className="relative w-[520px] h-[310px] preserve-3d">
@@ -224,12 +246,15 @@ export default function ThreeDGallery() {
               pointerEvents = "none";
             }
 
+            const isFar = Math.abs(diff) > 3;
+            if (isFar) return null;
+
             return (
               <Link
                 key={project.id}
-                href={project.url !== "#" ? project.url : ""}
-                target={project.url !== "#" ? "_blank" : undefined}
-                rel={project.url !== "#" ? "noopener noreferrer" : undefined}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={(e) => {
                   if (!isActive) {
                     e.preventDefault();
@@ -247,7 +272,7 @@ export default function ThreeDGallery() {
                 }}
                 aria-label={isActive ? `Open ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}` : `Select ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}`}
               >
-                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={Math.abs(diff) <= 1} />
+                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={inView && isLg && Math.abs(diff) <= 3} />
               </Link>
             );
           })}
@@ -262,13 +287,13 @@ export default function ThreeDGallery() {
         onTouchEnd={onTouchEnd}
       >
         <Link
-          href={projects[activeIndex].url !== "#" ? projects[activeIndex].url : ""}
-          target={projects[activeIndex].url !== "#" ? "_blank" : undefined}
-          rel={projects[activeIndex].url !== "#" ? "noopener noreferrer" : undefined}
+          href={projects[activeIndex].url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150 block"
           aria-label={`Open ${projects[activeIndex].title} - ${projects[activeIndex].url.replace("https://", "").replace("www.", "")}`}
         >
-          <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={true} />
+          <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={inView && !isLg} />
         </Link>
       </div>
 

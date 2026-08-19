@@ -14,11 +14,11 @@ export default function ContactForm() {
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="space-y-2 text-center sm:text-left">
             <label htmlFor="contact-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
-            <input id="contact-name" type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
+            <input id="contact-name" name="name" autoComplete="name" type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
           </div>
           <div className="space-y-2 text-center sm:text-left">
             <label htmlFor="contact-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
-            <input id="contact-email" type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
+            <input id="contact-email" name="email" autoComplete="email" type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
           </div>
         </div>
 
@@ -27,9 +27,10 @@ export default function ContactForm() {
           <div className="relative">
             <select
               id="contact-scope"
+              name="scope"
               value={plan}
               onChange={(e) => setPlan(e.target.value)}
-              className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
+              className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
             >
               <option value="">Select a package...</option>
               <option value="essential">Essential Package ($999)</option>
@@ -37,7 +38,7 @@ export default function ContactForm() {
               <option value="enterprise">Enterprise Package ($4,999+)</option>
               <option value="custom">Custom Bespoke Solution</option>
             </select>
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-400 font-bold select-none">
+            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-600 font-bold select-none">
               ▼
             </div>
           </div>
@@ -47,10 +48,11 @@ export default function ContactForm() {
           <label htmlFor="contact-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
           <textarea
             id="contact-details"
+            name="details"
             rows={5}
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
+            className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
             placeholder="Describe your business requirements..."
           ></textarea>
         </div>

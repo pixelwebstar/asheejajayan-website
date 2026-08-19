@@ -1,17 +1,17 @@
-import Link from "next/link";
-import Image from "next/image";
 import React, { ReactNode } from "react";
 import GravityBentoGrid from "@/components/GravityBentoGrid";
 import HeroSection from "@/components/HeroSection";
 import ThreeDGallery from "@/components/ThreeDGallery";
 import ContactForm from "@/components/ContactForm";
 import MethodTimeline from "@/components/MethodTimeline";
-import type { Metadata } from "next";
 import RoiComparison from "@/components/RoiComparison";
+import type { Metadata } from "next";
+import Picture from "@/components/Picture";
 
 export const metadata: Metadata = {
   title: "Amrith Sheeja Jayan - Web Developer",
   description: "High-performance websites designed to grow your business.",
+  alternates: { canonical: "/" },
 };
 
 const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
@@ -22,20 +22,12 @@ const btnSecondary = "inline-flex items-center justify-center rounded border-2 b
 
 
 
-function FullSection({ children, bgClass, id, bgImage }: { children: ReactNode; bgClass: string; id?: string; bgImage?: string }) {
+function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
   return (
     <section
       id={id}
       className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
-      {bgImage && (
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-45 pointer-events-none"
-          style={{
-            backgroundImage: `url(${bgImage})`,
-          }}
-        />
-      )}
       <div className={`${shell} relative z-10 w-full`}>
         {children}
       </div>
@@ -78,12 +70,12 @@ export default function Home() {
             We design and code high-performance websites that help business owners win more clients and automate customer follow-ups.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
+            <a href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
               See My Work
-            </Link>
-            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
+            </a>
+            <a href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
               Start Your Project
-            </Link>
+            </a>
           </div>
         </div>
       </HeroSection>
@@ -112,19 +104,19 @@ export default function Home() {
               { num: "05", name: "Google Ads", desc: "Targeted campaigns that show your business to active customers who are looking to hire you today.", id: "google-ads" },
               { num: "06", name: "Support & Operations", desc: "Daily database backups, performance monitoring, and content updates so you never worry about tech.", id: "support-ops" }
             ].map((srv) => (
-              <Link
+              <a
                 href={`/services#${srv.id}`}
                 key={srv.num}
                 className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-500 block tracking-widest">{srv.num}</span>
+                  <span className="text-xs font-bold text-slate-600 block tracking-widest">{srv.num}</span>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider group-hover:text-muted transition-colors">{srv.name}</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{srv.desc}</p>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
@@ -170,17 +162,16 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Interactive 3D Card Comparison */}
           <RoiComparison />
 
           {/* CTA */}
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <Link href="#services" className={btnSecondary}>
+            <a href="#services" className={btnSecondary}>
               See How We Do It
-            </Link>
-            <Link href="/contact" className={btnPrimary}>
+            </a>
+            <a href="/contact" className={btnPrimary}>
               Start Your Project
-            </Link>
+            </a>
           </div>
         </div>
       </FullSection>
@@ -215,20 +206,19 @@ export default function Home() {
             <div className="lg:col-span-5 w-full flex justify-center lg:justify-start">
               <div className="bg-white p-6 lg:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-5 lg:space-y-6 w-full max-w-sm lg:max-w-[440px] text-center">
                 <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
-                  <Image
+                  <Picture
                     src="/founder.webp"
-                    alt="Amrith Sheeja Jayan Portrait"
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 440px"
-                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    alt="Portrait of Amrith Sheeja Jayan, founder and lead systems developer"
+                    width={800}
+                    height={800}
+                    className="absolute inset-0 h-full w-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-lg font-black tracking-tight text-slate-900">
                     Amrith Sheeja Jayan
                   </h3>
-                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">
+                  <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">
                     Founder / Lead Systems Developer
                   </span>
                 </div>
@@ -271,12 +261,12 @@ export default function Home() {
               </div>
 
               <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-5 justify-start w-full sm:w-auto">
-                <Link href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
+                <a href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
                   Read My Story
-                </Link>
-                <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
+                </a>
+                <a href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
                   Start Your Project
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -310,7 +300,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">MV</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Marcus V.</span>
-                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Business Owner</span>
                 </div>
               </footer>
             </div>
@@ -324,7 +314,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">DK</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">David K.</span>
-                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Local Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Local Business Owner</span>
                 </div>
               </footer>
             </div>
@@ -338,7 +328,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 text-sm font-black">SL</div>
                 <div>
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Sarah L.</span>
-                  <span className="text-[10px] font-semibold text-slate-500 block uppercase tracking-widest">Service Company</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Service Company</span>
                 </div>
               </footer>
             </div>

@@ -1,9 +1,8 @@
 import React from "react";
-import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-surface-2 border-t border-border pt-12 lg:pt-20 pb-6 lg:pb-10">
+    <footer className="bg-surface-2 border-t border-border pt-12 lg:pt-20 pb-6 lg:pb-10">
       <div className="mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28">
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 md:gap-6 mb-12 lg:mb-16">
 
@@ -22,15 +21,15 @@ const Footer = () => {
           {/* Pages - Column 2 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
             <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">PAGES</h2>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-2">
               {["Home", "About", "Services", "Pricing", "Contact"].map((item) => (
                 <li key={item}>
-                  <Link
+                  <a
                     href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider block"
+                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider inline-flex items-center min-h-11"
                   >
                     {item}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -39,15 +38,15 @@ const Footer = () => {
           {/* Services - Column 3 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
             <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">SERVICES</h2>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-2">
               {["Websites", "Layouts", "Automation", "Support", "SEO"].map((item) => (
                 <li key={item}>
-                  <Link
+                  <a
                     href="/services"
-                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider block"
+                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider inline-flex items-center min-h-11"
                   >
                     {item}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -56,21 +55,21 @@ const Footer = () => {
           {/* Resources - Column 4 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
             <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">RESOURCES</h2>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-2">
               {[
                 { label: "Start Project", href: "/contact" },
                 { label: "FAQ", href: "/contact" },
-                { label: "Privacy", href: "#" },
-                { label: "Terms", href: "#" },
-                { label: "Security", href: "#" }
+                { label: "Privacy", href: "/privacy" },
+                { label: "Terms", href: "/terms" },
+                { label: "Security", href: "/privacy" }
               ].map((item) => (
                 <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider block"
-                  >
+                    <a
+                      href={item.href}
+                      className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider inline-flex items-center min-h-11"
+                    >
                     {item.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -79,30 +78,36 @@ const Footer = () => {
           {/* Contact - Column 5 */}
           <div className="col-span-1 md:col-span-2 space-y-6 text-center md:text-left">
             <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">CONTACT</h2>
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-2">
               {[
-                { label: "Booking", href: "/#pricing" },
-                { label: "Email", href: "mailto:amrith@example.com" },
+                { label: "Booking", href: "/pricing" },
+                { label: "Email", href: "mailto:hello@amrith.com" },
                 { label: "Phone", href: "tel:+1234567890" },
                 { label: "GitHub", href: "https://github.com" },
-                { label: "LinkedIn", href: "https://linkedin.com" }
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider block"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+                { label: "LinkedIn", href: "https://www.linkedin.com" }
+              ].map((item) => {
+                const external = item.href.startsWith("http");
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="text-xs font-bold text-foreground hover:text-muted transition-colors uppercase tracking-wider inline-flex items-center min-h-11"
+                      {...(external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
         </div>
 
         <div className="pt-10 border-t border-border flex flex-col md:flex-row justify-center items-center text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.3em] text-muted gap-6">
-          <p>© {new Date().getFullYear()} AMRITH SHEEJA JAYAN. ALL RIGHTS RESERVED.</p>
+          <p>© 2026 AMRITH SHEEJA JAYAN. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>

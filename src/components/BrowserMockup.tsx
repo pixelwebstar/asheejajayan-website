@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import Picture from "@/components/Picture";
 
 interface BrowserMockupProps {
   url: string;
@@ -32,9 +32,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
     if (isVideo && videoRef.current) {
       videoRef.current.defaultMuted = true;
       videoRef.current.muted = true;
-      videoRef.current.play().catch((err) => {
-        console.warn("Autoplay blocked or failed:", err);
-      });
+      videoRef.current.play().catch(() => {});
     }
   }, [activeUrl, isVideo]);
 
@@ -55,13 +53,13 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
       {/* Browser Chrome Header */}
       <div className="h-8 bg-slate-50 border-b border-slate-200/80 flex items-center px-4 justify-between select-none shrink-0 font-sans z-10 relative">
         {/* Window controls */}
-        <div className="flex gap-1.5 items-center">
+        <div className="flex gap-1.5 items-center" aria-hidden="true">
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
         </div>
         {/* Address bar */}
-        <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[8px] font-bold text-slate-500 uppercase tracking-widest text-center truncate font-mono shadow-sm">
+        <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[10px] font-bold text-slate-600 uppercase tracking-widest text-center truncate font-mono shadow-sm">
           {url.replace("https://", "").replace("www.", "")}
         </div>
         <div className="w-10"></div>
@@ -80,18 +78,17 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 muted
                 playsInline
                 preload="none"
-                title="Decorative background video"
-                className="w-full h-full object-cover object-top select-none pointer-events-none"
+                aria-hidden="true"
+                title=""
+                className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
               />
             ) : (
-              <Image
+              <Picture
                 src={activeUrl}
-                alt={`${title} - slide ${activeIdx + 1}`}
-                fill
-                loading="lazy"
-                quality={50}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover object-top select-none pointer-events-none"
+                alt=""
+                width={960}
+                height={513}
+                className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
               />
             )}
 
@@ -119,7 +116,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                     <span
                       key={idx}
                       className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                        idx === activeIdx ? "bg-slate-900 w-3" : "bg-slate-400/60"
+                        idx === activeIdx ? "bg-slate-900 w-3" : "bg-slate-500/60"
                       }`}
                     />
                   ))}

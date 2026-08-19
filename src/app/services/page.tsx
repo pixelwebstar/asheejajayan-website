@@ -110,7 +110,7 @@ export default function Services() {
                 className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-400 block tracking-widest">{srv.num}</span>
+                  <span className="text-xs font-bold text-slate-600 block tracking-widest">{srv.num}</span>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider group-hover:text-muted transition-colors">{srv.name}</h3>
@@ -372,7 +372,7 @@ export default function Services() {
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
               Direct Contact
             </Link>
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="/pricing" className={`${btnPrimary} w-full sm:w-auto`}>
               Submit Requirements
             </Link>
           </div>

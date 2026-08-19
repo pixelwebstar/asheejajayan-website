@@ -146,7 +146,7 @@ export default function RoiComparison() {
             {criteriaData.map((crit) => (
               <div key={crit.id} className="grid grid-cols-12 gap-x-3 gap-y-1.5 items-start border-b border-slate-50 last:border-0 pb-4 last:pb-0 text-left">
                 <div className="col-span-4 shrink-0">
-                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">{crit.title}</span>
+                  <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">{crit.title}</span>
                 </div>
                 <div className="col-span-3 text-left">
                   <div className="text-xs font-bold text-slate-800 leading-normal">{crit.standard.value}</div>
@@ -169,7 +169,7 @@ export default function RoiComparison() {
       title = "Loading Speed";
       desc = "Standard template sites often load extra files they don't need, which makes the website take longer to load on phones.";
       visual = (
-        <div className="w-full space-y-3 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-500">
+        <div className="w-full space-y-3 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-600">
           <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-800 border-b border-slate-100 pb-1.5">
             <span>Page Loading Order</span>
             <span className="text-slate-900 font-mono">3.5s total</span>
@@ -209,7 +209,7 @@ export default function RoiComparison() {
       title = "Monthly Fees";
       desc = "Template builders charge monthly subscription fees to keep your website live on the internet.";
       visual = (
-        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-500">
+        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-600">
           <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-800 border-b border-slate-100 pb-1.5">
             <span>Monthly Website Costs</span>
             <span className="text-slate-900 font-bold">${feesStandard}.00/mo</span>
@@ -234,20 +234,20 @@ export default function RoiComparison() {
       title = "Website Design";
       desc = "Pre-made templates have fixed layouts, making it harder to customize the style exactly how you want.";
       visual = (
-        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-500">
+        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-600">
           <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-800 border-b border-slate-100 pb-1.5">
             <span>Template Layout Grid</span>
-            <span className="text-slate-400">[Fixed Layout]</span>
+            <span className="text-slate-600">[Fixed Layout]</span>
           </div>
           <div className="grid grid-cols-2 gap-2 pt-1 h-[40px] items-stretch">
-            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-1.5 text-center text-[9px] text-slate-400 flex items-center justify-center">
+            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-1.5 text-center text-[10px] text-slate-600 flex items-center justify-center">
               Left Block
             </div>
-            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-1.5 text-center text-[9px] text-slate-400 flex items-center justify-center">
+            <div className="border border-dashed border-slate-200 bg-slate-100 rounded p-1.5 text-center text-[10px] text-slate-600 flex items-center justify-center">
               Right Block
             </div>
           </div>
-          <div className="text-[9px] text-slate-400 font-sans text-center mt-1">
+          <div className="text-[10px] text-slate-600 font-sans text-center mt-1">
             Template layouts have pre-set sections that are hard to move.
           </div>
         </div>
@@ -256,10 +256,10 @@ export default function RoiComparison() {
       title = "File Ownership";
       desc = "Your website files are stored inside their system, meaning you cannot easily move them to another host.";
       visual = (
-        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-500">
+        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-600">
           <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-800 border-b border-slate-100 pb-1.5">
             <span>Server File Access</span>
-            <span className="text-slate-400">[Locked Access]</span>
+            <span className="text-slate-600">[Locked Access]</span>
           </div>
           <div className="space-y-1.5 pt-1">
             <div className="flex justify-between">
@@ -281,14 +281,14 @@ export default function RoiComparison() {
       title = "SEO";
       desc = "Slower page loads can make Google rank your website lower in search results.";
       visual = (
-        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-500">
+        <div className="w-full space-y-2.5 p-4 bg-slate-50 border border-slate-100 rounded-xl text-left font-mono text-[11px] text-slate-600">
           <div className="flex justify-between items-center text-xs font-sans font-bold text-slate-800 border-b border-slate-100 pb-1.5">
             <span>Google Search Results</span>
-            <span className="text-slate-400">[Search: "Web Designer"]</span>
+            <span className="text-slate-600">[Search: "Web Designer"]</span>
           </div>
           <div className="space-y-1.5 pt-1 pl-1 border-l border-slate-200">
-            <div className="text-slate-400">1. Competitor Website (Loads Faster)</div>
-            <div className="text-slate-400">2. Competitor Agency (Loads Faster)</div>
+            <div className="text-slate-600">1. Competitor Website (Loads Faster)</div>
+            <div className="text-slate-600">2. Competitor Agency (Loads Faster)</div>
             <div className="font-bold text-slate-900">18. Your Website (Loads Slower)</div>
           </div>
         </div>
@@ -299,7 +299,7 @@ export default function RoiComparison() {
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full w-full">
         {/* Header */}
         <div className="text-center border-b border-slate-100 pb-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">{title}</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">{title}</span>
           <h3 className="text-base sm:text-lg font-black text-slate-900 uppercase tracking-widest mt-1">Standard Build</h3>
         </div>
         <div key={stageId} className="flex-1 flex flex-col justify-center py-4">

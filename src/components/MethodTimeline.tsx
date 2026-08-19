@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 
 interface StepDetail {
   num: string;
@@ -207,83 +207,139 @@ const steps: StepDetail[] = [
   }
 ];
 
+const STEP_MS = 7000;
+const READING_MS = 60_000;
+
 export default function MethodTimeline() {
   const [activeStep, setActiveStep] = useState<string>("01");
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-  const autoplayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [inView, setInView] = useState(false);
+  const [cycleKey, setCycleKey] = useState(0);
+  const [isReading, setIsReading] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const activeStepRef = useRef(activeStep);
+  const pendingPinRef = useRef(false);
+  const inViewRef = useRef(false);
+  const ignoreUntilRef = useRef(0);
+  const pauseUntilRef = useRef(0);
+  const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const readingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const barDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    if (isPaused) {
-      if (autoplayTimerRef.current) {
-        clearInterval(autoplayTimerRef.current);
-      }
-      return;
-    }
+  activeStepRef.current = activeStep;
+  inViewRef.current = inView;
 
-    autoplayTimerRef.current = setInterval(() => {
-      setActiveStep((prev) => {
-        const currentIndex = steps.findIndex((s) => s.num === prev);
-        const nextIndex = (currentIndex + 1) % steps.length;
-        return steps[nextIndex].num;
-      });
-    }, 4500);
-
-    return () => {
-      if (autoplayTimerRef.current) {
-        clearInterval(autoplayTimerRef.current);
-      }
-    };
-  }, [isPaused]);
-
-  useEffect(() => {
-    const handleDocumentClick = () => {
-      if (isPaused) {
-        if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-        resumeTimerRef.current = setTimeout(() => {
-          setIsPaused(false);
-          resumeTimerRef.current = null;
-        }, 5000);
-      }
-    };
-    document.addEventListener("click", handleDocumentClick);
-    return () => {
-      document.removeEventListener("click", handleDocumentClick);
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    };
-  }, [isPaused]);
-
-  const handleStepSelect = (num: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (resumeTimerRef.current) {
-      clearTimeout(resumeTimerRef.current);
-      resumeTimerRef.current = null;
+  const goToStep = (num: string) => {
+    if (activeStepRef.current === num) return;
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      pendingPinRef.current = true;
     }
     setActiveStep(num);
-    setIsPaused(true);
+  };
 
-    // Smooth scroll to selected step on mobile/tablet viewports
-    if (typeof window !== "undefined" && window.innerWidth < 1024) {
-      setTimeout(() => {
-        const element = document.getElementById(`step-card-${num}`);
-        if (element) {
-          const navbarHeight = window.innerWidth >= 640 ? 112 : 96;
-          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-          const offsetPosition = elementPosition - navbarHeight - 16; // 16px buffer
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
-        }
-      }, 150); // Small timeout to wait for height animation to trigger
+  const armTimer = () => {
+    if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+    if (!inViewRef.current) return;
+    if (Date.now() < pauseUntilRef.current) return;
+    if (barDebounceRef.current) clearTimeout(barDebounceRef.current);
+    barDebounceRef.current = setTimeout(() => setCycleKey((k) => k + 1), 80);
+    advanceTimerRef.current = setTimeout(() => {
+      const currentIndex = steps.findIndex((s) => s.num === activeStepRef.current);
+      const nextIndex = (currentIndex + 1) % steps.length;
+      goToStep(steps[nextIndex].num);
+      armTimer();
+    }, STEP_MS);
+  };
+
+  const startReadingPause = () => {
+    if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+    if (barDebounceRef.current) clearTimeout(barDebounceRef.current);
+    pauseUntilRef.current = Date.now() + READING_MS;
+    setIsReading(true);
+    if (readingTimerRef.current) clearTimeout(readingTimerRef.current);
+    readingTimerRef.current = setTimeout(() => {
+      pauseUntilRef.current = 0;
+      setIsReading(false);
+      armTimer();
+    }, READING_MS);
+  };
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "80px", threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!pendingPinRef.current || typeof window === "undefined") return;
+    pendingPinRef.current = false;
+
+    const el = document.getElementById(`step-card-${activeStep}`);
+    if (!el) return;
+
+    const navRaw = getComputedStyle(document.documentElement).getPropertyValue("--navbar-h");
+    const nav = parseFloat(navRaw) || (window.innerWidth >= 640 ? 112 : 104);
+    const top = el.getBoundingClientRect().top + window.scrollY - nav - 12;
+    if (Math.abs(window.scrollY - top) < 8) return;
+    ignoreUntilRef.current = Date.now() + 900;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }, [activeStep]);
+
+  useEffect(() => {
+    if (!inView) {
+      if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+      return;
     }
+    if (Date.now() < pauseUntilRef.current) return;
+    armTimer();
+    return () => {
+      if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+      if (barDebounceRef.current) clearTimeout(barDebounceRef.current);
+    };
+  }, [inView]);
+
+  useEffect(() => {
+    const resetClock = () => {
+      if (Date.now() < ignoreUntilRef.current) return;
+      if (Date.now() < pauseUntilRef.current) return;
+      armTimer();
+    };
+    const opts: AddEventListenerOptions = { passive: true };
+    addEventListener("scroll", resetClock, opts);
+    addEventListener("wheel", resetClock, opts);
+    addEventListener("touchstart", resetClock, opts);
+    addEventListener("touchmove", resetClock, opts);
+    return () => {
+      removeEventListener("scroll", resetClock);
+      removeEventListener("wheel", resetClock);
+      removeEventListener("touchstart", resetClock);
+      removeEventListener("touchmove", resetClock);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (readingTimerRef.current) clearTimeout(readingTimerRef.current);
+    };
+  }, []);
+
+  const handleStepSelect = (num: string, e: React.SyntheticEvent) => {
+    e.stopPropagation();
+    goToStep(num);
+    ignoreUntilRef.current = Date.now() + 900;
+    startReadingPause();
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-stretch w-full min-h-0 lg:min-h-[580px]">
+    <div ref={rootRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-stretch w-full min-h-0 lg:min-h-[580px]">
+
       <div className="lg:col-span-1 flex flex-col justify-between self-stretch py-4 lg:py-6 w-full lg:sticky lg:top-24 lg:border-r lg:border-slate-200/80 lg:pr-16 text-left items-start h-full min-h-0 lg:min-h-[520px]">
         <div className="flex flex-col justify-start w-full text-left max-w-[500px] pb-6 space-y-1.5">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block font-mono">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block font-mono">
             OUR METHOD
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -305,21 +361,21 @@ export default function MethodTimeline() {
                     className="flex flex-col justify-between h-full w-full animate-timeline-switch"
                   >
                     <div className="space-y-4">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2.5 block">
+                      <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2.5 block whitespace-nowrap">
                         Things Covered
                       </span>
-                      <ul className="space-y-2 text-[13px] text-slate-600 font-medium leading-relaxed">
+                      <ul className="space-y-2 text-[13px] text-slate-600 font-medium leading-none">
                         {step.deliverables.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2">
-                            <span className="text-slate-400 font-mono text-[10px] shrink-0 pt-0.5">
+                          <li key={dIdx} className="flex items-center gap-2 min-h-[1.25rem]">
+                            <span className="text-slate-600 font-mono text-[10px] shrink-0">
                               {String(dIdx + 1).padStart(2, "0")}.
                             </span>
-                            <span className="text-slate-700">{item}</span>
+                            <span className="text-slate-700 truncate whitespace-nowrap">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block">
+                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block whitespace-nowrap truncate">
                       Timeline: {step.timeframe}
                     </span>
                   </div>
@@ -327,11 +383,11 @@ export default function MethodTimeline() {
               })}
               <div className="absolute bottom-0 left-0 h-[3px] bg-slate-100 w-full overflow-hidden">
                 <div
-                  key={activeStep + "_" + isPaused}
+                  key={activeStep + "_" + cycleKey}
                   className="h-full bg-slate-900/40 rounded-full"
                   style={{
-                    width: isPaused ? "0%" : undefined,
-                    animation: isPaused ? undefined : "progressRun 4.5s linear forwards",
+                    width: isReading ? "0%" : undefined,
+                    animation: isReading ? undefined : "progressRun 7s linear forwards",
                   }}
                 />
               </div>
@@ -347,14 +403,14 @@ export default function MethodTimeline() {
                       className="flex flex-col justify-between h-full w-full animate-timeline-switch"
                     >
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block whitespace-nowrap">
                           What We Do
                         </span>
-                        <p className="text-[13px] text-slate-600 font-medium leading-relaxed">
+                        <p className="text-[13px] text-slate-600 font-medium leading-snug line-clamp-2 min-h-[2.5rem]">
                           {step.focusDesc}
                         </p>
                       </div>
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block">
+                      <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block whitespace-nowrap truncate">
                         Result: {step.result}
                       </span>
                     </div>
@@ -363,11 +419,11 @@ export default function MethodTimeline() {
                 {/* Progress Bar */}
                 <div className="absolute bottom-0 left-0 h-[3px] bg-slate-100 w-full overflow-hidden">
                   <div
-                    key={activeStep + "_" + isPaused}
+                    key={activeStep + "_" + cycleKey}
                     className="h-full bg-slate-900/40 rounded-full"
                     style={{
-                      width: isPaused ? "0%" : undefined,
-                      animation: isPaused ? undefined : "progressRun 4.5s linear forwards",
+                      width: isReading ? "0%" : undefined,
+                      animation: isReading ? undefined : "progressRun 7s linear forwards",
                     }}
                   />
                 </div>
@@ -382,19 +438,19 @@ export default function MethodTimeline() {
                       className="flex flex-col justify-between h-full w-full animate-timeline-switch"
                     >
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block whitespace-nowrap">
                           Your Part
                         </span>
-                        <ul className="space-y-2 text-[13px] text-slate-600 font-medium leading-relaxed">
+                        <ul className="space-y-2 text-[13px] text-slate-600 font-medium leading-none">
                           {step.clientInput.map((input, iIdx) => (
-                            <li key={iIdx} className="flex items-start gap-2">
-                              <span className="text-slate-400 font-mono text-[10px] shrink-0 pt-0.5">•</span>
-                              <span className="text-slate-700">{input}</span>
+                            <li key={iIdx} className="flex items-center gap-2 min-h-[1.25rem]">
+                              <span className="text-slate-600 font-mono text-[10px] shrink-0">•</span>
+                              <span className="text-slate-700 truncate whitespace-nowrap">{input}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block">
+                      <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest font-mono pt-3 border-t border-slate-100 block whitespace-nowrap truncate">
                         Next Step: {step.nextStep}
                       </span>
                     </div>
@@ -403,11 +459,11 @@ export default function MethodTimeline() {
                 {/* Progress Bar */}
                 <div className="absolute bottom-0 left-0 h-[3px] bg-slate-100 w-full overflow-hidden">
                   <div
-                    key={activeStep + "_" + isPaused}
+                    key={activeStep + "_" + cycleKey}
                     className="h-full bg-slate-900/40 rounded-full"
                     style={{
-                      width: isPaused ? "0%" : undefined,
-                      animation: isPaused ? undefined : "progressRun 4.5s linear forwards",
+                      width: isReading ? "0%" : undefined,
+                      animation: isReading ? undefined : "progressRun 7s linear forwards",
                     }}
                   />
                 </div>
@@ -422,83 +478,75 @@ export default function MethodTimeline() {
           {steps.map((step) => {
             const isActive = step.num === activeStep;
             return (
-              <div
+              <button
+                type="button"
                 key={step.num}
                 id={`step-card-${step.num}`}
                 onClick={(e) => handleStepSelect(step.num, e)}
-                className="flex gap-6 items-start py-5 border-b border-slate-200/80 last:border-0 cursor-pointer group select-none transition-all duration-300"
-                role="button"
+                className="w-full flex gap-6 items-start py-5 border-0 border-b border-slate-200/80 last:border-b-0 cursor-pointer group select-none bg-transparent text-left"
                 aria-expanded={isActive}
               >
                 <span
-                  className={`text-2xl font-black select-none leading-none pt-1 min-w-[40px] transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-400 group-hover:text-slate-600"
+                  className={`text-2xl font-black select-none leading-none pt-1 min-w-[40px] transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-600 group-hover:text-slate-800"
                     }`}
                 >
                   {step.num}
                 </span>
 
-                <div className="space-y-1 text-left flex-1">
+                <div className="space-y-1 text-left flex-1 min-w-0">
                   <h3
-                    className={`text-sm font-bold uppercase tracking-wider transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-800/80 group-hover:text-slate-900"
+                    className={`text-sm font-bold uppercase tracking-wider whitespace-nowrap truncate transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-800/80 group-hover:text-slate-900"
                       }`}
                   >
                     {step.title}
                   </h3>
                   <p
-                    className={`text-xs sm:text-sm leading-relaxed font-medium transition-colors duration-300 ${isActive ? "text-slate-900 font-semibold" : "text-slate-500 group-hover:text-slate-700"
+                    className={`text-xs sm:text-sm leading-snug font-medium line-clamp-2 min-h-[2.5rem] sm:min-h-[2.75rem] transition-colors duration-300 ${isActive ? "text-slate-900 font-semibold" : "text-slate-600 group-hover:text-slate-800"
                       }`}
                   >
                     {step.desc}
                   </p>
 
-                  <div
-                    className={`block lg:hidden grid transition-[grid-template-rows,opacity,margin,padding] duration-300 ease-in-out ${
-                      isActive
-                        ? "grid-rows-[1fr] opacity-100 mt-4 pt-4 border-t border-slate-100"
-                        : "grid-rows-[0fr] opacity-0 mt-0 pt-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden space-y-5">
-                      {/* Things Covered */}
+                  {isActive ? (
+                    <div className="block lg:hidden mt-4 pt-4 border-t border-slate-100 space-y-5 animate-timeline-switch">
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 block font-mono">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block font-mono whitespace-nowrap">
                           Things Covered
                         </span>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-600 font-medium">
                           {step.deliverables.map((item, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2">
-                              <span className="text-slate-400 font-mono text-[10px] shrink-0 pt-0.5">
+                            <li key={dIdx} className="flex items-center gap-2 min-h-[1.25rem]">
+                              <span className="text-slate-600 font-mono text-[10px] shrink-0">
                                 {String(dIdx + 1).padStart(2, "0")}.
                               </span>
-                              <span className="text-slate-700">{item}</span>
+                              <span className="text-slate-700 truncate whitespace-nowrap">{item}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      {/* What We Do & Next Step Stacked */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                         <div className="space-y-1">
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
+                          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block font-mono whitespace-nowrap">
                             What We Do
                           </span>
-                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                          <p className="text-xs sm:text-sm text-slate-600 font-medium leading-snug line-clamp-2 min-h-[2.5rem]">
                             {step.focusDesc}
                           </p>
                         </div>
                         <div className="space-y-1">
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block font-mono">
+                          <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block font-mono whitespace-nowrap">
                             Next Step
                           </span>
-                          <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
+                          <p className="text-xs sm:text-sm text-slate-600 font-medium leading-snug whitespace-nowrap truncate">
                             {step.nextStep}
                           </p>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ) : null}
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

@@ -55,7 +55,7 @@ export default function About() {
       <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               ABOUT ME
             </span>
             <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
@@ -82,7 +82,7 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: Editorial */}
             <div className="lg:col-span-5 space-y-6">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
                 PHILOSOPHY
               </span>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -102,10 +102,10 @@ export default function About() {
                 { num: "03", title: "Revenue Focus", desc: "Every layout decision is made to guide visitors toward your intake form. We measure success by leads generated." }
               ].map((item, idx) => (
                 <div key={item.num} className={`flex gap-6 items-start py-6 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
-                  <span className="text-2xl font-black text-slate-300 select-none leading-none pt-1 min-w-[40px]">{item.num}</span>
+                  <span className="text-2xl font-black text-slate-600 select-none leading-none pt-1 min-w-[40px]">{item.num}</span>
                   <div className="space-y-1">
                     <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -118,7 +118,7 @@ export default function About() {
       <FullSection id="capabilities" bgClass="bg-warm-light">
         <div className="max-w-5xl mx-auto w-full space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               SPECIALTIES
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -156,7 +156,7 @@ export default function About() {
       <FullSection id="timeline" bgClass="bg-cool-light">
         <div className="max-w-5xl mx-auto w-full space-y-12">
           <div className="space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               JOURNEY
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -176,7 +176,7 @@ export default function About() {
                 </div>
                 <div className="sm:col-span-9 space-y-2">
                   <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{exp.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed font-medium">{exp.desc}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed font-medium">{exp.desc}</p>
                 </div>
               </div>
             ))}
@@ -189,7 +189,7 @@ export default function About() {
       {/* SECTION 5: CTA (Full-Width Centered Editorial) */}
       <FullSection bgClass="bg-warm-light">
         <div className="max-w-3xl mx-auto w-full text-center space-y-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
             INITIATE
           </span>
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
@@ -202,7 +202,7 @@ export default function About() {
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
               Direct Contact
             </Link>
-            <Link href="/#pricing" className={`${btnPrimary} w-full sm:w-auto`}>
+            <Link href="/pricing" className={`${btnPrimary} w-full sm:w-auto`}>
               Submit Requirements
             </Link>
           </div>
