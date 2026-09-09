@@ -1,0 +1,135 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.loader-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, #1a0505 0%, #050000 100%);
+}
+
+.loader-content {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.loader-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    will-change: transform;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #c41e3a, transparent);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    animation: orbit 3s linear infinite;
+    animation-delay: var(--delay);
+    transform: rotate(var(--rotation)) translateX(140px);
+    will-change: transform;
+}
+
+@keyframes orbit {
+    to {
+        transform: rotate(calc(var(--rotation) + 360deg)) translateX(140px);
+    }
+}
+
+.loader-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    letter-spacing: 0.5em;
+    margin-bottom: 1.5rem;
+    color: #c41e3a;
+    text-shadow:
+        0 0 20px rgba(196, 30, 58, 0.8),
+        0 0 40px rgba(196, 30, 58, 0.5);
+    position: relative;
+    z-index: 3;
+    will-change: transform, opacity;
+}
+
+.loader-line {
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c41e3a 20%, #c41e3a 80%, transparent);
+    margin: 0 auto 1.5rem;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+.loader-content p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #e0e0e0;
+    opacity: 0.8;
+    will-change: opacity;
+}
+
+.loader-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.2), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(30px);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .loader-logo {
+        font-size: 3rem;
+    }
+
+    .loader-particles {
+        width: 200px;
+        height: 200px;
+    }
+
+    .particle {
+        transform: rotate(var(--rotation)) translateX(100px);
+    }
+
+    @keyframes orbit {
+        to {
+            transform: rotate(calc(var(--rotation) + 360deg)) translateX(100px);
+        }
+    }
+}

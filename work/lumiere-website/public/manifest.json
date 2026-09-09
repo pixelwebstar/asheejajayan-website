@@ -1,0 +1,16 @@
+{
+    "name": "LUMIÈRE - The Eternal Banquet",
+    "short_name": "LUMIÈRE",
+    "description": "Experience the symphony of shadows and flavors at LUMIÈRE. A high-end dining sanctuary merging gothic elegance with culinary artistry.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#050000",
+    "theme_color": "#c41e3a",
+    "icons": [
+        {
+            "src": "/logo-favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}

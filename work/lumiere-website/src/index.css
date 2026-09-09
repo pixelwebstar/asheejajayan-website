@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;600&display=swap');
+
+:root {
+  /* Luminous Valentine Palette */
+  --color-bg: #050000;
+  /* Deepest Black/Red */
+  --color-surface: #0a0000;
+  /* Dark Crimson Black */
+  --color-primary: #c41e3a;
+  /* Blood Red / Crimson */
+  --color-primary-dark: #8a0303;
+  /* Deep Blood */
+  --color-secondary: #e0e0e0;
+  /* Platinum/Silver */
+  --color-accent: #ff0055;
+  /* Glowing Pink/Red */
+  --color-text: #f0f0f0;
+  /* Off-white */
+  --color-text-muted: #a0a0a0;
+  /* Silver Grey */
+
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Outfit', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 5rem;
+  --spacing-xl: 10rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Effects */
+  --glow-primary: 0 0 20px rgba(196, 30, 58, 0.5);
+  --glass-bg: rgba(10, 0, 0, 0.7);
+  --glass-border: 1px solid rgba(196, 30, 58, 0.2);
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-left: 1px solid rgba(196, 30, 58, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-primary-dark), var(--color-primary));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-secondary);
+  letter-spacing: 0.05em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+/* Premium Button Styles */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border-radius: 2px;
+  /* Sharp edges for Gothic feel */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: 1px solid var(--color-primary);
+  box-shadow: var(--glow-primary);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--color-primary-dark);
+  transition: width var(--transition-medium);
+  z-index: -1;
+}
+
+.btn-primary:hover::before {
+  width: 100%;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(196, 30, 58, 0.8);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-secondary);
+  color: #000;
+  box-shadow: 0 0 20px rgba(224, 224, 224, 0.4);
+  transform: translateY(-2px);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+  position: relative;
+}
