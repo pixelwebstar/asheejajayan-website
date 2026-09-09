@@ -1,0 +1,199 @@
+/* Premium Notices Page - Luminous Valentine Theme */
+
+.notices-page {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+}
+
+/* Hero Section */
+.notices-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(5, 0, 0, 0.5) 0%, rgba(5, 0, 0, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-bottom: 1px solid rgba(196, 30, 58, 0.2);
+}
+
+.notices-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    text-shadow: 0 0 30px rgba(196, 30, 58, 0.6);
+    letter-spacing: 3px;
+}
+
+.notices-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Notices Grid */
+.notices-grid {
+    padding: 4rem 0;
+}
+
+.notices-grid .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+/* Notice Card */
+.notice-card {
+    background: linear-gradient(135deg, rgba(20, 0, 0, 0.6) 0%, rgba(10, 0, 0, 0.8) 100%);
+    border: 1px solid rgba(196, 30, 58, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.notice-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.notice-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(196, 30, 58, 0.4);
+    box-shadow: 0 10px 30px rgba(196, 30, 58, 0.2);
+}
+
+.notice-card:hover::before {
+    opacity: 1;
+}
+
+/* Notice Header */
+.notice-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.notice-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(196, 30, 58, 0.1);
+    border: 1px solid rgba(196, 30, 58, 0.3);
+    border-radius: 50%;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.notice-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.notice-type {
+    color: var(--color-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.notice-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.status-upcoming {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-active {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-recurring {
+    background: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.status-past {
+    background: rgba(158, 158, 158, 0.1);
+    color: #9e9e9e;
+    border: 1px solid rgba(158, 158, 158, 0.3);
+}
+
+/* Notice Content */
+.notice-title {
+    font-size: 1.4rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.notice-date {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.notice-description {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notices-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .notices-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .notices-grid .container {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .notice-card {
+        padding: 1.5rem;
+    }
+
+    .notice-title {
+        font-size: 1.2rem;
+    }
+}

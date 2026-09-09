@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet & Vine | Artisan Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#a77f70', // Primary earthy tone
+                            600: '#8a5a4a',
+                            700: '#6d4c41', // Deep coffee
+                            800: '#4e342e',
+                            900: '#3e2723',
+                        },
+                        cream: '#fcfbf7',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fcfbf7;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #a77f70;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a5a4a;
+        }
+
+        /* Image hover zoom effect */
+        .zoom-container {
+            overflow: hidden;
+        }
+
+        .zoom-img {
+            transition: transform 0.5s ease;
+        }
+
+        .zoom-container:hover .zoom-img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 bg-cream antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-mug-hot text-coffee-700 text-2xl"></i>
+                    <span class="font-serif text-2xl font-bold text-gray-900 tracking-wide">Velvet & Vine</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-600 hover:text-coffee-600 font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-coffee-600 font-medium transition-colors">Story</a>
+                    <a href="#menu" class="text-gray-600 hover:text-coffee-600 font-medium transition-colors">Menu</a>
+                    <a href="#gallery"
+                        class="text-gray-600 hover:text-coffee-600 font-medium transition-colors">Gallery</a>
+                    <button
+                        class="bg-coffee-700 text-white px-6 py-2 rounded-full hover:bg-coffee-800 transition-all transform hover:scale-105 shadow-md">
+                        Book a Table
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-coffee-900 focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home"
+                    class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 rounded-md">Home</a>
+                <a href="#about"
+                    class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 rounded-md">Story</a>
+                <a href="#menu"
+                    class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 rounded-md">Menu</a>
+                <a href="#gallery"
+                    class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-coffee-600 hover:bg-coffee-50 rounded-md">Gallery</a>
+                <div class="pt-4">
+                    <button
+                        class="w-full bg-coffee-700 text-white px-6 py-3 rounded-md hover:bg-coffee-800 transition shadow-sm font-medium">
+                        Book a Table
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                alt="Cafe Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-section">
+            <span class="block text-coffee-100 font-serif italic text-xl md:text-2xl mb-4 tracking-wider">Est.
+                2024</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Awaken Your Senses
+            </h1>
+            <p class="text-lg md:text-xl text-gray-100 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Experience the perfect blend of ethically sourced artisan coffee and scratch-made pastries in a
+                sanctuary designed for connection.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#menu"
+                    class="bg-coffee-500 text-white px-8 py-4 rounded-full font-medium hover:bg-coffee-600 transition-all shadow-lg transform hover:-translate-y-1">
+                    View Menu
+                </a>
+                <a href="#about"
+                    class="bg-white text-gray-900 px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition-all shadow-lg transform hover:-translate-y-1">
+                    Our Story
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/70">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="p-6 fade-in-section delay-100">
+                    <div
+                        class="w-16 h-16 bg-coffee-100 rounded-full flex items-center justify-center mx-auto mb-6 text-coffee-700">
+                        <i class="fa-solid fa-leaf text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-gray-900">Ethically Sourced</h3>
+                    <p class="text-gray-600 leading-relaxed">We partner directly with farmers to bring you the finest,
+                        sustainable beans from around the globe.</p>
+                </div>
+                <div class="p-6 fade-in-section delay-200">
+                    <div
+                        class="w-16 h-16 bg-coffee-100 rounded-full flex items-center justify-center mx-auto mb-6 text-coffee-700">
+                        <i class="fa-solid fa-bread-slice text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-gray-900">Baked Fresh Daily</h3>
+                    <p class="text-gray-600 leading-relaxed">Our pastry chefs arrive at dawn to ensure every croissant
+                        and muffin is warm and perfect.</p>
+                </div>
+                <div class="p-6 fade-in-section delay-300">
+                    <div
+                        class="w-16 h-16 bg-coffee-100 rounded-full flex items-center justify-center mx-auto mb-6 text-coffee-700">
+                        <i class="fa-solid fa-wifi text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-gray-900">Cozy & Connected</h3>
+                    <p class="text-gray-600 leading-relaxed">High-speed wifi meets comfortable armchairs. The perfect
+                        spot for work, rest, or conversation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Split Section -->
+    <section id="about" class="py-20 bg-coffee-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2 relative fade-in-section">
+                    <div
+                        class="absolute -top-4 -left-4 w-full h-full border-2 border-coffee-300 rounded-lg transform translate-x-4 translate-y-4 z-0 hidden md:block">
+                    </div>
+                    <div class="zoom-container rounded-lg shadow-xl relative z-10">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Barista pouring coffee"
+                            class="zoom-img w-full h-[400px] md:h-[500px] object-cover rounded-lg">
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 fade-in-section">
+                    <span class="text-coffee-600 font-bold uppercase tracking-widest text-sm mb-2 block">Our
+                        Philosophy</span>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">More Than Just a Cup</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Velvet & Vine began with a simple idea: coffee should be an experience, not just a routine.
+                        Founded in 2024, we transformed a historic downtown building into a haven for coffee lovers.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Every cup we serve tells a story—from the high-altitude peaks of Ethiopia to the roasting drum
+                        in our back room, and finally, to your table. We believe in slow brewing, real ingredients, and
+                        the power of community.
+                    </p>
+                    <a href="#gallery"
+                        class="inline-flex items-center text-coffee-700 font-bold hover:text-coffee-900 transition-colors border-b-2 border-coffee-300 hover:border-coffee-700 pb-1">
+                        See Our Space <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section id="menu" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-4">Curated Favorites</h2>
+                <div class="w-24 h-1 bg-coffee-500 mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">A selection of our most loved beverages and bites.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-12 gap-y-12">
+
+                <!-- Drink Menu Column -->
+                <div class="fade-in-section">
+                    <h3 class="font-serif text-2xl font-bold text-gray-800 mb-8 border-b pb-2">Espresso Bar</h3>
+
+                    <!-- Item 1 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Velvet Latte</h4>
+                                <span class="text-lg font-bold text-coffee-700">$5.50</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">House blend espresso, steamed oat milk, vanilla
+                                bean, cinnamon dust.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Cortado</h4>
+                                <span class="text-lg font-bold text-coffee-700">$4.00</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">Equal parts espresso and warm milk. Smooth, strong,
+                                and balanced.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Cold Brew Tonic</h4>
+                                <span class="text-lg font-bold text-coffee-700">$6.00</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">24-hour cold brew, artisanal tonic water, rosemary
+                                sprig, orange peel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Menu Column -->
+                <div class="fade-in-section">
+                    <h3 class="font-serif text-2xl font-bold text-gray-800 mb-8 border-b pb-2">From the Kitchen</h3>
+
+                    <!-- Item 4 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Avocado Smash</h4>
+                                <span class="text-lg font-bold text-coffee-700">$12.00</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">Sourdough, smashed avocado, poached egg, chili
+                                flakes, microgreens.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Almond Croissant</h4>
+                                <span class="text-lg font-bold text-coffee-700">$5.00</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">Buttery pastry filled with frangipane, topped with
+                                toasted almonds.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="flex justify-between items-start mb-8 group cursor-pointer">
+                        <div class="flex-1 pr-4">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 group-hover:text-coffee-600 transition-colors">
+                                    Quiche of the Day</h4>
+                                <span class="text-lg font-bold text-coffee-700">$9.50</span>
+                            </div>
+                            <p class="text-gray-500 text-sm italic">Served with a side of mixed greens and balsamic
+                                vinaigrette.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})"
+                    class="border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-gray-900 hover:text-white transition-colors duration-300 uppercase tracking-widest text-sm">
+                    View Full Menu
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section id="gallery" class="py-2 bg-white">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div class="aspect-square zoom-container group relative">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Latte Art" class="zoom-img w-full h-full object-cover">
+                <div
+                    class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                </div>
+            </div>
+            <div class="aspect-square zoom-container group relative">
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Fresh Pastries" class="zoom-img w-full h-full object-cover">
+                <div
+                    class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                </div>
+            </div>
+            <div class="aspect-square zoom-container group relative">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Cafe Interior" class="zoom-img w-full h-full object-cover">
+                <div
+                    class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                </div>
+            </div>
+            <div class="aspect-square zoom-container group relative">
+                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Roasted Coffee Beans" class="zoom-img w-full h-full object-cover">
+                <div
+                    class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fa-brands fa-instagram text-white text-3xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="py-20 bg-coffee-800 text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center fade-in-section">
+            <i class="fa-solid fa-quote-left text-4xl text-coffee-400 mb-6"></i>
+            <p class="text-2xl md:text-3xl font-serif leading-relaxed mb-8 italic">
+                "The atmosphere here is unmatched. It's rare to find a place where the coffee is as exquisite as the
+                design. Truly my favorite spot in the city."
+            </p>
+            <div class="flex items-center justify-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-coffee-600 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                        alt="Sophia Martinez" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                    <p class="font-bold text-lg">Sophia Martinez</p>
+                    <p class="text-coffee-300 text-sm">Local Guide</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter & Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-mug-hot text-coffee-400 text-2xl"></i>
+                        <span class="font-serif text-2xl font-bold tracking-wide">Velvet & Vine</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Handcrafted coffee, artisanal pastries, and a space designed for you. Visit us and taste the
+                        difference passion makes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-coffee-500 transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-coffee-500 transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-coffee-500 transition-colors">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hours & Location -->
+                <div>
+                    <h3 class="text-xl font-bold font-serif mb-6">Visit Us</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-coffee-500"></i>
+                            <span>123 Artisan Avenue,<br>Downtown District, NY 10001</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone mt-1 text-coffee-500"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope mt-1 text-coffee-500"></i>
+                            <span>hello@velvetandvine.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-xl font-bold font-serif mb-6">Stay Brewing</h3>
+                    <p class="text-gray-400 mb-4">Subscribe for updates on new blends and seasonal pastries.</p>
+                    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');"
+                        class="flex flex-col gap-3">
+                        <input type="email" placeholder="Your email address"
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:border-coffee-500 text-white placeholder-gray-500 transition-colors">
+                        <button type="submit"
+                            class="w-full bg-coffee-600 hover:bg-coffee-500 text-white font-bold py-3 rounded-md transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2024 Velvet & Vine Cafe. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileBtn.querySelector('i').classList.remove('fa-xmark');
+                mobileBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar Blur Effect on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('py-4', 'py-0'); // Slight shrink if padding existed
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+
+</html>
