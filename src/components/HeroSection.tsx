@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
 interface HeroSectionProps {
   children: ReactNode;

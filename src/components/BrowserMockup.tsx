@@ -49,7 +49,7 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-t-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative">
+    <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative isolate">
       {/* Browser Chrome Header */}
       <div className="h-8 bg-slate-50 border-b border-slate-200/80 flex items-center px-4 justify-between select-none shrink-0 font-sans z-10 relative">
         {/* Window controls */}

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { BOOT_SCRIPT, NAV_SCRIPT } from "@/lib/smart-vh";
+import { BOOT_SCRIPT } from "@/lib/smart-vh";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://asheejajayan.com"),
@@ -34,6 +34,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#ffffff",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -61,7 +62,6 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Navbar />
-        <script dangerouslySetInnerHTML={{ __html: NAV_SCRIPT }} />
         <main id="main-content" className="flex-grow pt-[var(--navbar-h)]">
           {children}
         </main>

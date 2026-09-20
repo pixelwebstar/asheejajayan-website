@@ -68,60 +68,134 @@ body {
   --navbar-h: 104px;
   /* h-14 (56px) + h-12 (48px) */
   --vh: 1vh;
+  --vh: 1svh;
+  --chapter-min-h: calc(var(--vh) * 100 - var(--navbar-h));
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 
-  /* 3D Gallery parameters (Tablet / Intermediate screens) */
-  --flow-shift: 185px;
-  --flow-scale: 0.85;
-  --flow-gap: 35px;
+  /* 3D Gallery — dormant on small screens; --flow-shift is the per-card step */
+  --flow-shift: 120px;
+  --flow-scale: 0.88;
+  --flow-gap: 36px;
+  --flow-angle: 32deg;
 }
 
 @media (min-width: 640px) {
   :root {
     --navbar-h: 112px;
     /* h-16 (64px) + h-12 (48px) = 112px */
+    --chapter-min-h: calc(var(--vh) * 100 - var(--navbar-h));
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   :root {
-    --flow-shift: 220px;
-    --flow-scale: 1.05;
-    --flow-gap: 48px;
+    --flow-shift: 145px;
+    --flow-scale: 0.9;
+    --flow-gap: 42px;
+    --flow-angle: 34deg;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --flow-shift: 155px;
+    --flow-scale: 0.92;
+    --flow-gap: 52px;
+    --flow-angle: 36deg;
+  }
+}
+
+@media (min-width: 1680px) {
+  :root {
+    --flow-shift: 205px;
+    --flow-scale: 0.94;
+    --flow-gap: 60px;
+    --flow-angle: 38deg;
   }
 }
 
 /*
   Viewport height is stored in --vh via JS (see layout.tsx).
-  On mobile, --vh only updates when width changes so the browser URL bar
-  sliding in/out does not resize full-height sections.
+  On mobile, --vh only updates when width changes so the Chrome / Safari
+  URL bar sliding in/out does not jump the layout. svh is the CSS fallback
+  (URL bar visible). Chapters use min-height, never a locked 100vh.
 */
 .hero-section,
 .full-section {
-  /* On mobile, use min-height so content can expand without getting cut off */
-  min-height: calc(var(--vh) * 100 - var(--navbar-h));
+  min-height: var(--chapter-min-h);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: clip;
 }
 
-.full-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
+.method-step-bar {
+  width: calc(var(--step-progress, 0) * 100%);
 }
 
-@media (min-width: 1200px) and (min-height: 850px) {
-  /* On large and tall desktop displays, lock every section to exactly one page size */
-  .hero-section,
-  .full-section {
-    height: calc(var(--vh) * 100 - var(--navbar-h));
-    min-height: auto;
-    overflow: hidden;
+/*
+  Footer link budget follows screen shape, not a single number:
+  phone = 4, 14" laptop = 5, tall tablet / 16" = 6 (when those links exist).
+*/
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.footer-links > li {
+  display: none;
+}
+
+.footer-links > li:nth-child(-n + 4) {
+  display: block;
+}
+
+@media (min-width: 768px) and (min-height: 700px) {
+  .footer-links {
+    gap: 0.35rem;
   }
 
-  /* Coverflow cards stick out past the section; don't clip the side stacks */
-  #projects.full-section {
-    overflow: visible;
+  .footer-links > li:nth-child(-n + 5) {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (min-height: 1024px) {
+  .footer-links > li:nth-child(-n + 6) {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 1099px) {
+  .footer-links > li:nth-child(n + 6) {
+    display: none;
+  }
+
+  .footer-links > li:nth-child(-n + 5) {
+    display: block;
+  }
+}
+
+@media (min-width: 1680px), (min-width: 1024px) and (min-height: 1100px) {
+  .footer-links > li:nth-child(-n + 6) {
+    display: block;
+  }
+}
+
+.site-footer {
+  padding-top: 2.5rem;
+  padding-bottom: max(1.5rem, var(--safe-bottom));
+}
+
+@media (min-width: 1024px) {
+  .site-footer {
+    min-height: var(--chapter-min-h);
+    display: flex;
+    align-items: center;
+    padding-top: 3.5rem;
+    padding-bottom: max(2.5rem, var(--safe-bottom));
   }
 }
 
@@ -165,15 +239,34 @@ body {
 /* 3D Cover Flow Stage Classes */
 .perspective-stage {
   perspective: 1400px;
-  perspective-origin: 50% 30%;
+  perspective-origin: 50% 50%;
 }
 
 .preserve-3d {
   transform-style: preserve-3d;
 }
 
-#projects.full-section {
-  overflow: visible;
+.gallery-stage {
+  overflow: hidden;
+  isolation: isolate;
+  contain: paint;
+}
+
+.gallery-stage-flow {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
 }
 
 .hero-bg-blur {
@@ -276,5 +369,17 @@ body {
   }
   to {
     width: 100%;
+  }
+}
+
+.method-auto-bar {
+  width: 0;
+  animation: progressRun 5.5s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .method-auto-bar {
+    animation: none;
+    width: 0;
   }
 }

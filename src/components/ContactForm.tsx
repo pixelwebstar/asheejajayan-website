@@ -9,16 +9,16 @@ export default function ContactForm() {
   const [details, setDetails] = useState("");
 
   return (
-    <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-        <div className="grid sm:grid-cols-2 gap-6">
+    <div className="bg-white p-6 sm:p-8 lg:p-8 rounded-3xl border border-slate-100 shadow-sm h-full">
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+        <div className="grid sm:grid-cols-2 gap-5">
           <div className="space-y-2 text-center sm:text-left">
             <label htmlFor="contact-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
-            <input id="contact-name" name="name" autoComplete="name" type="text" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
+            <input id="contact-name" name="name" autoComplete="name" type="text" required className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
           </div>
           <div className="space-y-2 text-center sm:text-left">
             <label htmlFor="contact-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
-            <input id="contact-email" name="email" autoComplete="email" type="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
+            <input id="contact-email" name="email" autoComplete="email" type="email" required className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
           </div>
         </div>
 
@@ -30,7 +30,7 @@ export default function ContactForm() {
               name="scope"
               value={plan}
               onChange={(e) => setPlan(e.target.value)}
-              className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
+              className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
             >
               <option value="">Select a package...</option>
               <option value="essential">Essential Package ($999)</option>
@@ -49,15 +49,15 @@ export default function ContactForm() {
           <textarea
             id="contact-details"
             name="details"
-            rows={5}
+            rows={4}
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
+            className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
             placeholder="Describe your business requirements..."
           ></textarea>
         </div>
 
-        <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
+        <button type="submit" className={`${btnPrimary} w-full py-4 rounded-xl text-sm`}>
           Submit Project Request
         </button>
       </form>

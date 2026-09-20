@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
 
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
@@ -89,55 +89,38 @@ export default function ThreeDGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [inView, setInView] = useState(false);
-  const [isLg, setIsLg] = useState(false);
+  const [coverflow, setCoverflow] = useState(false);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const resumeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const count = projects.length;
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const onChange = () => setIsLg(mq.matches);
-    onChange();
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  const handleNext = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
+  const pauseAnd = (next: (prev: number) => number) => {
     if (resumeTimerRef.current) {
       clearTimeout(resumeTimerRef.current);
       resumeTimerRef.current = null;
     }
-    setActiveIndex((prev) => (prev + 1) % projects.length);
+    setActiveIndex(next);
     setIsPaused(true);
   };
 
-  const handlePrev = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
-    if (resumeTimerRef.current) {
-      clearTimeout(resumeTimerRef.current);
-      resumeTimerRef.current = null;
-    }
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    setIsPaused(true);
-  };
+  const handleNext = () => pauseAnd((prev) => (prev + 1) % projects.length);
+  const handlePrev = () => pauseAnd((prev) => (prev - 1 + projects.length) % projects.length);
 
   const selectProject = (idx: number, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (resumeTimerRef.current) {
-      clearTimeout(resumeTimerRef.current);
-      resumeTimerRef.current = null;
-    }
-    setActiveIndex(idx);
-    setIsPaused(true);
+    pauseAnd(() => idx);
   };
 
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [touchEndY, setTouchEndY] = useState<number | null>(null);
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEndX(null);
+    setTouchEndY(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
     setIsPaused(true);
     if (resumeTimerRef.current) {
       clearTimeout(resumeTimerRef.current);
@@ -146,22 +129,31 @@ export default function ThreeDGallery() {
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEndX(e.targetTouches[0].clientX);
+    setTouchEndY(e.targetTouches[0].clientY);
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const minSwipeDistance = 50;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      handleNext();
-    } else if (isRightSwipe) {
-      handlePrev();
-    }
+    if (touchStartX == null || touchEndX == null || touchStartY == null || touchEndY == null) return;
+    const dx = touchStartX - touchEndX;
+    const dy = touchStartY - touchEndY;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx > 0) handleNext();
+    else handlePrev();
   };
+
+  useEffect(() => {
+    const apply = () => {
+      setCoverflow(window.innerWidth >= 1024 && window.innerHeight >= 820);
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    window.visualViewport?.addEventListener("resize", apply);
+    return () => {
+      window.removeEventListener("resize", apply);
+      window.visualViewport?.removeEventListener("resize", apply);
+    };
+  }, []);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -175,28 +167,21 @@ export default function ThreeDGallery() {
   }, []);
 
   useEffect(() => {
-    if (isPaused || !inView) {
-      return;
-    }
-
+    if (isPaused || !inView) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % projects.length);
     }, 4500);
-
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [isPaused, inView]);
 
   useEffect(() => {
     const handleDocumentClick = () => {
-      if (isPaused) {
-        if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-        resumeTimerRef.current = setTimeout(() => {
-          setIsPaused(false);
-          resumeTimerRef.current = null;
-        }, 5000);
-      }
+      if (!isPaused) return;
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => {
+        setIsPaused(false);
+        resumeTimerRef.current = null;
+      }, 5000);
     };
     document.addEventListener("click", handleDocumentClick);
     return () => {
@@ -205,49 +190,67 @@ export default function ThreeDGallery() {
     };
   }, [isPaused]);
 
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (!inView) return;
+      if (event.target instanceof HTMLElement && event.target.closest("input, textarea, select")) return;
+      if (event.key === "ArrowRight") handleNext();
+      if (event.key === "ArrowLeft") handlePrev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [inView]);
+
   return (
     <div ref={rootRef} className="w-full flex flex-col items-center space-y-8 no-swipe">
-      {/* 3D Gallery Stage (Hidden on Mobile) */}
-      <div className="hidden lg:flex w-full h-[340px] items-center justify-center relative perspective-stage select-none overflow-visible pt-4">
-        <div className="relative w-[520px] h-[310px] preserve-3d">
+      <div
+        className={`gallery-stage w-full flex items-center justify-center py-6 ${coverflow ? "gallery-stage-flow" : ""}`}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div
+          className={`relative w-full max-w-[400px] aspect-[16/10] ${coverflow ? "preserve-3d perspective-stage" : ""}`}
+        >
           {projects.map((project, idx) => {
             let diff = idx - activeIndex;
             if (diff < -count / 2) diff += count;
             if (diff > count / 2) diff -= count;
 
             const isActive = diff === 0;
-            const isLeftStack = diff < 0;
-            const isRightStack = diff > 0;
+            const abs = Math.abs(diff);
+            const show = coverflow ? abs <= 3 : abs === 0;
 
-            let transform = "";
-            let opacity = 1;
+            let transform = "none";
             let zIndex = 1;
-            let pointerEvents: "auto" | "none" = "auto";
+            let pointerEvents: "auto" | "none" = "none";
 
-            if (isActive) {
-              transform = "translate3d(0, 0, 140px) rotateY(0deg) scale(var(--flow-scale))";
-              opacity = 1;
-              zIndex = 20;
-              pointerEvents = "auto";
-            } else if (isLeftStack) {
-              transform = `translate3d(calc(var(--flow-gap) * ${diff} - var(--flow-shift)), 0, -100px) rotateY(60deg) scale(calc(var(--flow-scale) * 0.85))`;
-              opacity = 1;
-              zIndex = 10 + diff;
-              pointerEvents = "auto";
-            } else if (isRightStack) {
-              transform = `translate3d(calc(var(--flow-gap) * ${diff} + var(--flow-shift)), 0, -100px) rotateY(-60deg) scale(calc(var(--flow-scale) * 0.85))`;
-              opacity = 1;
-              zIndex = 10 - diff;
-              pointerEvents = "auto";
-            } else {
-              transform = "translate3d(0, 0, -250px) rotateY(180deg)";
-              opacity = 0;
-              zIndex = 1;
-              pointerEvents = "none";
+            if (!show) {
+              return (
+                <div
+                  key={project.id}
+                  className="absolute inset-0 w-full h-full pointer-events-none invisible"
+                  aria-hidden="true"
+                />
+              );
             }
 
-            const isFar = Math.abs(diff) > 3;
-            if (isFar) return null;
+            if (!coverflow) {
+              transform = "none";
+              zIndex = 20;
+              pointerEvents = "auto";
+            } else if (isActive) {
+              transform = "translate3d(0, 0, 48px) rotateY(0deg) scale(var(--flow-scale))";
+              zIndex = 20;
+              pointerEvents = "auto";
+            } else {
+              const depth = -24 * abs;
+              const scaleMul = (1 - abs * 0.08).toFixed(2);
+              const rot = diff < 0 ? "var(--flow-angle)" : "calc(var(--flow-angle) * -1)";
+              transform = `translate3d(calc(var(--flow-shift) * ${diff}), 0, ${depth}px) rotateY(${rot}) scale(calc(var(--flow-scale) * ${scaleMul}))`;
+              zIndex = 10 - abs;
+              pointerEvents = "auto";
+            }
 
             return (
               <Link
@@ -261,46 +264,52 @@ export default function ThreeDGallery() {
                     selectProject(idx);
                   }
                 }}
-                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] block ${isActive ? "cursor-default" : "cursor-pointer hover:opacity-85"
-                  }`}
+                className={`absolute inset-0 w-full h-full block [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform-style:flat] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? "cursor-default" : "cursor-pointer"}`}
                 style={{
                   transform,
-                  opacity,
                   zIndex,
                   pointerEvents,
-                  transformStyle: "preserve-3d",
                 }}
-                aria-label={isActive ? `Open ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}` : `Select ${project.title} - ${project.url.replace("https://", "").replace("www.", "")}`}
+                aria-label={isActive ? `Open ${project.title}` : `Select ${project.title}`}
+                tabIndex={isActive ? 0 : -1}
               >
-                <BrowserMockup url={project.url} screenshotUrl={screenshotMap[project.id]} title={project.title} isVisible={inView && isLg && Math.abs(diff) <= 3} />
+                <BrowserMockup
+                  url={project.url}
+                  screenshotUrl={screenshotMap[project.id]}
+                  title={project.title}
+                  isVisible={inView && abs <= 3}
+                />
               </Link>
             );
           })}
         </div>
       </div>
 
-      {/* Flat Mobile Preview Slider (Visible on Mobile) */}
       <div
-        className="block lg:hidden w-full max-w-[480px] mx-auto px-4 select-none relative"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
+        className="flex items-center justify-center gap-1.5"
+        role="tablist"
+        aria-label="Selected projects"
       >
-        <Link
-          href={projects[activeIndex].url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full aspect-[520/310] relative cursor-pointer hover:opacity-95 transition-opacity active:scale-[0.99] transition-transform duration-150 block"
-          aria-label={`Open ${projects[activeIndex].title} - ${projects[activeIndex].url.replace("https://", "").replace("www.", "")}`}
-        >
-          <BrowserMockup url={projects[activeIndex].url} screenshotUrl={screenshotMap[projects[activeIndex].id]} title={projects[activeIndex].title} isVisible={inView && !isLg} />
-        </Link>
+        {projects.map((project, idx) => {
+          const active = idx === activeIndex;
+          return (
+            <button
+              key={project.id}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              aria-label={project.title}
+              onClick={(e) => selectProject(idx, e)}
+              className={`h-11 w-8 flex items-center justify-center ${active ? "text-slate-900" : "text-slate-300"}`}
+            >
+              <span className={`block h-1.5 rounded-full ${active ? "w-5 bg-slate-900" : "w-1.5 bg-current"}`} />
+            </button>
+          );
+        })}
       </div>
 
-      {/* Active Project Info & Standard Navigation Panel */}
-      <div className="max-w-2xl mx-auto w-full text-center mt-12 lg:mt-16 space-y-6">
-        {/* Info Block */}
-        <div className="space-y-1.5 min-h-[64px] flex flex-col justify-center items-center">
+      <div className="max-w-2xl mx-auto w-full text-center space-y-6">
+        <div className="space-y-1.5 min-h-[64px] flex flex-col justify-center items-center" aria-live="polite">
           <h3 className="text-xl font-black text-slate-900 tracking-tight">
             {projects[activeIndex].title}
           </h3>
@@ -309,7 +318,6 @@ export default function ThreeDGallery() {
           </p>
         </div>
 
-        {/* Two Standard Conversion CTAs */}
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
           <Link href="#services" className={btnSecondary}>
             See How We Do It

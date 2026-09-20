@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
+const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
 // Premium Button Styles
 const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
@@ -26,7 +26,7 @@ function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: 
   return (
     <section
       id={id}
-      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100 overflow-hidden`}
+      className={`full-section relative py-14 sm:py-16 lg:py-20 xl:py-24 ${bgClass} border-b border-gray-100 scroll-mt-[var(--navbar-h)]`}
     >
       <div className={`${shell} relative z-10 w-full`}>
         {children}
@@ -107,7 +107,7 @@ export default function Home() {
               <a
                 href={`/services#${srv.id}`}
                 key={srv.num}
-                className="bg-white p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
+                className="bg-white p-6 lg:p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-600 block tracking-widest">{srv.num}</span>
@@ -125,7 +125,7 @@ export default function Home() {
       {/* 3. SECTION 3: SELECTED PROJECTS (Warm Sand) */}
       <FullSection id="projects" bgClass="bg-warm-light">
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
-          <div className="text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
+          <div className="relative z-10 text-center max-w-3xl mx-auto space-y-2 flex flex-col items-center">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               SELECTED PROJECTS
             </span>
@@ -139,11 +139,9 @@ export default function Home() {
         </div>
       </FullSection>
 
-      {/* 4. SECTION 4: HOW (Interactive timeline utilizing left empty space) */}
+      {/* 4. SECTION 4: HOW WE WORK */}
       <FullSection id="method" bgClass="bg-cool-light">
-        <div className="max-w-[1500px] mx-auto w-full">
-          <MethodTimeline />
-        </div>
+        <MethodTimeline />
       </FullSection>
 
       {/* 5. SECTION 5: CUSTOM VS TEMPLATE COMPARISON (Warm Sand) */}
@@ -290,45 +288,42 @@ export default function Home() {
           </div>
 
           {/* 3-Column Review Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
-            {/* Column 1 */}
-            <div className="md:mt-12 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            <div className="bg-white p-7 lg:p-10 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight flex-1">
                 &ldquo;Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.&rdquo;
               </p>
-              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100 shrink-0">
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">MV</div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Marcus V.</span>
-                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest whitespace-nowrap truncate">Business Owner</span>
                 </div>
               </footer>
             </div>
 
-            {/* Column 2 */}
-            <div className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
+            <div className="bg-white p-7 lg:p-10 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight flex-1">
                 &ldquo;Inquiries go straight to our phones now. Our customer calls doubled within 30 days. The custom CRM eliminated hours of manual data entry every single week.&rdquo;
               </p>
-              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100 shrink-0">
                 <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">DK</div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">David K.</span>
-                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Local Business Owner</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest whitespace-nowrap truncate">Local Business Owner</span>
                 </div>
               </footer>
             </div>
 
-            {/* Column 3 */}
-            <div className="md:mt-24 bg-white p-8 lg:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight">
-                &ldquo;The CRM saves us hours every week. We never lose a lead and our response time dropped from hours to minutes. It&apos;s the best investment we&apos;ve made.&rdquo;
+            <div className="bg-white p-7 lg:p-10 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full space-y-8">
+              <p className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight flex-1">
+                &ldquo;The CRM saves us hours every week. We never lose a lead, and our response time dropped from hours to minutes. It is the best investment we have made this year.&rdquo;
               </p>
-              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100">
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 text-sm font-black">SL</div>
-                <div>
+              <footer className="flex items-center gap-4 pt-4 border-t border-slate-100 shrink-0">
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 text-sm font-black">SL</div>
+                <div className="min-w-0">
                   <span className="text-sm font-bold text-slate-900 block uppercase tracking-wider">Sarah L.</span>
-                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest">Service Company</span>
+                  <span className="text-[10px] font-semibold text-slate-600 block uppercase tracking-widest whitespace-nowrap truncate">Service Company</span>
                 </div>
               </footer>
             </div>
@@ -338,17 +333,57 @@ export default function Home() {
 
       {/* 9. SECTION 9a: MESSAGE FORM (Warm Sand) */}
       <FullSection id="contact" bgClass="bg-warm-light">
-        <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
-          <div className="text-center space-y-6 flex flex-col items-center">
+        <div className="max-w-[1500px] mx-auto w-full relative z-10">
+          <div className="text-center space-y-3 flex flex-col items-center mb-8 lg:mb-10">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
               COMMUNICATION
             </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
               Project Brief.
             </h2>
           </div>
 
-          <ContactForm />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+            <aside className="hidden lg:flex lg:col-span-3 flex-col justify-between py-1">
+              {[
+                { num: "01", label: "Timing", text: "A reply in one business day." },
+                { num: "02", label: "Price", text: "A fixed quote after this brief." },
+                { num: "03", label: "Files", text: "You own the production code." },
+              ].map((item) => (
+                <div key={item.num} className="relative">
+                  <span className="text-5xl font-black text-slate-200 leading-none select-none block" aria-hidden="true">
+                    {item.num}
+                  </span>
+                  <div className="-mt-4 space-y-1">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{item.label}</h3>
+                    <p className="text-sm text-slate-600 font-medium leading-snug line-clamp-2 min-h-[2.5rem]">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </aside>
+
+            <div className="lg:col-span-6 w-full">
+              <ContactForm />
+            </div>
+
+            <aside className="hidden lg:flex lg:col-span-3 flex-col justify-between py-1 text-right">
+              {[
+                { num: "04", label: "Build", text: "Four weeks from the first call." },
+                { num: "05", label: "Next", text: "Submit the brief, get a plan." },
+                { num: "06", label: "Direct", text: "Book a time on the pricing page." },
+              ].map((item) => (
+                <div key={item.num} className="relative">
+                  <span className="text-5xl font-black text-slate-200 leading-none select-none block" aria-hidden="true">
+                    {item.num}
+                  </span>
+                  <div className="-mt-4 space-y-1">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{item.label}</h3>
+                    <p className="text-sm text-slate-600 font-medium leading-snug line-clamp-2 min-h-[2.5rem]">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </aside>
+          </div>
         </div>
       </FullSection>
     </article>
