@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SwipeNavigation from "@/components/SwipeNavigation";
 import { BOOT_SCRIPT } from "@/lib/smart-vh";
 
 export const metadata: Metadata = {
@@ -61,11 +62,13 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Navbar />
-        <main id="main-content" className="flex-grow pt-[var(--navbar-h)]">
-          {children}
-        </main>
-        <Footer />
+        <SwipeNavigation>
+          <Navbar />
+          <main id="main-content" className="flex-grow pt-[var(--navbar-h)]">
+            {children}
+          </main>
+          <Footer />
+        </SwipeNavigation>
       </body>
     </html>
   );

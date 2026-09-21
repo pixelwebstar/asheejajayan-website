@@ -33,7 +33,7 @@ export default function PrivacyPage() {
             This site does not use advertising trackers. Essential hosting logs may record IP addresses for security.
           </p>
           <p>
-            Email <a className="font-bold text-slate-900 underline" href="mailto:hello@amrith.com">hello@amrith.com</a> to review or delete your information.
+            Email <a className="font-bold text-slate-900 underline" href="mailto:asheejajayan.com@gmail.com">asheejajayan.com@gmail.com</a> to review or delete your information.
           </p>
           <p>
             <Link href="/contact" className="font-bold text-slate-900 underline">Return to contact</Link>

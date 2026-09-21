@@ -1,64 +1,114 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import ScopeChips from "@/components/ScopeChips";
+import { parseScopes, type ScopeValue } from "@/lib/catalog";
+import { btnPrimary, fieldClass } from "@/lib/ui";
 
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-
-export default function ContactForm() {
-  const [plan, setPlan] = useState("");
+export default function ContactForm({
+  initialScopes = ["websites"],
+}: {
+  initialScopes?: string[];
+}) {
+  const [scopes, setScopes] = useState<ScopeValue[]>(() => parseScopes(initialScopes));
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [details, setDetails] = useState("");
+  const [website, setWebsite] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState("");
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setStatus("sending");
+    setError("");
+    try {
+      const response = await fetch("/api/brief", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "project",
+          name,
+          email,
+          details,
+          scopes,
+          website,
+        }),
+      });
+      const data = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        setStatus("error");
+        setError(data.error || "Could not send. Try again, or email me directly.");
+        return;
+      }
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+      setError("Could not send. Check your connection and try again.");
+    }
+  };
+
+  if (status === "sent") {
+    return (
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-3 text-center">
+        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">Brief received.</h3>
+        <p className="text-sm text-slate-600 font-medium leading-relaxed">
+          I will reply in one business day with a fixed quote. No call required.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-white p-6 sm:p-8 lg:p-8 rounded-3xl border border-slate-100 shadow-sm h-full">
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+    <div className="relative bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm">
+      <form onSubmit={onSubmit} className="space-y-5 no-swipe">
         <div className="grid sm:grid-cols-2 gap-5">
-          <div className="space-y-2 text-center sm:text-left">
-            <label htmlFor="contact-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
-            <input id="contact-name" name="name" autoComplete="name" type="text" required className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
+          <div className="space-y-2">
+            <label htmlFor="brief-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+              Full name
+            </label>
+            <input id="brief-name" name="name" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} className={fieldClass} placeholder="Your name" />
           </div>
-          <div className="space-y-2 text-center sm:text-left">
-            <label htmlFor="contact-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
-            <input id="contact-email" name="email" autoComplete="email" type="email" required className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
-          </div>
-        </div>
-
-        <div className="space-y-2 text-center sm:text-left">
-          <label htmlFor="contact-scope" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
-          <div className="relative">
-            <select
-              id="contact-scope"
-              name="scope"
-              value={plan}
-              onChange={(e) => setPlan(e.target.value)}
-              className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
-            >
-              <option value="">Select a package...</option>
-              <option value="essential">Essential Package ($999)</option>
-              <option value="growth">Growth Package ($2,499)</option>
-              <option value="enterprise">Enterprise Package ($4,999+)</option>
-              <option value="custom">Custom Bespoke Solution</option>
-            </select>
-            <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-600 font-bold select-none">
-              ▼
-            </div>
+          <div className="space-y-2">
+            <label htmlFor="brief-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+              Email
+            </label>
+            <input id="brief-email" name="email" autoComplete="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={fieldClass} placeholder="you@company.com" />
           </div>
         </div>
 
-        <div className="space-y-2 text-center sm:text-left">
-          <label htmlFor="contact-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
+        <div className="space-y-2">
+          <span id="brief-scope-label" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+            What do you need?
+          </span>
+          <ScopeChips value={scopes} onChange={setScopes} id="brief-scope" />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="brief-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+            Notes
+          </label>
           <textarea
-            id="contact-details"
+            id="brief-details"
             name="details"
             rows={4}
+            required
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
-            placeholder="Describe your business requirements..."
-          ></textarea>
+            className={`${fieldClass} resize-none`}
+            placeholder="What the site needs to do, and when you want it live."
+          />
         </div>
 
-        <button type="submit" className={`${btnPrimary} w-full py-4 rounded-xl text-sm`}>
-          Submit Project Request
+        <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+          <label htmlFor="brief-website">Website</label>
+          <input id="brief-website" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+        </div>
+
+        {error ? <p className="text-sm font-medium text-slate-700">{error}</p> : null}
+
+        <button type="submit" disabled={status === "sending"} className={`${btnPrimary} w-full py-4 rounded-xl text-sm disabled:opacity-60`}>
+          {status === "sending" ? "Sending…" : "Send brief"}
         </button>
       </form>
     </div>

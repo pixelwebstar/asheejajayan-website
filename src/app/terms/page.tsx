@@ -33,7 +33,7 @@ export default function TermsPage() {
             Project work is governed by the statement of work and contract issued for that engagement.
           </p>
           <p>
-            <Link href="/contact" className="font-bold text-slate-900 underline">Contact us</Link> with questions about these terms.
+            <Link href="/contact" className="font-bold text-slate-900 underline">Contact me</Link> with questions about these terms.
           </p>
         </div>
       </section>

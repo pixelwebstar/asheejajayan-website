@@ -29,6 +29,7 @@ export function attach(): () => void {
     if (Math.abs(diffX) <= 75 || Math.abs(diffY) >= 45) return;
 
     const path = window.location.pathname;
+    if (path.startsWith("/start")) return;
     const activeIndex = nav.findIndex((href) =>
       href === "/" ? path === "/" : path.startsWith(href),
     );

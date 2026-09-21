@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import BrowserMockup from "@/components/BrowserMockup";
+import { btnPrimary } from "@/lib/ui";
 
 const projectData: Record<string, {
   clientName: string;
@@ -240,12 +241,9 @@ export default async function ProjectDetail({ params }: PageProps) {
           </p>
 
           <div className="pt-2 animate-fade-in-up animate-delay-200">
-            <Link
-              href="/pricing#plans"
-              className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all text-center focus:outline-none"
-            >
-              Request a Similar System
-            </Link>
+                <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+                  Start a similar project
+                </Link>
           </div>
         </div>
       </section>

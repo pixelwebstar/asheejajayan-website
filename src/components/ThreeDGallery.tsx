@@ -320,10 +320,10 @@ export default function ThreeDGallery() {
 
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
           <Link href="#services" className={btnSecondary}>
-            See How We Do It
+            See how I work
           </Link>
-          <Link href="/contact" className={btnPrimary}>
-            Start Your Project
+          <Link href="/start" className={btnPrimary}>
+            Start a project
           </Link>
         </div>
       </div>

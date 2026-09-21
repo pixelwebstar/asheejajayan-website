@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useState } from "react";
+import { useState } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
+import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
-
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
-
-// Premium Button Styles
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
+import { btnPrimary, btnSecondary, chipActive, chipIdle } from "@/lib/ui";
 
 const projects = [
   {
@@ -81,16 +77,6 @@ const screenshotMap: Record<string, string> = {
 
 
 
-function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
-  return (
-    <section id={id} className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}>
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
-
 export default function ProjectsIndex() {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -129,8 +115,8 @@ export default function ProjectsIndex() {
             >
               See Case Studies
             </button>
-            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Project
+            <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start a project
             </Link>
           </div>
         </div>
@@ -147,11 +133,9 @@ export default function ProjectsIndex() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
-                  activeCategory === cat 
-                  ? "bg-slate-900 text-white shadow-md scale-105" 
-                  : "bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-slate-200"
-                }`}
+                type="button"
+                aria-pressed={activeCategory === cat}
+                className={activeCategory === cat ? chipActive : chipIdle}
               >
                 {cat}
               </button>

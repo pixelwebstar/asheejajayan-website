@@ -1,209 +1,163 @@
 import Link from "next/link";
-import React, { ReactNode } from "react";
 import HeroSection from "@/components/HeroSection";
+import FullSection from "@/components/FullSection";
+import SectionHeader from "@/components/SectionHeader";
+import { btnPrimary, btnSecondary } from "@/lib/ui";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Amrith Sheeja Jayan - Custom Systems Developer",
-  description: "Learn about Amrith Sheeja Jayan, a custom web developer focused on performance, codebase ownership, and building high-conversion platforms.",
+  description: "Amrith Sheeja Jayan builds custom websites for performance, ownership, and the next client call.",
+  alternates: { canonical: "/about" },
 };
 
+const PRINCIPLES = [
+  { num: "01", title: "Eliminate noise", desc: "No bloated plugins, slow templates, or visual clutter that keeps someone from contacting you." },
+  { num: "02", title: "Authority by design", desc: "The first screen has to look like the person they should hire. That decision happens in seconds." },
+  { num: "03", title: "Revenue focus", desc: "Every layout choice points at the intake. Success is measured in leads, not page count." },
+];
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
+const SPECIALTIES = [
+  { num: "01", name: "Digital architecture", desc: "Custom sites that display instantly on desktop and phone.", bold: "Sub-second load times." },
+  { num: "02", name: "Lead integration", desc: "Inquiries save to your list the moment they send.", bold: "Zero lost leads." },
+  { num: "03", name: "Conversion funnels", desc: "Type and layout that move a visitor toward a call or booking.", bold: "Every click has purpose." },
+  { num: "04", name: "Absolute ownership", desc: "You get the files. No monthly builder rent.", bold: "You own everything." },
+];
 
-// Premium Button Styles
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
-
-
-
-function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
-  return (
-    <section
-      id={id}
-      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}
-    >
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
+const HISTORY = [
+  { year: "2026", title: "Independent web developer", desc: "High-conversion layouts and automated systems for business owners who want to own the stack." },
+  { year: "2024", title: "Lead web developer", desc: "Custom software and secure database sync for live operations." },
+  { year: "2022", title: "Web developer", desc: "Started in Canada, building lightweight sites that stay fast on phones." },
+];
 
 export default function About() {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "name": "About Amrith Sheeja Jayan - Custom Developer",
-    "description": "Amrith Sheeja Jayan builds high-performance custom Next.js websites and automated CRM systems from scratch. Focused on sub-second load times and zero platform lock-in fees.",
-    "mainEntity": {
+    name: "About Amrith Sheeja Jayan - Custom Developer",
+    description:
+      "Amrith Sheeja Jayan builds high-performance custom Next.js websites and automated CRM systems from scratch. Focused on sub-second load times and zero platform lock-in fees.",
+    mainEntity: {
       "@type": "Person",
-      "name": "Amrith Sheeja Jayan",
-      "jobTitle": "Web Developer",
-      "knowsAbout": ["Web Design", "CRM Integration", "Next.js", "PageSpeed Optimization"]
-    }
+      name: "Amrith Sheeja Jayan",
+      jobTitle: "Web Developer",
+      knowsAbout: ["Web Design", "CRM Integration", "Next.js", "PageSpeed Optimization"],
+    },
   };
 
   return (
     <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }} />
 
-      {/* SECTION 1: HERO (Warm Sand) */}
       <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-              ABOUT ME
-            </span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">About me</span>
             <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
               Amrith Sheeja Jayan.
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            I am a custom web developer building fast, secure websites for growing businesses. Focused on code performance and ownership.
+            I design and code fast, secure websites for growing businesses. You own the files. The site is built to get the next call.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <Link href="#philosophy" className={`${btnSecondary} w-full sm:w-auto`}>
-              Read Philosophy
+              Read philosophy
             </Link>
-            <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Your Project
+            <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start a project
             </Link>
           </div>
         </div>
       </HeroSection>
 
-      {/* SECTION 2: PHILOSOPHY (Split — Left Text / Right Principles) */}
       <FullSection id="philosophy" bgClass="bg-cool-light">
         <div className="max-w-5xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left: Editorial */}
-            <div className="lg:col-span-5 space-y-6">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-                PHILOSOPHY
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                Business-First Web Design.
-              </h2>
-              <p className="text-base text-slate-600 leading-relaxed font-medium">
-                I treat website design as a precision instrument for revenue. Every decision eliminates noise and prioritizes conversions. We strip away everything that does not directly serve your bottom line.
-              </p>
-
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-5">
+              <SectionHeader
+                align="left"
+                eyebrow="Philosophy"
+                title="Business-first web design."
+                lede="A website is a precision tool for revenue. Every decision should remove noise and make it obvious how to hire you."
+              />
             </div>
-
-            {/* Right: Numbered Principles with Dividers */}
-            <div className="lg:col-span-7 space-y-0">
-              {[
-                { num: "01", title: "Eliminate Noise", desc: "We strip away bloated plugins, slow templates, and visual clutter that distract visitors from contacting you." },
-                { num: "02", title: "Authority by Design", desc: "Premium visual design positions your brand as the trusted expert in your market. First impressions happen in seconds." },
-                { num: "03", title: "Revenue Focus", desc: "Every layout decision is made to guide visitors toward your intake form. We measure success by leads generated." }
-              ].map((item, idx) => (
-                <div key={item.num} className={`flex gap-6 items-start py-6 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
-                  <span className="text-2xl font-black text-slate-600 select-none leading-none pt-1 min-w-[40px]">{item.num}</span>
-                  <div className="space-y-1">
-                    <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
+            <ol className="lg:col-span-7">
+              {PRINCIPLES.map((item, index) => (
+                <li
+                  key={item.num}
+                  className={`flex gap-6 items-start py-6 ${index < PRINCIPLES.length - 1 ? "border-b border-slate-200" : ""}`}
+                >
+                  <span className="text-2xl font-black text-slate-600 leading-none min-w-[2.5rem] font-mono">{item.num}</span>
+                  <div className="space-y-1 min-w-0">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{item.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </FullSection>
 
-      {/* SECTION 3: CAPABILITIES (Warm Light bg — 2x2 Grid) */}
       <FullSection id="capabilities" bgClass="bg-warm-light">
         <div className="max-w-5xl mx-auto w-full space-y-16">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-              SPECIALTIES
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Elite Execution.
-            </h2>
-            <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium max-w-xl mx-auto">
-              Four core capabilities that set our work apart from generic agencies.
-            </p>
-          </div>
-
+          <SectionHeader
+            eyebrow="Specialties"
+            title="What every build is for."
+            lede="Four things I will not skip, whether the job is a marketing site or a private tool."
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
-            {[
-              { num: "01", name: "Digital Architecture", desc: "Fast, custom websites designed to display instantly on desktop and mobile phones.", bold: "Sub-second load times." },
-              { num: "02", name: "Lead Integration", desc: "Saving contact inquiries directly to your CRM, keeping your sales flow completely organized.", bold: "Zero lost leads." },
-              { num: "03", name: "Conversion Funnels", desc: "Structuring typography and layouts to guide visitors effortlessly toward phone calls and bookings.", bold: "Every click has purpose." },
-              { num: "04", name: "Absolute Ownership", desc: "Delivering all assets directly to your control with zero ongoing platform subscription fees.", bold: "You own everything." }
-            ].map((item, idx) => (
+            {SPECIALTIES.map((item, index) => (
               <div
                 key={item.num}
-                className={`p-8 lg:p-10 space-y-4 ${idx < 2 ? 'border-b border-slate-200' : ''} ${idx % 2 === 0 ? 'sm:border-r border-slate-200' : ''}`}
+                className={`p-8 lg:p-10 space-y-4 ${index < 2 ? "border-b border-slate-200" : ""} ${index % 2 === 0 ? "sm:border-r border-slate-200" : ""}`}
               >
-                <span className="text-3xl font-black text-slate-600 block leading-none">{item.num}</span>
+                <span className="text-3xl font-black text-slate-600 block leading-none font-mono">{item.num}</span>
                 <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{item.name}</h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
-                <p className="text-xs sm:text-sm text-slate-900 font-bold">{item.bold}</p>
+                <p className="text-sm text-slate-600 leading-relaxed font-medium">{item.desc}</p>
+                <p className="text-sm text-slate-900 font-bold">{item.bold}</p>
               </div>
             ))}
           </div>
-
-
         </div>
       </FullSection>
 
-      {/* SECTION 4: TIMELINE (Horizontal Stacked Rows) */}
       <FullSection id="timeline" bgClass="bg-cool-light">
         <div className="max-w-5xl mx-auto w-full space-y-12">
-          <div className="space-y-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-              JOURNEY
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Professional History.
-            </h2>
-          </div>
-
-          <div className="space-y-0">
-            {[
-              { year: "2026", title: "Independent Web Developer", desc: "Designing high-conversion layouts and developing automated systems for elite business owners." },
-              { year: "2024", title: "Lead Web Developer", desc: "Developed fast custom software and secure database synchronization architectures." },
-              { year: "2022", title: "Web Developer", desc: "Began building websites in Canada, focused on lightweight code and flawless performance." }
-            ].map((exp, idx) => (
-              <div key={exp.year} className={`grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 py-8 ${idx < 2 ? 'border-b border-slate-200' : ''}`}>
-                <div className="sm:col-span-3">
-                  <span className="text-4xl sm:text-5xl font-black text-slate-900 block leading-none tracking-tight">{exp.year}</span>
-                </div>
+          <SectionHeader align="left" eyebrow="Journey" title="How I got here." />
+          <div>
+            {HISTORY.map((exp, index) => (
+              <div
+                key={exp.year}
+                className={`grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 py-8 ${index < HISTORY.length - 1 ? "border-b border-slate-200" : ""}`}
+              >
+                <span className="sm:col-span-3 text-4xl sm:text-5xl font-black text-slate-900 leading-none tracking-tight">
+                  {exp.year}
+                </span>
                 <div className="sm:col-span-9 space-y-2">
-                  <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider">{exp.title}</h3>
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">{exp.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed font-medium">{exp.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-
-
         </div>
       </FullSection>
 
-      {/* SECTION 5: CTA (Full-Width Centered Editorial) */}
       <FullSection bgClass="bg-warm-light">
         <div className="max-w-3xl mx-auto w-full text-center space-y-8">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-            INITIATE
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-            Let&apos;s Build Your Pipeline.
-          </h2>
-          <p className="text-base text-slate-600 leading-relaxed font-medium max-w-xl mx-auto">
-            Ready to deploy a custom digital platform that converts visitors into paying clients? Review our intake process or message me directly.
-          </p>
-          <div className="pt-6 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+          <SectionHeader
+            eyebrow="Next"
+            title="Send a brief. Skip the call."
+            lede="I reply in one business day with a fixed quote. Nothing is due until you accept it."
+          />
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
-              Direct Contact
+              Ask a question
             </Link>
-            <Link href="/pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Submit Requirements
+            <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start a project
             </Link>
           </div>
         </div>

@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactNode, useState } from "react";
+import { useState } from "react";
 import BrowserMockup from "@/components/BrowserMockup";
+import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
-
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
-
-// Premium Button Styles
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
+import { btnPrimary, btnSecondary, chipActive, chipIdle, fieldClass } from "@/lib/ui";
 
 const articles = [
   {
@@ -47,16 +43,6 @@ const articles = [
 const categories = ["All", "BUDGET", "COMPARISON", "OPERATIONS"];
 
 
-
-function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
-  return (
-    <section id={id} className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}>
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
 
 export default function BlogIndex() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -98,8 +84,8 @@ export default function BlogIndex() {
             >
               See Articles
             </button>
-            <Link href="/contact#form" className={`${btnPrimary} w-full sm:w-auto`}>
-              Start Project
+            <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+              Start a project
             </Link>
           </div>
         </div>
@@ -117,11 +103,9 @@ export default function BlogIndex() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2 rounded-full text-xs font-bold tracking-wider transition-all cursor-pointer uppercase ${
-                    activeCategory === cat 
-                      ? "bg-slate-900 text-white shadow-xs" 
-                      : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/50"
-                  }`}
+                  type="button"
+                  aria-pressed={activeCategory === cat}
+                  className={activeCategory === cat ? chipActive : chipIdle}
                 >
                   {cat}
                 </button>
@@ -136,7 +120,7 @@ export default function BlogIndex() {
                 aria-label="Search articles"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-5 py-2.5 rounded-full border border-slate-200 bg-slate-50/50 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-xs font-bold uppercase tracking-wider transition-all placeholder:text-slate-400"
+                className={`${fieldClass} pr-10`}
               />
               <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-[10px]">
                 🔍

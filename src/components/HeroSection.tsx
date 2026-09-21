@@ -7,13 +7,14 @@ interface HeroSectionProps {
   bgClass: string;
   id?: string;
   bgImage?: string;
+  fill?: boolean;
 }
 
-export default function HeroSection({ children, bgClass, id, bgImage }: HeroSectionProps) {
+export default function HeroSection({ children, bgClass, id, bgImage, fill = true }: HeroSectionProps) {
   return (
     <section
       id={id}
-      className={`hero-section relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
+      className={`${fill ? "hero-section" : ""} relative py-16 sm:py-20 ${bgClass} border-b border-gray-100 overflow-hidden`}
     >
       {bgImage ? (
         <>

@@ -30,13 +30,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const progressRef = useRef<HTMLDivElement>(null);
 
+  const onStart = pathname.startsWith("/start");
   let activeIndex = 0;
   for (let i = 0; i < nav.length; i++) {
     if (isCurrent(pathname, nav[i].href)) activeIndex = i;
   }
-  const prev = nav[(activeIndex - 1 + nav.length) % nav.length];
-  const current = nav[activeIndex];
-  const next = nav[(activeIndex + 1) % nav.length];
+  const prev = onStart ? nav[nav.length - 1] : nav[(activeIndex - 1 + nav.length) % nav.length];
+  const current = onStart ? { href: "/start", label: "Start" } : nav[activeIndex];
+  const next = onStart ? nav[0] : nav[(activeIndex + 1) % nav.length];
 
   useEffect(() => {
     const bar = progressRef.current;
@@ -69,7 +70,8 @@ export default function Navbar() {
             </a>
 
             <a
-              href="/contact"
+              href="/start"
+              aria-current={onStart ? "page" : undefined}
               className="bg-foreground text-background text-[10px] sm:text-xs font-bold uppercase tracking-widest px-4 py-2 sm:px-5 sm:py-2.5 rounded hover:bg-foreground/90 transition-colors shrink-0"
             >
               Start Project

@@ -1,181 +1,84 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
-import React, { ReactNode, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
+import HireSteps from "@/components/HireSteps";
+import InquiryForm from "@/components/InquiryForm";
+import SectionHeader from "@/components/SectionHeader";
+import { btnPrimary } from "@/lib/ui";
 
-const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-16";
-
-// Premium Button Styles
-const btnPrimary = "inline-flex items-center justify-center rounded bg-slate-900 text-white text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-800 active:scale-[0.98] min-w-[220px]";
-const btnSecondary = "inline-flex items-center justify-center rounded border-2 border-slate-900 bg-white text-slate-900 text-xs font-bold uppercase tracking-widest px-8 py-4 transition-all duration-200 hover:bg-slate-50 active:scale-[0.98] min-w-[220px]";
-
-
-
-function FullSection({ children, bgClass, id }: { children: ReactNode; bgClass: string; id?: string }) {
-  return (
-    <section
-      id={id}
-      className={`full-section relative py-20 lg:py-32 ${bgClass} border-b border-gray-100`}
-    >
-      <div className={`${shell} relative z-10 w-full`}>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function ContactContent() {
-  const searchParams = useSearchParams();
-  const initialPlan = searchParams.get("plan") || "";
-  const initialCustom = searchParams.get("custom") || "";
-
-  const [plan, setPlan] = useState(initialPlan ? initialPlan : (initialCustom ? "custom" : ""));
-  const [details, setDetails] = useState(initialCustom);
-
-  return (
-    <div className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-
-      {/* SECTION 1: HERO (Warm Sand) */}
-      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
-        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
-          <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              CONTACT
-            </span>
-            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-              Start growing your sales.
-            </h1>
-          </div>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Let us discuss your business goals and design a website built to get you more clients. Receive your custom proposal in 24 hours.
-          </p>
-          <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-            <Link href="#channels" className={`${btnSecondary} w-full sm:w-auto`}>
-              Direct Details
-            </Link>
-            <Link href="#form" className={`${btnPrimary} w-full sm:w-auto`}>
-              Inquire Now
-            </Link>
-          </div>
-        </div>
-      </HeroSection>
-
-      {/* SECTION 2: MESSAGE FORM (Cool Slate) */}
-      <FullSection id="form" bgClass="bg-cool-light">
-        <div className="space-y-12 max-w-3xl mx-auto w-full relative z-10">
-          <div className="text-center space-y-6 flex flex-col items-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              COMMUNICATION
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Project Brief.
-            </h2>
-          </div>
-
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm">
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2 text-center sm:text-left">
-                  <label htmlFor="contact-page-name" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Full Name</label>
-                  <input id="contact-page-name" type="text" name="name" autoComplete="name" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="John Doe" />
-                </div>
-                <div className="space-y-2 text-center sm:text-left">
-                  <label htmlFor="contact-page-email" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Email Address</label>
-                  <input id="contact-page-email" type="email" name="email" autoComplete="email" required className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm" placeholder="john@company.com" />
-                </div>
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label htmlFor="contact-page-scope" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Project Scope</label>
-                <div className="relative">
-                  <select
-                    id="contact-page-scope"
-                    name="scope"
-                    value={plan}
-                    onChange={(e) => setPlan(e.target.value)}
-                    className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm appearance-none cursor-pointer"
-                  >
-                    <option value="">Select a package...</option>
-                    <option value="essential">Essential Package ($999)</option>
-                    <option value="growth">Growth Package ($2,499)</option>
-                    <option value="enterprise">Enterprise Package ($4,999+)</option>
-                    <option value="custom">Custom Bespoke Solution</option>
-                  </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-xs text-slate-600 font-bold select-none">
-                    ▼
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2 text-center sm:text-left">
-                <label htmlFor="contact-page-details" className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">Inquiry Details</label>
-                <textarea
-                  id="contact-page-details"
-                  name="details"
-                  rows={5}
-                  value={details}
-                  onChange={(e) => setDetails(e.target.value)}
-                  className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm resize-none"
-                  placeholder="Describe your business requirements..."
-                ></textarea>
-              </div>
-
-              <button type="submit" className={`${btnPrimary} w-full py-6 rounded-xl text-sm`}>
-                Submit Project Request
-              </button>
-            </form>
-          </div>
-        </div>
-      </FullSection>
-
-      {/* SECTION 3: OTHER CHANNELS (Slate 50) */}
-      <FullSection id="channels" bgClass="bg-warm-light">
-        <div className="space-y-12 max-w-xl mx-auto text-center">
-          <div className="space-y-6">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 block">
-              CHANNELS
-            </span>
-            <h2 className="text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Global Presence.
-            </h2>
-          </div>
-
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-            <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Executive Email</span>
-              <div className="text-xl font-bold text-slate-900">hello@amrith.com</div>
-            </div>
-            <div className="border-b border-slate-100 pb-8 space-y-2">
-              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Headquarters</span>
-              <div className="text-xl font-bold text-slate-900">Canada</div>
-            </div>
-            <div className="space-y-4">
-              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Digital Profiles</span>
-              <div className="flex justify-center gap-8 pt-2 text-xs font-bold text-slate-900">
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors uppercase tracking-widest min-h-11 inline-flex items-center">LinkedIn</a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors uppercase tracking-widest min-h-11 inline-flex items-center">GitHub</a>
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-            <Link href="/pricing" className={`${btnPrimary} w-full sm:w-auto`}>
-              Return to Pricing
-            </Link>
-          </div>
-        </div>
-      </FullSection>
-
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Ask a question or start a project in writing. Reply in one business day. No call required.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function Contact() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white"></div>}>
-      <ContactContent />
-    </Suspense>
+    <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Contact</span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Two doors. No call.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            Ask a short question, or send a project brief. I reply in writing within one business day.
+          </p>
+        </div>
+      </HeroSection>
+
+      <FullSection id="ask" bgClass="bg-cool-light">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-5 space-y-8">
+              <SectionHeader
+                align="left"
+                eyebrow="Ask"
+                title="A question is enough."
+                lede="Use this if you are not ready to hire. If you already know the work, start a project instead."
+              />
+              <div className="hidden lg:block">
+                <HireSteps />
+              </div>
+            </div>
+            <div className="lg:col-span-7 space-y-6">
+              <InquiryForm />
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">Ready to hire</h2>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  Four steps. Scope, timing, details, send. You get a fixed quote and a deposit link. Nothing is due until you accept.
+                </p>
+                <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
+                  Start a project
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+
+      <FullSection id="direct" bgClass="bg-warm-light">
+        <div className="max-w-3xl mx-auto w-full space-y-8">
+          <SectionHeader eyebrow="Direct" title="Email if you prefer." />
+          <div className="space-y-0">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-5 border-b border-slate-200">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">Email</span>
+              <a href="mailto:asheejajayan.com@gmail.com" className="text-lg font-bold text-slate-900">
+                asheejajayan.com@gmail.com
+              </a>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-5">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">GitHub</span>
+              <a href="https://github.com/asheejajayan" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-900">
+                github.com/asheejajayan
+              </a>
+            </div>
+          </div>
+        </div>
+      </FullSection>
+    </article>
   );
 }

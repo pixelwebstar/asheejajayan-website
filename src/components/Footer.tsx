@@ -5,34 +5,31 @@ const pages = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Contact", href: "/contact" },
+  { label: "Projects", href: "/project" },
   { label: "Blog", href: "/blog" },
 ];
 
 const services = [
   { label: "Websites", href: "/services#websites" },
-  { label: "Layouts", href: "/services" },
-  { label: "Automation", href: "/services#crm-software" },
-  { label: "Support", href: "/services#support-ops" },
-  { label: "SEO", href: "/services" },
+  { label: "Web Apps", href: "/services#web-apps" },
+  { label: "CRM", href: "/services#crm-software" },
+  { label: "Maps", href: "/services#google-map" },
   { label: "Ads", href: "/services#google-ads" },
+  { label: "Support", href: "/services#support-ops" },
 ];
 
 const resources = [
-  { label: "Start Project", href: "/contact" },
-  { label: "FAQ", href: "/contact" },
+  { label: "Start Project", href: "/start" },
+  { label: "Ask a Question", href: "/contact" },
+  { label: "FAQ", href: "/pricing#faq" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
-  { label: "Security", href: "/privacy" },
-  { label: "Projects", href: "/project" },
 ];
 
 const contact = [
-  { label: "Booking", href: "/pricing" },
-  { label: "Email", href: "mailto:hello@amrith.com" },
-  { label: "Phone", href: "tel:+1234567890" },
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "Start", href: "/start" },
+  { label: "Email", href: "mailto:asheejajayan.com@gmail.com" },
+  { label: "GitHub", href: "https://github.com/asheejajayan" },
 ];
 
 const linkClass =
@@ -50,13 +47,13 @@ function FooterColumn({
       <h2 className="text-[10px] font-bold tracking-[0.2em] text-muted uppercase">{heading}</h2>
       <ul className="footer-links">
         {items.map((item) => {
-          const external = item.href.startsWith("http");
+          const isHttp = item.href.startsWith("http");
           return (
             <li key={`${heading}-${item.label}`}>
               <a
                 href={item.href}
                 className={linkClass}
-                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
                 {item.label}
               </a>
@@ -75,12 +72,10 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 md:gap-6 mb-10 lg:mb-16">
           <div className="col-span-2 md:col-span-4 space-y-4 md:space-y-6 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">
-                Amrith Sheeja Jayan
-              </span>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Amrith Sheeja Jayan</span>
             </div>
             <p className="text-muted font-medium leading-relaxed text-sm max-w-xs md:max-w-[260px] mx-auto md:mx-0">
-              I build websites designed specifically to grow your business. Everything I create is focused on getting you more clients and making your operations smoother.
+              Custom websites for business growth. Written brief, fixed quote, no call required.
             </p>
           </div>
 

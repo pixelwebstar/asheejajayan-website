@@ -183,11 +183,8 @@ export default async function BlogDetail({ params }: PageProps) {
           </p>
 
           <div className="pt-2 animate-fade-in-up animate-delay-200">
-            <Link
-              href="/pricing"
-              className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all text-center focus:outline-none"
-            >
-              See Pricing
+            <Link href="/start" className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px] px-8 py-4 rounded hover:bg-slate-800 transition-all text-center focus:outline-none">
+              Start a project
             </Link>
           </div>
         </div>

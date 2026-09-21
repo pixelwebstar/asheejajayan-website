@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/pricing",
     "/project",
     "/blog",
+    "/start",
     "/contact",
     "/privacy",
     "/terms",
@@ -26,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((path) => ({
     url: `${site}${path}`,
-    lastModified: new Date("2026-08-19"),
+    lastModified: new Date("2026-09-21"),
     changeFrequency: path === "" ? "weekly" : "monthly",
     priority: path === "" ? 1 : 0.7,
   }));

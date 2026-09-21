@@ -18,11 +18,11 @@ interface StepDetail {
 const steps: StepDetail[] = [
   {
     num: "01",
-    title: "First Call",
-    desc: "We learn about your business, your customers, and the exact goal you want this website to reach.",
-    longDesc: "We talk with you to learn about your business, see what other websites in your field are doing, and make a plan that turns visitors into paying customers.",
+    title: "Brief",
+    desc: "You send the work in writing. I learn the business, the customer, and the pages the site needs.",
+    longDesc: "The written brief is the first call. I review your market, the pages you need, and how visitors should hire you. No video required.",
     timeframe: "Days 1–2",
-    focusDesc: "We join a video call to learn your business, who you serve, and which pages the new site needs.",
+    focusDesc: "You send the brief. I reply in writing with questions only if something is unclear.",
     deliverables: [
       "List of business goals",
       "Notes on your target customer",
@@ -36,11 +36,11 @@ const steps: StepDetail[] = [
       "Checklist for project success"
     ],
     clientInput: [
-      "Send your logo and colors",
-      "Join the first video call"
+      "Send the project brief",
+      "Share logo and colors if you have them"
     ],
     result: "A clear website plan",
-    nextStep: "Fill out the kickoff form"
+    nextStep: "Send the project brief"
   },
   {
     num: "02",
@@ -212,9 +212,16 @@ function ProgressBar({ play, restartKey }: { play: boolean; restartKey: string }
 }
 
 function DetailPanels({ step, stacked = false, autoPlay = false }: { step: StepDetail; stacked?: boolean; autoPlay?: boolean }) {
+  const card = stacked
+    ? "bg-white border border-slate-100 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col relative"
+    : "bg-white border border-slate-100 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between relative overflow-hidden min-h-0 h-full";
+  const inner = stacked
+    ? "flex flex-col gap-3 w-full"
+    : "flex flex-col justify-between h-full w-full animate-timeline-switch";
+
   const covered = (
-    <div className="bg-white border border-slate-100 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between relative overflow-hidden min-h-0 h-full">
-      <div key={step.num + "-covered"} className="flex flex-col justify-between h-full w-full animate-timeline-switch">
+    <div className={card}>
+      <div key={step.num + "-covered"} className={inner}>
         <div className="space-y-3">
           <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
             Things Covered
@@ -239,8 +246,8 @@ function DetailPanels({ step, stacked = false, autoPlay = false }: { step: StepD
   );
 
   const weDo = (
-    <div className="bg-white border border-slate-100 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between relative overflow-hidden min-h-0 h-full">
-      <div key={step.num + "-do"} className="flex flex-col justify-between h-full w-full animate-timeline-switch">
+    <div className={card}>
+      <div key={step.num + "-do"} className={inner}>
         <div className="space-y-2">
           <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
             What We Do
@@ -258,9 +265,9 @@ function DetailPanels({ step, stacked = false, autoPlay = false }: { step: StepD
   );
 
   const yourPart = (
-    <div className="bg-white border border-slate-100 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between relative overflow-hidden min-h-0 h-full">
-      <div key={step.num + "-part"} className="flex flex-col justify-between h-full w-full animate-timeline-switch min-h-0">
-        <div className="space-y-2 min-h-0">
+    <div className={card}>
+      <div key={step.num + "-part"} className={inner}>
+        <div className="space-y-2">
           <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
             Your Part
           </span>
@@ -441,7 +448,9 @@ export default function MethodTimeline() {
             <p className="text-sm leading-snug font-medium text-slate-700 shrink-0 line-clamp-2 min-h-[2.5rem]">
               {activeStep.desc}
             </p>
-            <DetailPanels step={activeStep} stacked />
+            <div className="mb-16">
+              <DetailPanels step={activeStep} stacked />
+            </div>
             <div className="sticky bottom-0 z-10 -mx-6 px-6 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] bg-cool-light/95 backdrop-blur-sm border-t border-slate-200/80">
               <div className="flex justify-between gap-1">
                 {steps.map((step, index) => (
