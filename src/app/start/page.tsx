@@ -1,30 +1,34 @@
 import type { Metadata } from "next";
+import ContactForm from "@/components/ContactForm";
 import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
-import StartWizard from "@/components/StartWizard";
 
 export const metadata: Metadata = {
   title: "Start a Project",
-  description: "Send a written project brief. Fixed quote in one business day. No call required.",
+  description: "Tell me about the work. Name, phone, budget, and what the business needs. A fixed price within one business day.",
   alternates: { canonical: "/start" },
 };
 
 export default function StartPage() {
   return (
     <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp" fill={false}>
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-6">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Start a project</span>
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
-            Hire me in writing.
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl">
-            Four short steps. I send a fixed quote the next business day. You do not need a call.
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Start</span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              Tell me about the work.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            The same form as the contact page. I reply within one business day with a fixed price.
           </p>
         </div>
       </HeroSection>
-      <FullSection bgClass="bg-cool-light" compact>
-        <StartWizard />
+      <FullSection bgClass="bg-cool-light">
+        <div className="max-w-3xl mx-auto w-full">
+          <ContactForm />
+        </div>
       </FullSection>
     </article>
   );

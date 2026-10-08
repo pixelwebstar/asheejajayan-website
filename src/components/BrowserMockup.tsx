@@ -8,33 +8,45 @@ interface BrowserMockupProps {
   screenshotUrl: string | string[];
   title: string;
   isVisible?: boolean;
+  isActive?: boolean;
 }
 
-export default function BrowserMockup({ url, screenshotUrl, title, isVisible = true }: BrowserMockupProps) {
+export default function BrowserMockup({
+  url,
+  screenshotUrl,
+  title,
+  isVisible = true,
+  isActive = true,
+}: BrowserMockupProps) {
   const [hasBeenVisible, setHasBeenVisible] = useState(isVisible);
   const isArray = Array.isArray(screenshotUrl);
   const screenshotArray = isArray ? (screenshotUrl as string[]) : [screenshotUrl as string];
   const [activeIdx, setActiveIdx] = useState(0);
+  const [mediaReady, setMediaReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    if (isVisible) {
-      timeout = setTimeout(() => setHasBeenVisible(true), 0);
-    }
-    return () => clearTimeout(timeout);
+    if (isVisible) setHasBeenVisible(true);
   }, [isVisible]);
 
   const activeUrl = hasBeenVisible ? screenshotArray[activeIdx] : "";
   const isVideo = activeUrl.endsWith(".webm");
 
   useEffect(() => {
-    if (isVideo && videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {});
+    setMediaReady(false);
+  }, [activeUrl]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !isVideo) return;
+    video.defaultMuted = true;
+    video.muted = true;
+    if (isActive && isVisible) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
     }
-  }, [activeUrl, isVideo]);
+  }, [activeUrl, isVideo, isActive, isVisible]);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -50,37 +62,34 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
 
   return (
     <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative isolate">
-      {/* Browser Chrome Header */}
       <div className="h-8 bg-slate-50 border-b border-slate-200/80 flex items-center px-4 justify-between select-none shrink-0 font-sans z-10 relative">
-        {/* Window controls */}
         <div className="flex gap-1.5 items-center" aria-hidden="true">
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
         </div>
-        {/* Address bar */}
         <div className="w-1/2 max-w-[200px] bg-white border border-slate-200/60 rounded py-0.5 text-[10px] font-bold text-slate-600 uppercase tracking-widest text-center truncate font-mono shadow-sm">
           {url.replace("https://", "").replace("www.", "")}
         </div>
         <div className="w-10"></div>
       </div>
-      
-      {/* Content Area with Blueprint Grid Texture & Screenshot/Video */}
-      <div className={`flex-1 relative overflow-hidden ${!hasBeenVisible ? "bg-white" : "blueprint-grid bg-slate-50"}`}>
+
+      <div className="flex-1 relative overflow-hidden blueprint-grid bg-slate-50">
         {hasBeenVisible && activeUrl && (
           <>
             {isVideo ? (
               <video
                 ref={videoRef}
                 src={activeUrl}
-                autoPlay
+                autoPlay={isActive}
                 loop
                 muted
                 playsInline
-                preload="none"
+                preload={isActive ? "auto" : "metadata"}
+                onLoadedData={() => setMediaReady(true)}
                 aria-hidden="true"
                 title=""
-                className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
+                className={`absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none ${mediaReady ? "opacity-100" : "opacity-0"}`}
               />
             ) : (
               <Picture
@@ -88,11 +97,12 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                 alt=""
                 width={960}
                 height={513}
+                loading={isActive ? "eager" : "lazy"}
+                fetchPriority={isActive ? "high" : "low"}
                 className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
               />
             )}
 
-            {/* Left and Right Carousel Arrow Buttons */}
             {screenshotArray.length > 1 && (
               <>
                 <button
@@ -110,7 +120,6 @@ export default function BrowserMockup({ url, screenshotUrl, title, isVisible = t
                   &rarr;
                 </button>
 
-                {/* Bullet Indicators */}
                 <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-30">
                   {screenshotArray.map((_, idx) => (
                     <span

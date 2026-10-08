@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
 import HireSteps from "@/components/HireSteps";
-import InquiryForm from "@/components/InquiryForm";
+import ContactForm from "@/components/ContactForm";
 import SectionHeader from "@/components/SectionHeader";
-import { btnPrimary } from "@/lib/ui";
+import { EMAIL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Ask a question or start a project in writing. Reply in one business day. No call required.",
+  description: "Call, WhatsApp, or send the form. Name, phone, budget, and what the business needs. Reply within one business day.",
   alternates: { canonical: "/contact" },
 };
+
+const direct = [
+  { label: "Phone", href: PHONE_TEL, value: PHONE_DISPLAY },
+  { label: "WhatsApp", href: WHATSAPP_URL, value: "WhatsApp" },
+  { label: "Email", href: `mailto:${EMAIL}`, value: EMAIL },
+].filter((item) => item.href);
 
 export default function Contact() {
   return (
@@ -21,11 +26,11 @@ export default function Contact() {
           <div className="space-y-3">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Contact</span>
             <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
-              Two doors. No call.
+              Tell me about the work.
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Ask a short question, or send a project brief. I reply in writing within one business day.
+            Call, WhatsApp, or send the form. I reply within one business day with a fixed price.
           </p>
         </div>
       </HeroSection>
@@ -33,28 +38,17 @@ export default function Contact() {
       <FullSection id="ask" bgClass="bg-cool-light">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5 space-y-8">
+            <div className="lg:col-span-4 space-y-8">
               <SectionHeader
                 align="left"
-                eyebrow="Ask"
-                title="A question is enough."
-                lede="Use this if you are not ready to hire. If you already know the work, start a project instead."
+                eyebrow="Start"
+                title="The same form."
+                lede="Name, phone, budget, and what the business needs. A question and a project start in the same place."
               />
-              <div className="hidden lg:block">
-                <HireSteps />
-              </div>
+              <HireSteps />
             </div>
-            <div className="lg:col-span-7 space-y-6">
-              <InquiryForm />
-              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">Ready to hire</h2>
-                <p className="text-sm text-slate-600 font-medium leading-relaxed">
-                  Four steps. Scope, timing, details, send. You get a fixed quote and a deposit link. Nothing is due until you accept.
-                </p>
-                <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
-                  Start a project
-                </Link>
-              </div>
+            <div className="lg:col-span-8">
+              <ContactForm />
             </div>
           </div>
         </div>
@@ -62,20 +56,23 @@ export default function Contact() {
 
       <FullSection id="direct" bgClass="bg-warm-light">
         <div className="max-w-3xl mx-auto w-full space-y-8">
-          <SectionHeader eyebrow="Direct" title="Email if you prefer." />
-          <div className="space-y-0">
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-5 border-b border-slate-200">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">Email</span>
-              <a href="mailto:asheejajayan.com@gmail.com" className="text-lg font-bold text-slate-900">
-                asheejajayan.com@gmail.com
-              </a>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-5">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">GitHub</span>
-              <a href="https://github.com/asheejajayan" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-slate-900">
-                github.com/asheejajayan
-              </a>
-            </div>
+          <SectionHeader eyebrow="Direct" title="Or reach me here." />
+          <div>
+            {direct.map((item, index) => (
+              <div
+                key={item.label}
+                className={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-5 ${index < direct.length - 1 ? "border-b border-slate-200" : ""}`}
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</span>
+                <a
+                  href={item.href}
+                  className="text-lg font-bold text-slate-900"
+                  {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {item.value}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </FullSection>

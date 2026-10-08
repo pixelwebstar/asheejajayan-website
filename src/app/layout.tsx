@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: "Amrith Sheeja Jayan - Web Developer",
     template: "%s | Amrith Sheeja Jayan",
   },
-  description: "High-performance websites designed to grow your business. Custom Next.js development, CRM integration, and Google Business optimization.",
+  description: "Custom websites and Google Ads for business growth in India.",
   robots: {
     index: true,
     follow: true,
@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     url: "https://asheejajayan.com",
     siteName: "Amrith Sheeja Jayan",
     title: "Amrith Sheeja Jayan - Web Developer",
-    description: "High-performance websites designed to grow your business. Custom Next.js development, CRM integration, and Google Business optimization.",
+    description: "Custom websites and Google Ads for business growth in India.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Amrith Sheeja Jayan - Web Developer",
-    description: "High-performance websites designed to grow your business.",
+    description: "Custom websites and Google Ads for business growth in India.",
   },
 };
 

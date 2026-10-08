@@ -14,14 +14,16 @@ export const metadata: Metadata = {
 export default function StartThanksPage() {
   return (
     <article className="w-full text-slate-900 bg-white selection:bg-slate-900 selection:text-white">
-      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp" fill={false}>
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-6">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Received</span>
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-[1.05]">
-            Brief is in.
-          </h1>
-          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl">
-            I will reply in one business day with a fixed quote and a deposit link. Nothing is due until you accept it.
+      <HeroSection bgClass="bg-warm-light" bgImage="/hero-bg.webp">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
+          <div className="space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Received</span>
+            <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
+              I have the details.
+            </h1>
+          </div>
+          <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
+            I will reply within one business day with a fixed price. Nothing is due until you accept it.
           </p>
         </div>
       </HeroSection>

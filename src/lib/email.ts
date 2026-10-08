@@ -26,10 +26,13 @@ export async function sendBrief(brief: Brief) {
   const html = `
     <p><strong>${brief.kind === "inquiry" ? "Question" : "Project brief"}</strong></p>
     <p>Name: ${escapeHtml(brief.name)}<br/>
+    Phone: ${escapeHtml(brief.phone)}<br/>
     Email: ${escapeHtml(brief.email)}<br/>
     ${brief.company ? `Company: ${escapeHtml(brief.company)}<br/>` : ""}
     Scope: ${escapeHtml(brief.scopes.join(", "))}<br/>
-    ${brief.kind === "project" ? `Timing: ${escapeHtml(brief.timeline || "—")}<br/>Budget: ${escapeHtml(brief.budget || "—")}<br/>Estimate: ${escapeHtml(estimate)}${monthly ? " support" : ""}<br/>` : ""}
+    Timing: ${escapeHtml(brief.timeline || "—")}<br/>
+    Budget: ${escapeHtml(brief.budget || "—")}<br/>
+    Estimate: ${escapeHtml(estimate)}${monthly ? " monthly" : ""}<br/>
     </p>
     <p>${escapeHtml(brief.details).replace(/\n/g, "<br/>")}</p>
   `;

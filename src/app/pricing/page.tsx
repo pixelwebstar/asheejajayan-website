@@ -6,7 +6,7 @@ import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
 import PriceBuilder from "@/components/PriceBuilder";
 import SectionHeader from "@/components/SectionHeader";
-import { FAQS, INCLUDED, SCOPES, money } from "@/lib/catalog";
+import { FAQS, INCLUDED, PAYMENT_PLANS, SCOPES, rupee } from "@/lib/catalog";
 import { btnPrimary, btnSecondary } from "@/lib/ui";
 
 export default function Pricing() {
@@ -23,7 +23,7 @@ export default function Pricing() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Starting figures, not packages. Tap the work you need. The brief locks a fixed price before anything is billed.
+            A website starts at ₹1,50,000. Pay it once, or start with ₹50,000 and finish over 8 months. The form locks a fixed price before anything is billed.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <a href="#builder" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -41,13 +41,46 @@ export default function Pricing() {
           <SectionHeader
             eyebrow="Estimate"
             title="Select the work."
-            lede="These are starting numbers. Your brief comes back as one fixed quote."
+            lede="These are starting numbers. Your form comes back as one fixed price."
           />
           <PriceBuilder />
         </div>
       </FullSection>
 
-      <FullSection id="range" bgClass="bg-warm-light">
+      <FullSection id="pay" bgClass="bg-warm-light">
+        <div className="max-w-4xl mx-auto w-full space-y-12">
+          <SectionHeader
+            align="left"
+            eyebrow="Payment"
+            title="Two ways to pay for a website."
+            lede="Both end at the same ₹1,50,000. The files are yours when that amount is paid. Google Ads, if you want them, are a separate monthly fee, and the money paid to Google is on top."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PAYMENT_PLANS.map((plan) => (
+              <div key={plan.id} className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 sm:p-8 space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">{plan.title}</h3>
+                <p className="text-3xl font-black tracking-tight text-slate-900">{plan.figure}</p>
+                <ul className="space-y-3">
+                  {plan.lines.map((line) => (
+                    <li key={line} className="text-sm text-slate-600 font-medium leading-relaxed">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-slate-600 font-medium leading-relaxed">
+            If a monthly payment is missed, I email you and I can pause the site. The project files stay with me until the quoted price is complete.{" "}
+            <Link href="/terms" className="font-bold text-slate-900 underline">
+              Read the terms
+            </Link>
+            .
+          </p>
+        </div>
+      </FullSection>
+
+      <FullSection id="range" bgClass="bg-cool-light">
         <div className="max-w-4xl mx-auto w-full space-y-12">
           <SectionHeader align="left" eyebrow="From prices" title="What each piece starts at." />
           <div>
@@ -59,12 +92,24 @@ export default function Pricing() {
                 <h3 className="sm:col-span-3 text-sm font-bold uppercase tracking-wider text-slate-900">{scope.label}</h3>
                 <p className="sm:col-span-6 text-sm text-slate-600 font-medium leading-relaxed">{scope.desc}</p>
                 <p className="sm:col-span-3 sm:text-right text-sm font-black text-slate-900">
-                  From ${money(scope.from)}
-                  {scope.monthly ? "/mo" : ""}
+                  {`From ${rupee(scope.from)}${scope.monthly ? "/mo" : ""}`}
                 </p>
               </div>
             ))}
           </div>
+        </div>
+      </FullSection>
+
+      <FullSection id="ads" bgClass="bg-warm-light">
+        <div className="max-w-3xl mx-auto w-full space-y-8">
+          <SectionHeader
+            eyebrow="Google Ads"
+            title="The spend that brings clients."
+            lede="The website is the shop. The ads are the open door. ₹30,000 a month, paid to Google, is where a local business in India starts getting regular enquiries. Less than that usually buys too few clicks to learn what works."
+          />
+          <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+            That spend is not my fee. The monthly ads price is for running the campaigns. A new advertiser in India may also be eligible for ₹20,000 in Google Ads credit after spending ₹20,000 within 60 days. Google decides who qualifies. The credit is advertising balance, not cash.
+          </p>
         </div>
       </FullSection>
 
@@ -87,7 +132,7 @@ export default function Pricing() {
 
       <FullSection id="faq" bgClass="bg-warm-light">
         <div className="max-w-3xl mx-auto w-full space-y-12">
-          <SectionHeader eyebrow="Questions" title="Before you send a brief." />
+          <SectionHeader eyebrow="Questions" title="Before you start." />
           <div className="space-y-0">
             {FAQS.map((faq, index) => {
               const open = openFaq === index;

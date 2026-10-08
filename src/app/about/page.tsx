@@ -149,8 +149,8 @@ export default function About() {
         <div className="max-w-3xl mx-auto w-full text-center space-y-8">
           <SectionHeader
             eyebrow="Next"
-            title="Send a brief. Skip the call."
-            lede="I reply in one business day with a fixed quote. Nothing is due until you accept it."
+            title="Tell me about the work."
+            lede="Call, WhatsApp, or send the form. I reply within one business day with a fixed price."
           />
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>

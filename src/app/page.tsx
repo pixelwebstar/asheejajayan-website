@@ -7,31 +7,52 @@ import RoiComparison from "@/components/RoiComparison";
 import FullSection from "@/components/FullSection";
 import HireSteps from "@/components/HireSteps";
 import SectionHeader from "@/components/SectionHeader";
-import { SCOPES, money } from "@/lib/catalog";
+import Picture from "@/components/Picture";
 import { btnPrimary, btnSecondary } from "@/lib/ui";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Amrith Sheeja Jayan - Web Developer",
-  description: "High-performance websites designed to grow your business.",
+  description: "Custom websites and Google Ads for business growth in India.",
   alternates: { canonical: "/" },
 };
 
-const STANDARD = [
+const HOME_SCOPES = [
   {
     num: "01",
-    title: "You own the files",
-    desc: "I hand-code the site and the database. No Squarespace or Shopify rent. You keep 100% of production files.",
+    name: "Websites",
+    desc: "From ₹1,50,000. Pay it once, or start with ₹50,000 and finish over 8 months. The site takes the enquiry. The ads bring the people.",
+    href: "/services#websites",
   },
   {
     num: "02",
-    title: "It stays fast",
-    desc: "Page builders ship extra script that drives mobile buyers away. Lightweight code renders on every phone.",
+    name: "Web Apps",
+    desc: "Private customer portals, booking systems, and internal tools custom-made for your daily business operations.",
+    href: "/services#web-apps",
   },
   {
     num: "03",
-    title: "Built to get the next call",
-    desc: "Clear actions, competitor-aware layout, and a lead list that works when you are not at the desk.",
+    name: "CRM Software",
+    desc: "Forms that automatically save lead details into your customer database so you never lose inquiries.",
+    href: "/services#crm-software",
+  },
+  {
+    num: "04",
+    name: "Google Business and Map",
+    desc: "Optimizing your Google maps listing so you show up first when customers search locally.",
+    href: "/services#google-map",
+  },
+  {
+    num: "05",
+    name: "Google Ads",
+    desc: "Search ads for people already looking to hire you. ₹30,000 a month paid to Google is where regular enquiries start. New advertisers in India may get ₹20,000 in ad credit.",
+    href: "/services#google-ads",
+  },
+  {
+    num: "06",
+    name: "Support & Operations",
+    desc: "Daily database backups, performance monitoring, and content updates so you never worry about tech.",
+    href: "/services#support-ops",
   },
 ];
 
@@ -61,7 +82,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            I design and code high-performance websites that help business owners win more clients and automate follow-up.
+            We build the website and run Google Ads, so people who are already searching can find your business and get in touch.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <a href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -75,32 +96,26 @@ export default function Home() {
       </HeroSection>
 
       <FullSection id="services" bgClass="bg-cool-light" compact>
-        <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
+        <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <SectionHeader
-            eyebrow="What I do"
-            title="Websites and web applications."
-            lede="Custom systems that run fast, capture leads, and automate the sales pipeline."
+            eyebrow="What we do"
+            title="Websites and Google Ads."
+            lede="The site takes the enquiry. The ads bring the people. We build both, then keep the campaigns running."
           />
-          <div className="max-w-4xl mx-auto w-full">
-            {SCOPES.map((scope, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 w-full text-left">
+            {HOME_SCOPES.map((srv) => (
               <a
-                key={scope.value}
-                href={scope.href}
-                className={`flex gap-5 sm:gap-8 items-start py-6 ${index < SCOPES.length - 1 ? "border-b border-slate-200" : ""} group`}
+                href={srv.href}
+                key={srv.num}
+                className="bg-white p-6 lg:p-8 xl:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-4 relative hover:shadow-md hover:-translate-y-1 transition-all duration-300 block text-left group"
               >
-                <span className="text-2xl font-black text-slate-600 leading-none min-w-[2.5rem] font-mono">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="min-w-0 space-y-1 flex-1">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 group-hover:text-slate-600 transition-colors">
-                    {scope.label}
+                <span className="text-xs font-bold text-slate-600 block tracking-widest">{srv.num}</span>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider group-hover:text-muted transition-colors">
+                    {srv.name}
                   </h3>
-                  <p className="text-sm text-slate-600 font-medium leading-relaxed">{scope.desc}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{srv.desc}</p>
                 </div>
-                <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-slate-500 shrink-0 pt-1">
-                  From ${money(scope.from)}
-                  {scope.monthly ? "/mo" : ""}
-                </span>
               </a>
             ))}
           </div>
@@ -129,7 +144,7 @@ export default function Home() {
           />
           <RoiComparison />
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <a href="#services" className={btnSecondary}>
+            <a href="#method" className={btnSecondary}>
               See how I work
             </a>
             <a href="/start" className={btnPrimary}>
@@ -151,34 +166,73 @@ export default function Home() {
       </FullSection>
 
       <FullSection id="manifesto" bgClass="bg-warm-light" compact>
-        <div className="max-w-3xl mx-auto w-full space-y-12">
-          <SectionHeader
-            align="left"
-            eyebrow="The standard"
-            title="Built to perform. Zero compromise."
-            lede="You own the files. The site stays fast. Every page is built to get you the next call."
-          />
-          <ol>
-            {STANDARD.map((item, index) => (
-              <li
-                key={item.num}
-                className={`flex gap-5 sm:gap-8 items-start py-6 ${index < STANDARD.length - 1 ? "border-b border-slate-200" : ""}`}
-              >
-                <span className="text-2xl font-black text-slate-600 leading-none min-w-[2.5rem] font-mono">{item.num}</span>
-                <div className="space-y-1 min-w-0">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">{item.title}</h3>
-                  <p className="text-sm text-slate-600 font-medium leading-relaxed">{item.desc}</p>
+        <div className="max-w-[1500px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-x-16 lg:gap-y-8 items-center">
+            <div className="order-1 lg:order-none lg:col-start-6 lg:col-span-7 lg:row-start-1 text-center lg:text-left space-y-4">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
+                MANIFESTO / THE STANDARDS
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                Built to Perform. <br />Zero Compromise.
+              </h2>
+            </div>
+
+            <div className="order-2 lg:order-none lg:col-start-1 lg:col-span-5 lg:row-start-1 lg:row-span-2 w-full flex justify-center lg:justify-start">
+              <div className="bg-white p-6 lg:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-5 lg:space-y-6 w-full max-w-sm lg:max-w-[440px] text-center">
+                <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
+                  <Picture
+                    src="/founder.webp"
+                    alt="Portrait of Amrith Sheeja Jayan, founder and lead systems developer"
+                    width={800}
+                    height={800}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
                 </div>
-              </li>
-            ))}
-          </ol>
-          <div className="flex flex-col sm:flex-row gap-5">
-            <a href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
-              Read my story
-            </a>
-            <a href="/start" className={`${btnPrimary} w-full sm:w-auto text-center`}>
-              Start a project
-            </a>
+                <div className="space-y-1">
+                  <h3 className="text-lg font-black tracking-tight text-slate-900">
+                    Amrith Sheeja Jayan
+                  </h3>
+                  <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">
+                    Founder / Lead Systems Developer
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="order-3 lg:order-none lg:col-start-6 lg:col-span-7 space-y-8 text-left">
+              <div className="space-y-6">
+                <div className="space-y-6 pt-2">
+                  {[
+                    {
+                      title: "Zero Platform Retainers",
+                      desc: "I hand-code web applications and databases from scratch. No monthly Squarespace or Shopify builder subscriptions. You own 100% of your production files.",
+                    },
+                    {
+                      title: "Sub-0.3s Performance",
+                      desc: "Page builders load massive script packages that drive away mobile buyers. We use lightweight code to guarantee instant rendering on every screen.",
+                    },
+                    {
+                      title: "Conversion-Rate Architecture",
+                      desc: "We analyze competitor traffic, design clear call-to-actions, and build automated lead databases so your site works 24/7 as a sales engine.",
+                    },
+                  ].map((pillar) => (
+                    <div key={pillar.title} className="space-y-1.5 border-l-2 border-slate-900 pl-4 py-0.5">
+                      <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">{pillar.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{pillar.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-stretch sm:items-center w-full">
+                <a href="/about" className={`${btnSecondary} w-full sm:w-auto text-center`}>
+                  Read My Story
+                </a>
+                <a href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
+                  Start Your Project
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </FullSection>
@@ -190,33 +244,37 @@ export default function Home() {
             title="What clients achieve."
             lede="Feedback from owners who replaced a slow template with a system that answers the phone."
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-8 items-stretch md:items-center md:[perspective:1400px]">
             {[
               {
                 quote:
                   "Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.",
-                initials: "MV",
-                name: "Marcus V.",
+                initials: "JA",
+                name: "John A.",
                 role: "Business owner",
               },
               {
                 quote:
                   "Inquiries go straight to our phones now. Our customer calls doubled within 30 days. The custom CRM eliminated hours of manual data entry every single week.",
-                initials: "DK",
-                name: "David K.",
+                initials: "SM",
+                name: "Sara M.",
                 role: "Local business owner",
               },
               {
                 quote:
                   "The CRM saves us hours every week. We never lose a lead, and our response time dropped from hours to minutes. It is the best investment we have made this year.",
-                initials: "SL",
-                name: "Sarah L.",
+                initials: "AP",
+                name: "Anna P.",
                 role: "Service company",
               },
-            ].map((review) => (
+            ].map((review, index) => (
               <figure
                 key={review.name}
-                className="bg-white p-7 lg:p-10 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full space-y-8"
+                className={`bg-white p-7 lg:p-10 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between h-full space-y-8 ${
+                  index === 1
+                    ? "md:relative md:z-10 md:border-slate-200 md:shadow-xl md:scale-[1.045]"
+                    : "md:scale-[0.97]"
+                }`}
               >
                 <blockquote className="text-lg lg:text-xl text-slate-900 leading-relaxed font-bold tracking-tight flex-1">
                   &ldquo;{review.quote}&rdquo;
@@ -240,8 +298,8 @@ export default function Home() {
         <div className="max-w-6xl mx-auto w-full space-y-10">
           <SectionHeader
             eyebrow="Start here"
-            title="Send a brief. Skip the call."
-            lede="Name, email, what you need. I reply in one business day with a fixed quote."
+            title="Tell me about the work."
+            lede="A website starts at ₹1,50,000. Pay it once, or start with ₹50,000. I reply within one business day."
           />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="hidden lg:block lg:col-span-4">
@@ -249,12 +307,6 @@ export default function Home() {
             </div>
             <div className="lg:col-span-8 space-y-4">
               <ContactForm />
-              <p className="text-center text-sm font-medium text-slate-600">
-                Want the full intake?{" "}
-                <a href="/start" className="font-bold text-slate-900 uppercase tracking-widest text-[10px]">
-                  Start a project
-                </a>
-              </p>
             </div>
           </div>
         </div>

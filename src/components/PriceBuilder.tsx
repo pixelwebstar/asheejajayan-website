@@ -6,7 +6,7 @@ import ScopeChips from "@/components/ScopeChips";
 import { estimateTotal, formatEstimate, parseScopes, type ScopeValue } from "@/lib/catalog";
 import { btnPrimary, chipActive, chipIdle } from "@/lib/ui";
 
-export default function PriceBuilder({ initialScopes = ["websites"] }: { initialScopes?: string[] }) {
+export default function PriceBuilder({ initialScopes = ["websites", "ads"] }: { initialScopes?: string[] }) {
   const router = useRouter();
   const [scopes, setScopes] = useState<ScopeValue[]>(() => parseScopes(initialScopes));
   const estimate = useMemo(() => estimateTotal(scopes), [scopes]);
@@ -29,7 +29,10 @@ export default function PriceBuilder({ initialScopes = ["websites"] }: { initial
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Estimate</span>
           <p className="text-4xl font-black tracking-tight text-slate-900">{formatEstimate(scopes)}</p>
           <p className="text-sm text-slate-600 font-medium">
-            Starting figure. The brief locks a fixed quote. {estimate.monthly > 0 ? "Support is monthly and optional to keep." : "No monthly builder fee."}
+            Starting figure. The form locks a fixed price. {estimate.monthly > 0 ? "Monthly fees keep the ads or the site looked after." : "No monthly builder fee."}
+            {scopes.includes("ads") || scopes.includes("websites")
+              ? " About ₹30,000 a month is paid to Google and is not in this figure."
+              : ""}
           </p>
         </div>
         <button type="button" onClick={start} className={`${btnPrimary} w-full sm:w-auto`}>

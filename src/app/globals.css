@@ -185,17 +185,48 @@ body {
 }
 
 .site-footer {
+  padding: 0;
+}
+
+.footer-frame {
   padding-top: 2.5rem;
-  padding-bottom: max(1.5rem, var(--safe-bottom));
+}
+
+.footer-rule {
+  border-top: 1px solid var(--border);
+  width: 100%;
+  margin-top: 2.5rem;
+}
+
+.footer-legal {
+  padding-top: 1.5rem;
+  padding-bottom: max(1.75rem, var(--safe-bottom));
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .footer-legal {
+    font-size: 10px;
+  }
 }
 
 @media (min-width: 1024px) {
-  .site-footer {
+  .footer-frame {
+    box-sizing: border-box;
     min-height: var(--chapter-min-h);
     display: flex;
     align-items: center;
     padding-top: 3.5rem;
-    padding-bottom: max(2.5rem, var(--safe-bottom));
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-rule {
+    margin-top: 4rem;
   }
 }
 
@@ -236,7 +267,7 @@ body {
   scrollbar-width: none;
 }
 
-/* 3D Cover Flow Stage Classes */
+/* 3D Cover Flow — no edge fade; clip stays on the chapter */
 .perspective-stage {
   perspective: 1400px;
   perspective-origin: 50% 50%;
@@ -247,26 +278,29 @@ body {
 }
 
 .gallery-stage {
-  overflow: hidden;
   isolation: isolate;
-  contain: paint;
+  overflow: visible;
 }
 
-.gallery-stage-flow {
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 7%,
-    #000 93%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 7%,
-    #000 93%,
-    transparent 100%
-  );
+@keyframes galleryTick {
+  from {
+    transform: translate3d(var(--tick-from, 20px), 0, 0);
+    opacity: 0.78;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.gallery-tick {
+  animation: galleryTick 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-tick {
+    animation: none;
+  }
 }
 
 .hero-bg-blur {

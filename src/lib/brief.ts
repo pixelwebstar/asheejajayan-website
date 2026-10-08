@@ -8,6 +8,7 @@ export type BriefInput = {
   email?: string;
   details?: string;
   company?: string;
+  phone?: string;
   scopes?: string[] | string;
   timeline?: string;
   budget?: string;
@@ -20,6 +21,7 @@ export type Brief = {
   email: string;
   details: string;
   company: string;
+  phone: string;
   scopes: ScopeValue[];
   timeline: string;
   budget: string;
@@ -36,13 +38,15 @@ export function parseBrief(input: BriefInput): { ok: true; brief: Brief } | { ok
   const email = (input.email ?? "").trim().toLowerCase();
   const details = (input.details ?? "").trim();
   const company = (input.company ?? "").trim();
+  const phone = (input.phone ?? "").trim();
+  const phoneDigits = phone.replace(/\D/g, "");
   const kind: BriefKind = input.kind === "inquiry" ? "inquiry" : "project";
 
   if (name.length < 2 || name.length > 80) return { ok: false, error: "Enter your name." };
   if (!EMAIL.test(email) || email.length > 120) return { ok: false, error: "Enter a valid email." };
+  if (phoneDigits.length < 10 || phoneDigits.length > 15) return { ok: false, error: "Enter a phone number." };
   if (details.length > 5000) return { ok: false, error: "Keep the notes under 5,000 characters." };
-  if (kind === "project" && details.length < 8) return { ok: false, error: "Add a short note about the work." };
-  if (kind === "inquiry" && details.length < 8) return { ok: false, error: "Write your question." };
+  if (details.length < 8) return { ok: false, error: "Tell me what the business needs." };
   if (company.length > 120) return { ok: false, error: "Company name is too long." };
 
   const scopes = parseScopes(input.scopes);
@@ -55,7 +59,7 @@ export function parseBrief(input: BriefInput): { ok: true; brief: Brief } | { ok
 
   return {
     ok: true,
-    brief: { kind, name, email, details, company, scopes, timeline, budget },
+    brief: { kind, name, email, details, company, phone, scopes, timeline, budget },
   };
 }
 
@@ -72,11 +76,12 @@ export function briefText(brief: Brief) {
   return [
     `Kind: ${brief.kind}`,
     `Name: ${brief.name}`,
+    `Phone: ${brief.phone}`,
     `Email: ${brief.email}`,
     brief.company ? `Company: ${brief.company}` : "",
     `Scope: ${scope || "—"}`,
-    brief.kind === "project" ? `Timing: ${timeline}` : "",
-    brief.kind === "project" ? `Budget: ${budget}` : "",
+    `Timing: ${timeline}`,
+    `Budget: ${budget}`,
     "",
     brief.details,
   ]

@@ -3,20 +3,20 @@ import BrowserMockup from "@/components/BrowserMockup";
 import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
 import SectionHeader from "@/components/SectionHeader";
-import { SCOPES, money } from "@/lib/catalog";
+import { SCOPES, rupee } from "@/lib/catalog";
 import { btnPrimary, btnSecondary } from "@/lib/ui";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Services & Custom Development",
-  description: "Custom websites, web apps, CRM, Google Maps, ads, and support. Written brief, fixed quote, no call required.",
+  description: "Websites and Google Ads for business growth in India. Custom apps, CRM, Maps, and support. Fixed price before work starts.",
 };
 
 const DETAILS = [
   {
     id: "websites",
     mockup: { url: "https://novacookers.vercel.app", shots: ["/screenshots/novacookers.webp", "/screenshots/jsgastech.webp"], title: "Product Showroom" },
-    included: ["Custom pages and layout", "Phone-first performance", "Contact form ready for CRM"],
+    included: ["Custom pages built for the ads", "Fast on a phone, so the call is easy", "Form that asks for name, phone, and the job"],
   },
   {
     id: "web-apps",
@@ -36,7 +36,7 @@ const DETAILS = [
   {
     id: "google-ads",
     mockup: { url: "https://mobwik.vercel.app", shots: ["/screenshots/mobwik.webp", "/screenshots/jsgastech.webp"], title: "Mobile Search Engine" },
-    included: ["Campaign built for search intent", "Landing page that matches the ad", "No spend on idle clicks if we can help it"],
+    included: ["Search ads for people already looking", "Landing page that matches the ad", "₹30,000 a month to Google is the working spend", "New advertisers in India may get ₹20,000 credit"],
   },
   {
     id: "support-ops",
@@ -57,7 +57,7 @@ export default function Services() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Six kinds of work. Starting prices are on the list. The brief locks a fixed quote.
+            The main offer is a website and Google Ads together. Starting prices are in rupees. The form locks a fixed price.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <Link href="/pricing" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -112,8 +112,7 @@ export default function Services() {
                   <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1]">{scope.label}.</h2>
                   <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">{scope.desc}</p>
                   <p className="text-sm font-black text-slate-900">
-                    From ${money(scope.from)}
-                    {scope.monthly ? "/mo" : ""} · {scope.weeks}
+                    {`From ${rupee(scope.from)}${scope.monthly ? "/mo" : ""} · ${scope.weeks}`}
                   </p>
                   <ul className="space-y-2">
                     {detail.included.map((item) => (
@@ -142,8 +141,8 @@ export default function Services() {
         <div className="max-w-3xl mx-auto w-full text-center space-y-8">
           <SectionHeader
             eyebrow="Next"
-            title="Send the brief. Skip the call."
-            lede="I reply in one business day with a fixed quote."
+            title="Tell me about the work."
+            lede="Call, WhatsApp, or send the form. I reply within one business day with a fixed price."
           />
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>
