@@ -9,6 +9,8 @@ interface BrowserMockupProps {
   title: string;
   isVisible?: boolean;
   isActive?: boolean;
+  /** Show the whole screenshot. The frame follows the picture instead of cropping it. */
+  full?: boolean;
 }
 
 export default function BrowserMockup({
@@ -17,12 +19,13 @@ export default function BrowserMockup({
   title,
   isVisible = true,
   isActive = true,
+  full = false,
 }: BrowserMockupProps) {
   const [hasBeenVisible, setHasBeenVisible] = useState(isVisible);
   const isArray = Array.isArray(screenshotUrl);
   const screenshotArray = isArray ? (screenshotUrl as string[]) : [screenshotUrl as string];
   const [activeIdx, setActiveIdx] = useState(0);
-  const [mediaReady, setMediaReady] = useState(false);
+  const [readyUrl, setReadyUrl] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -31,21 +34,46 @@ export default function BrowserMockup({
 
   const activeUrl = hasBeenVisible ? screenshotArray[activeIdx] : "";
   const isVideo = activeUrl.endsWith(".webm");
-
-  useEffect(() => {
-    setMediaReady(false);
-  }, [activeUrl]);
+  const stillUrl = isVideo ? activeUrl.replace(/\.webm$/, ".jpg") : "";
+  const mediaReady = isVideo && readyUrl === activeUrl;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !isVideo) return;
+    let cancelled = false;
     video.defaultMuted = true;
     video.muted = true;
-    if (isActive && isVisible) {
-      video.play().catch(() => {});
-    } else {
+
+    let timer = 0;
+    const show = () => {
+      if (cancelled) return;
+      if (video.error) {
+        if (timer) window.clearInterval(timer);
+        return;
+      }
+      if (video.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) return;
+      if (timer) window.clearInterval(timer);
+      setReadyUrl(activeUrl);
+      if (isActive && isVisible) video.play().catch(() => {});
+    };
+
+    if (!(isActive && isVisible)) {
       video.pause();
+      return;
     }
+
+    video.preload = "auto";
+    show();
+    video.addEventListener("canplay", show);
+    video.addEventListener("loadeddata", show);
+    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
+    timer = window.setInterval(show, 200);
+    return () => {
+      cancelled = true;
+      video.removeEventListener("canplay", show);
+      video.removeEventListener("loadeddata", show);
+      window.clearInterval(timer);
+    };
   }, [activeUrl, isVideo, isActive, isVisible]);
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -61,7 +89,7 @@ export default function BrowserMockup({
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative isolate">
+    <div className={`w-full ${full ? "h-auto" : "h-full"} bg-white rounded-xl overflow-hidden flex flex-col border border-slate-200 shadow-md group relative isolate`}>
       <div className="h-8 bg-slate-50 border-b border-slate-200/80 flex items-center px-4 justify-between select-none shrink-0 font-sans z-10 relative">
         <div className="flex gap-1.5 items-center" aria-hidden="true">
           <span className="w-2 h-2 rounded-full bg-slate-200 block"></span>
@@ -74,23 +102,38 @@ export default function BrowserMockup({
         <div className="w-10"></div>
       </div>
 
-      <div className="flex-1 relative overflow-hidden blueprint-grid bg-slate-50">
+      <div className={full ? "relative w-full bg-slate-50" : "flex-1 relative overflow-hidden blueprint-grid bg-slate-50"}>
         {hasBeenVisible && activeUrl && (
           <>
             {isVideo ? (
-              <video
-                ref={videoRef}
-                src={activeUrl}
-                autoPlay={isActive}
-                loop
-                muted
-                playsInline
-                preload={isActive ? "auto" : "metadata"}
-                onLoadedData={() => setMediaReady(true)}
-                aria-hidden="true"
-                title=""
-                className={`absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none ${mediaReady ? "opacity-100" : "opacity-0"}`}
-              />
+              <>
+                <img
+                  src={stillUrl}
+                  alt=""
+                  width={960}
+                  height={540}
+                  decoding="async"
+                  className={
+                    full
+                      ? "block w-full h-auto select-none pointer-events-none"
+                      : "absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
+                  }
+                />
+                <video
+                  ref={videoRef}
+                  src={activeUrl}
+                  loop
+                  muted
+                  playsInline
+                  preload={isActive ? "auto" : "none"}
+                  aria-hidden="true"
+                  className={
+                    full
+                      ? `absolute inset-0 w-full h-full object-contain select-none pointer-events-none transition-opacity duration-300 ${mediaReady ? "opacity-100" : "opacity-0"}`
+                      : `absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none transition-opacity duration-300 ${mediaReady ? "opacity-100" : "opacity-0"}`
+                  }
+                />
+              </>
             ) : (
               <Picture
                 src={activeUrl}
@@ -99,7 +142,11 @@ export default function BrowserMockup({
                 height={513}
                 loading={isActive ? "eager" : "lazy"}
                 fetchPriority={isActive ? "high" : "low"}
-                className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
+                className={
+                  full
+                    ? "block w-full h-auto select-none pointer-events-none"
+                    : "absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none"
+                }
               />
             )}
 

@@ -5,10 +5,11 @@ import HireSteps from "@/components/HireSteps";
 import ContactForm from "@/components/ContactForm";
 import SectionHeader from "@/components/SectionHeader";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/lib/contact";
+import { frame } from "@/lib/ui";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Call, WhatsApp, or send the form. Name, phone, budget, and what the business needs. Reply within one business day.",
+  description: "Call, WhatsApp, or send the form. I reply within one business day.",
   alternates: { canonical: "/contact" },
 };
 
@@ -30,20 +31,20 @@ export default function Contact() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            Call, WhatsApp, or send the form. I reply within one business day with a fixed price.
+            Call, WhatsApp, or send the form. Tell me what the business needs. I reply within one business day.
           </p>
         </div>
       </HeroSection>
 
       <FullSection id="ask" bgClass="bg-cool-light">
-        <div className="max-w-6xl mx-auto w-full">
+        <div className={frame}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-4 space-y-8">
               <SectionHeader
                 align="left"
-                eyebrow="Start"
-                title="The same form."
-                lede="Name, phone, budget, and what the business needs. A question and a project start in the same place."
+                eyebrow="Start here"
+                title="Tell me about the work."
+                lede="Tell me what the business needs. I reply within one business day."
               />
               <HireSteps />
             </div>
@@ -55,7 +56,7 @@ export default function Contact() {
       </FullSection>
 
       <FullSection id="direct" bgClass="bg-warm-light">
-        <div className="max-w-3xl mx-auto w-full space-y-8">
+        <div className={`${frame} space-y-8`}>
           <SectionHeader eyebrow="Direct" title="Or reach me here." />
           <div>
             {direct.map((item, index) => (

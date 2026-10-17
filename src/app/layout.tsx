@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="preload" as="image" type="image/webp" href="/hero-bg-1280.webp" media="(min-width: 1024px)" fetchPriority="high" />
         <style

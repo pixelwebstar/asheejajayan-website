@@ -2,7 +2,7 @@ import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
 import FullSection from "@/components/FullSection";
 import SectionHeader from "@/components/SectionHeader";
-import { btnPrimary, btnSecondary } from "@/lib/ui";
+import { btnPrimary, btnSecondary, frame } from "@/lib/ui";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,22 +12,22 @@ export const metadata: Metadata = {
 };
 
 const PRINCIPLES = [
-  { num: "01", title: "Eliminate noise", desc: "No bloated plugins, slow templates, or visual clutter that keeps someone from contacting you." },
-  { num: "02", title: "Authority by design", desc: "The first screen has to look like the person they should hire. That decision happens in seconds." },
-  { num: "03", title: "Revenue focus", desc: "Every layout choice points at the intake. Success is measured in leads, not page count." },
+  { num: "01", title: "Quality first", desc: "Every site should be the best one I can make. That does not change with the price." },
+  { num: "02", title: "Clear pages", desc: "Nothing extra between the visitor and the call." },
+  { num: "03", title: "Built for enquiries", desc: "Every page points to a call or a form." },
 ];
 
 const SPECIALTIES = [
-  { num: "01", name: "Digital architecture", desc: "Custom sites that display instantly on desktop and phone.", bold: "Sub-second load times." },
-  { num: "02", name: "Lead integration", desc: "Inquiries save to your list the moment they send.", bold: "Zero lost leads." },
-  { num: "03", name: "Conversion funnels", desc: "Type and layout that move a visitor toward a call or booking.", bold: "Every click has purpose." },
-  { num: "04", name: "Absolute ownership", desc: "You get the files. No monthly builder rent.", bold: "You own everything." },
+  { num: "01", name: "Mobile-friendly", desc: "Opens straight away on a phone.", bold: "Opens in under a second." },
+  { num: "02", name: "Enquiries saved", desc: "Saved the moment they send.", bold: "No lost leads." },
+  { num: "03", name: "Made for the call", desc: "The page leads to a call or a booking.", bold: "Every click has a job." },
+  { num: "04", name: "You own it", desc: "The files are yours.", bold: "You own the site." },
 ];
 
 const HISTORY = [
-  { year: "2026", title: "Independent web developer", desc: "High-conversion layouts and automated systems for business owners who want to own the stack." },
-  { year: "2024", title: "Lead web developer", desc: "Custom software and secure database sync for live operations." },
-  { year: "2022", title: "Web developer", desc: "Started in Canada, building lightweight sites that stay fast on phones." },
+  { year: "2026", title: "Independent web developer", desc: "Websites for businesses that want to own the site." },
+  { year: "2024", title: "Lead web developer", desc: "Custom software for day-to-day work." },
+  { year: "2022", title: "Web developer", desc: "I started this work in Canada. That time to study is rare. The sites I build now use what I learned there." },
 ];
 
 export default function About() {
@@ -36,7 +36,7 @@ export default function About() {
     "@type": "AboutPage",
     name: "About Amrith Sheeja Jayan - Custom Developer",
     description:
-      "Amrith Sheeja Jayan builds high-performance custom Next.js websites and automated CRM systems from scratch. Focused on sub-second load times and zero platform lock-in fees.",
+      "Amrith Sheeja Jayan builds high-performance custom Next.js websites and automated CRM systems from scratch. Focused on sub-second load times, and on sites the business owns.",
     mainEntity: {
       "@type": "Person",
       name: "Amrith Sheeja Jayan",
@@ -58,11 +58,11 @@ export default function About() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            I design and code fast, secure websites for growing businesses. You own the files. The site is built to get the next call.
+            I design the site and write the code. Quality first. You own the files. The site is built to get the call.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <Link href="#philosophy" className={`${btnSecondary} w-full sm:w-auto`}>
-              Read philosophy
+              How I work
             </Link>
             <Link href="/start" className={`${btnPrimary} w-full sm:w-auto`}>
               Start a project
@@ -72,14 +72,14 @@ export default function About() {
       </HeroSection>
 
       <FullSection id="philosophy" bgClass="bg-cool-light">
-        <div className="max-w-5xl mx-auto w-full">
+        <div className={frame}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-5">
               <SectionHeader
                 align="left"
-                eyebrow="Philosophy"
-                title="Business-first web design."
-                lede="A website is a precision tool for revenue. Every decision should remove noise and make it obvious how to hire you."
+                eyebrow="How I work"
+                title="Built to get the call."
+                lede="The page should make it obvious how to hire you."
               />
             </div>
             <ol className="lg:col-span-7">
@@ -101,11 +101,11 @@ export default function About() {
       </FullSection>
 
       <FullSection id="capabilities" bgClass="bg-warm-light">
-        <div className="max-w-5xl mx-auto w-full space-y-16">
+        <div className={`${frame} space-y-16`}>
           <SectionHeader
-            eyebrow="Specialties"
-            title="What every build is for."
-            lede="Four things I will not skip, whether the job is a marketing site or a private tool."
+            eyebrow="Every site"
+            title="What I do not skip."
+            lede="On a website, and on a private tool."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
             {SPECIALTIES.map((item, index) => (
@@ -124,8 +124,8 @@ export default function About() {
       </FullSection>
 
       <FullSection id="timeline" bgClass="bg-cool-light">
-        <div className="max-w-5xl mx-auto w-full space-y-12">
-          <SectionHeader align="left" eyebrow="Journey" title="How I got here." />
+        <div className={`${frame} space-y-12`}>
+          <SectionHeader align="left" eyebrow="Background" title="How I got here." />
           <div>
             {HISTORY.map((exp, index) => (
               <div
@@ -146,11 +146,11 @@ export default function About() {
       </FullSection>
 
       <FullSection bgClass="bg-warm-light">
-        <div className="max-w-3xl mx-auto w-full text-center space-y-8">
+        <div className={`${frame} text-center space-y-8`}>
           <SectionHeader
             eyebrow="Next"
             title="Tell me about the work."
-            lede="Call, WhatsApp, or send the form. I reply within one business day with a fixed price."
+            lede="Call, WhatsApp, or send the form. I reply within one business day."
           />
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact" className={`${btnSecondary} w-full sm:w-auto`}>

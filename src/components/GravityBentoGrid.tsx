@@ -12,25 +12,25 @@ const initialCards: CardData[] = [
     id: "box-1",
     num: "01",
     title: "Customer Fills Form",
-    desc: "When someone wants to hire you, they fill a short form on your site with name and email."
+    desc: "When someone wants to hire you, they fill a short form with their name and phone."
   },
   {
     id: "box-2",
     num: "02",
-    title: "Leads Are Saved",
-    desc: "Their details save to your list at once. You do not write them down, and no lead is lost."
+    title: "Message Is Saved",
+    desc: "The message is saved. You do not have to write it down."
   },
   {
     id: "box-3",
     num: "03",
-    title: "Get Text Notification",
-    desc: "A text hits your phone right away so you can call back before they look for someone else."
+    title: "You Get a Text",
+    desc: "You get a text on your phone, so you can call them back."
   },
   {
     id: "box-4",
     num: "04",
-    title: "Instant Auto-Response",
-    desc: "An automatic email or text goes out at once to keep them engaged until you make the call."
+    title: "A Short Reply",
+    desc: "They get a short reply while they wait for your call."
   }
 ];
 

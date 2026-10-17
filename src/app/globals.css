@@ -2,6 +2,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--navbar-h);
   color-scheme: light;
 }
 

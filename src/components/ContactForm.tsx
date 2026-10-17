@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { BUDGETS, SCOPES, parseScopes, type ScopeValue } from "@/lib/catalog";
+import { useEffect, useState, type ReactNode } from "react";
+import { SCOPE_BUDGETS, SCOPES, WEBSITE_PARTS, budgetError, isScope, rupee, scopeLabel, type ScopeValue } from "@/lib/catalog";
 import { btnPrimary, fieldClass } from "@/lib/ui";
 
 const WHEN_OPTIONS = [
@@ -12,7 +12,7 @@ const WHEN_OPTIONS = [
 ] as const;
 
 function optionClass(selected: boolean) {
-  return `min-h-11 w-full rounded-xl border-2 px-2 text-[11px] sm:text-xs font-bold uppercase tracking-wide text-center leading-tight transition-colors ${
+  return `min-h-11 w-full rounded-xl border-2 px-3 py-3 text-[11px] sm:text-xs font-bold uppercase tracking-wide text-center leading-tight transition-colors ${
     selected
       ? "border-slate-900 bg-slate-100 text-slate-900 shadow-md"
       : "border-slate-200 bg-white text-slate-600 shadow-sm hover:border-slate-400"
@@ -26,6 +26,7 @@ function OptionGrid({
   selected,
   onSelect,
   multiple = false,
+  aside,
 }: {
   label: string;
   options: readonly { value: string; label: string }[];
@@ -33,10 +34,14 @@ function OptionGrid({
   selected: (value: string) => boolean;
   onSelect: (value: string) => void;
   multiple?: boolean;
+  aside?: ReactNode;
 }) {
   return (
     <div className="space-y-2">
-      <span className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">{label}</span>
+      <div className="flex items-center justify-between gap-3">
+        <span className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest">{label}</span>
+        {aside}
+      </div>
       <div className={`grid gap-2 ${columns}`} role="group" aria-label={label}>
         {options.map((option) => {
           const on = selected(option.value);
@@ -58,32 +63,76 @@ function OptionGrid({
   );
 }
 
-export default function ContactForm({
-  initialScopes = ["websites", "ads"],
-}: {
-  initialScopes?: string[];
-}) {
-  const [scopes, setScopes] = useState<ScopeValue[]>(() => parseScopes(initialScopes));
+export default function ContactForm() {
+  const [scopes, setScopes] = useState<ScopeValue[]>([]);
+  const [budgets, setBudgets] = useState<Partial<Record<ScopeValue, string>>>({});
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-  const [budget, setBudget] = useState("unsure");
-  const [timeline, setTimeline] = useState("month");
+  const [timeline, setTimeline] = useState("");
   const [details, setDetails] = useState("");
   const [website, setWebsite] = useState("");
+  const [selectionNote, setSelectionNote] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const scope = new URLSearchParams(window.location.search).get("scope");
-    if (scope) setScopes(parseScopes(scope));
+    const params = new URLSearchParams(window.location.search);
+    const scope = params.get("scope");
+    if (scope && isScope(scope)) {
+      setScopes([scope]);
+      const budget = params.get("budget");
+      if (budget && SCOPE_BUDGETS[scope].some((item) => item.value === budget)) {
+        setBudgets({ [scope]: budget });
+      }
+    }
+    if (scope === "websites") {
+      const names = (params.get("parts") ?? "")
+        .split(",")
+        .flatMap((id) => {
+          const name = WEBSITE_PARTS.find((part) => part.id === id)?.name;
+          return name ? [name] : [];
+        });
+      const pageCount = Number(params.get("pages"));
+      const mix = Number(params.get("mix"));
+      const budget = params.get("budget");
+      const campaigns = Number(params.get("campaigns"));
+      const pay = params.get("pay");
+      const budgetLabel = SCOPE_BUDGETS.websites.find((item) => item.value === budget)?.label;
+      const figure = Number.isFinite(mix) && mix > 0 ? rupee(mix) : budgetLabel;
+      if (figure || names.length > 0 || (Number.isFinite(pageCount) && pageCount > 0)) {
+        const pieces = names.length > 0 ? names.join(", ") : "the included website";
+        const pageLine = Number.isFinite(pageCount) && pageCount > 0 ? `${pageCount} ${pageCount === 1 ? "page" : "pages"}. ` : "";
+        const campaignLine = Number.isFinite(campaigns) && campaigns > 0 ? ` ${campaigns} Google Ads ${campaigns === 1 ? "campaign" : "campaigns"}.` : "";
+        const payLine = pay === "year" ? " Pay over a year." : "";
+        setSelectionNote(`From the pricing page: ${figure ?? "custom"}. ${pageLine}Includes: ${pieces}.${campaignLine}${payLine}`);
+      }
+    }
   }, []);
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setStatus("sending");
     setError("");
+    if (scopes.length === 0) {
+      setError("Choose what you need.");
+      return;
+    }
+    const missingBudget = budgetError(scopes, budgets);
+    if (missingBudget) {
+      setError(missingBudget);
+      return;
+    }
+    if (!timeline) {
+      setError("Choose when you want to start.");
+      return;
+    }
+    setStatus("sending");
+    const budgetPayload: Record<string, string> = {};
+    for (const scope of scopes) {
+      const value = budgets[scope];
+      if (value) budgetPayload[scope] = value;
+    }
     try {
       const response = await fetch("/api/brief", {
         method: "POST",
@@ -94,9 +143,9 @@ export default function ContactForm({
           phone,
           email,
           company,
-          details,
+          details: selectionNote ? `${selectionNote}\n${details}`.trim() : details,
           scopes,
-          budget,
+          budgets: budgetPayload,
           timeline,
           website,
         }),
@@ -119,7 +168,7 @@ export default function ContactForm({
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-3 text-center">
         <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">Received.</h3>
         <p className="text-sm text-slate-600 font-medium leading-relaxed">
-          I will reply within one business day with a fixed price.
+          Thank you. I will read this and reply within one business day.
         </p>
       </div>
     );
@@ -163,32 +212,44 @@ export default function ContactForm({
           selected={(value) => scopes.includes(value as ScopeValue)}
           onSelect={(value) => {
             const scope = value as ScopeValue;
+            setError("");
             if (scopes.includes(scope)) {
-              const next = scopes.filter((item) => item !== scope);
-              setScopes(next.length > 0 ? next : scopes);
+              setScopes(scopes.filter((item) => item !== scope));
+              setBudgets((current) => {
+                const next = { ...current };
+                delete next[scope];
+                return next;
+              });
               return;
             }
             setScopes([...scopes, scope]);
           }}
         />
+        {scopes.map((scope) => (
+          <OptionGrid
+            key={scope}
+            label={`${scopeLabel(scope)} budget`}
+            options={SCOPE_BUDGETS[scope]}
+            columns="grid-cols-2"
+            selected={(value) => budgets[scope] === value}
+            onSelect={(value) => {
+              setError("");
+              setBudgets((current) => ({ ...current, [scope]: value }));
+            }}
+          />
+        ))}
 
         <div className="space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
-            <OptionGrid
-              label="Budget"
-              options={BUDGETS.map((item) => ({ value: item.value, label: item.short }))}
-              columns="grid-cols-2 sm:grid-cols-4"
-              selected={(value) => budget === value}
-              onSelect={setBudget}
-            />
-          </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
             <OptionGrid
               label="When"
               options={WHEN_OPTIONS}
               columns="grid-cols-2 sm:grid-cols-4"
               selected={(value) => timeline === value}
-              onSelect={setTimeline}
+              onSelect={(value) => {
+                setError("");
+                setTimeline(value);
+              }}
             />
           </div>
         </div>

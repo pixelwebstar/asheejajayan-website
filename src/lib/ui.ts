@@ -6,6 +6,9 @@ export const btnSecondary =
 
 export const shell = "mx-auto w-full max-w-none px-6 sm:px-12 lg:px-20 xl:px-28";
 
+/** Same content width as the homepage sections. */
+export const frame = "mx-auto w-full max-w-[1500px]";
+
 export const fieldClass =
   "w-full px-5 py-3 rounded-xl border border-slate-200 bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm font-medium transition-all shadow-sm";
 

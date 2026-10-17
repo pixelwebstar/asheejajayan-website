@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  async redirects() {
+    return [
+      { source: "/blog/cost-custom-website", destination: "/blog", permanent: true },
+      { source: "/blog/wordpress-vs-custom", destination: "/blog", permanent: true },
+      { source: "/blog/crm-small-business", destination: "/blog", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

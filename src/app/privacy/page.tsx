@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
+import { frame, shell } from "@/lib/ui";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -12,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <article className="w-full text-slate-900 bg-white">
       <HeroSection bgClass="bg-warm-light">
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-6">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-6">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
             LEGAL
           </span>
@@ -21,8 +22,9 @@ export default function PrivacyPage() {
           </h1>
         </div>
       </HeroSection>
-      <section className="px-6 sm:px-12 lg:px-20 xl:px-16 py-16 sm:py-24 bg-cool-light border-b border-gray-100">
-        <div className="max-w-3xl mx-auto space-y-6 text-slate-600 font-medium leading-relaxed">
+      <section className="py-16 sm:py-24 bg-cool-light border-b border-gray-100">
+        <div className={shell}>
+          <div className={`${frame} space-y-6 text-slate-600 font-medium leading-relaxed`}>
           <p>
             Project inquiries submitted through this site are used only to respond to your request and to prepare a proposal. We do not sell personal information.
           </p>
@@ -38,6 +40,7 @@ export default function PrivacyPage() {
           <p>
             <Link href="/contact" className="font-bold text-slate-900 underline">Return to contact</Link>
           </p>
+          </div>
         </div>
       </section>
     </article>

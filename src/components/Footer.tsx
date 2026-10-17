@@ -22,9 +22,9 @@ const services = [
 const resources = [
   { label: "Start", href: "/start" },
   { label: "Ask", href: "/contact" },
-  { label: "FAQ", href: "/pricing#faq" },
-  { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Call", href: "/book" },
 ];
 
 const contact = [
@@ -107,7 +107,7 @@ const Footer = () => {
             <div className="col-span-2 md:col-span-4 min-w-0 flex flex-col gap-5 text-center md:text-left">
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Amrith Sheeja Jayan</span>
               <p className="text-muted font-medium leading-relaxed text-sm max-w-xs md:max-w-[260px] mx-auto md:mx-0">
-                I build the website and run Google Ads together, so a business in India shows up when someone is already searching to buy. The site takes the enquiry, the ads bring the people, and the price is fixed before any work starts. You own the files. Call, WhatsApp, or send the form, and I reply within one business day.
+                I build the website and run Google Ads together, so a business in India shows up when someone is already searching. The site takes the enquiry. The ads bring the people. You own the files. Call, WhatsApp, or send the form, and I reply within one business day.
               </p>
               <ul className="flex flex-wrap justify-center md:justify-start gap-2">
                 {SOCIALS.map((item) => (

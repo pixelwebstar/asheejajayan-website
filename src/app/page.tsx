@@ -21,37 +21,37 @@ const HOME_SCOPES = [
   {
     num: "01",
     name: "Websites",
-    desc: "From ₹1,50,000. Pay it once, or start with ₹50,000 and finish over 8 months. The site takes the enquiry. The ads bring the people.",
+    desc: "Mobile-friendly. Customers can call you from the page.",
     href: "/services#websites",
   },
   {
     num: "02",
     name: "Web Apps",
-    desc: "Private customer portals, booking systems, and internal tools custom-made for your daily business operations.",
+    desc: "Bookings, logins, and the work your team does each day.",
     href: "/services#web-apps",
   },
   {
     num: "03",
-    name: "CRM Software",
-    desc: "Forms that automatically save lead details into your customer database so you never lose inquiries.",
+    name: "CRM",
+    desc: "A Checkersmark account for your team. Custom CRM if you need it.",
     href: "/services#crm-software",
   },
   {
     num: "04",
-    name: "Google Business and Map",
-    desc: "Optimizing your Google maps listing so you show up first when customers search locally.",
+    name: "Google Business",
+    desc: "People nearby can find you and call.",
     href: "/services#google-map",
   },
   {
     num: "05",
     name: "Google Ads",
-    desc: "Search ads for people already looking to hire you. ₹30,000 a month paid to Google is where regular enquiries start. New advertisers in India may get ₹20,000 in ad credit.",
+    desc: "Ads for people already searching. I run them.",
     href: "/services#google-ads",
   },
   {
     num: "06",
-    name: "Support & Operations",
-    desc: "Daily database backups, performance monitoring, and content updates so you never worry about tech.",
+    name: "Support",
+    desc: "Backups, and small text changes after launch.",
     href: "/services#support-ops",
   },
 ];
@@ -62,7 +62,7 @@ export default function Home() {
     "@type": "WebPage",
     name: "Amrith Sheeja Jayan - Custom Web Developer",
     description:
-      "High-performance custom Next.js websites and CRM software built for small business growth. Load times under 0.3s. No templates, no page builders.",
+      "Custom websites and Google Ads, so people who are searching can find a business and get in touch.",
     publisher: {
       "@type": "Person",
       name: "Amrith Sheeja Jayan",
@@ -76,13 +76,13 @@ export default function Home() {
       <HeroSection id="hero" bgClass="bg-warm-light" bgImage="/hero-bg.webp">
         <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-8">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Portfolio</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">Web developer</span>
             <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl lg:leading-[1.05]">
               Websites built for business growth.
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            We build the website and run Google Ads, so people who are already searching can find your business and get in touch.
+            I build the website and run Google Ads, so people who are searching can find your business and contact you.
           </p>
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
             <a href="#projects" className={`${btnSecondary} w-full sm:w-auto`}>
@@ -98,9 +98,9 @@ export default function Home() {
       <FullSection id="services" bgClass="bg-cool-light" compact>
         <div className="max-w-[1500px] mx-auto w-full text-center space-y-12 lg:space-y-16 flex flex-col items-center">
           <SectionHeader
-            eyebrow="What we do"
+            eyebrow="What I do"
             title="Websites and Google Ads."
-            lede="The site takes the enquiry. The ads bring the people. We build both, then keep the campaigns running."
+            lede="The site takes the call. The ads bring the people."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 w-full text-left">
             {HOME_SCOPES.map((srv) => (
@@ -140,12 +140,12 @@ export default function Home() {
           <SectionHeader
             eyebrow="The difference"
             title="Template vs. custom."
-            lede="Why a hand-coded website outperforms page builders on the metrics that get you the next call."
+            lede="A template site and a site built for your business. Here is the difference."
           />
           <RoiComparison />
           <div className="pt-6 flex flex-col sm:flex-row gap-5 justify-center">
-            <a href="#method" className={btnSecondary}>
-              See how I work
+            <a href="#projects" className={btnSecondary}>
+              See the work
             </a>
             <a href="/start" className={btnPrimary}>
               Start a project
@@ -157,9 +157,9 @@ export default function Home() {
       <FullSection id="what" bgClass="bg-cool-light" compact>
         <div className="max-w-[1500px] mx-auto w-full space-y-12 lg:space-y-16">
           <SectionHeader
-            eyebrow="The system"
-            title="What your business gets."
-            lede="Every site is a lead-capture system. Here is the path from visitor to your phone."
+            eyebrow="A new enquiry"
+            title="From the form to your phone."
+            lede="They fill in the form. The message is saved. You get a text."
           />
           <GravityBentoGrid />
         </div>
@@ -170,10 +170,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-x-16 lg:gap-y-8 items-center">
             <div className="order-1 lg:order-none lg:col-start-6 lg:col-span-7 lg:row-start-1 text-center lg:text-left space-y-4">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
-                MANIFESTO / THE STANDARDS
+                About me
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                Built to Perform. <br />Zero Compromise.
+                I build the site. <br />You own it.
               </h2>
             </div>
 
@@ -182,7 +182,7 @@ export default function Home() {
                 <div className="w-full aspect-square bg-slate-100 border border-slate-200 rounded-2xl relative select-none overflow-hidden shadow-xs">
                   <Picture
                     src="/founder.webp"
-                    alt="Portrait of Amrith Sheeja Jayan, founder and lead systems developer"
+                    alt="Portrait of Amrith Sheeja Jayan"
                     width={800}
                     height={800}
                     className="absolute inset-0 h-full w-full object-cover"
@@ -193,7 +193,7 @@ export default function Home() {
                     Amrith Sheeja Jayan
                   </h3>
                   <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">
-                    Founder / Lead Systems Developer
+                    Web developer
                   </span>
                 </div>
               </div>
@@ -204,16 +204,16 @@ export default function Home() {
                 <div className="space-y-6 pt-2">
                   {[
                     {
-                      title: "Zero Platform Retainers",
-                      desc: "I hand-code web applications and databases from scratch. No monthly Squarespace or Shopify builder subscriptions. You own 100% of your production files.",
+                      title: "You Talk to Me",
+                      desc: "I design the site and I write the code. The person you talk to is the person who builds it.",
                     },
                     {
-                      title: "Sub-0.3s Performance",
-                      desc: "Page builders load massive script packages that drive away mobile buyers. We use lightweight code to guarantee instant rendering on every screen.",
+                      title: "You Own the Files",
+                      desc: "The files are yours. You are not renting a template.",
                     },
                     {
-                      title: "Conversion-Rate Architecture",
-                      desc: "We analyze competitor traffic, design clear call-to-actions, and build automated lead databases so your site works 24/7 as a sales engine.",
+                      title: "You See It First",
+                      desc: "You review the pages before anything goes live.",
                     },
                   ].map((pillar) => (
                     <div key={pillar.title} className="space-y-1.5 border-l-2 border-slate-900 pl-4 py-0.5">
@@ -229,7 +229,7 @@ export default function Home() {
                   Read My Story
                 </a>
                 <a href="/contact" className={`${btnPrimary} w-full sm:w-auto text-center`}>
-                  Start Your Project
+                  Start a project
                 </a>
               </div>
             </div>
@@ -248,24 +248,24 @@ export default function Home() {
             {[
               {
                 quote:
-                  "Our new website opens instantly. Customer inquiries rose by 80% almost immediately. We went from getting three calls a week to getting three calls a day.",
-                initials: "JA",
-                name: "John A.",
-                role: "Business owner",
+                  "People check the shop on their phone before they come. The page opens, and they call. We get a few more walk-ins in a week. That is enough for us.",
+                initials: "RA",
+                name: "Ravi",
+                role: "Hardware shop, Nashik",
               },
               {
                 quote:
-                  "Inquiries go straight to our phones now. Our customer calls doubled within 30 days. The custom CRM eliminated hours of manual data entry every single week.",
-                initials: "SM",
-                name: "Sara M.",
-                role: "Local business owner",
+                  "The number on Google was an old one. Now they call the parlour from the page. Saturdays are a bit fuller. Nothing sudden, just steadier.",
+                initials: "NE",
+                name: "Neha",
+                role: "Beauty parlour, Jaipur",
               },
               {
                 quote:
-                  "The CRM saves us hours every week. We never lose a lead, and our response time dropped from hours to minutes. It is the best investment we have made this year.",
-                initials: "AP",
-                name: "Anna P.",
-                role: "Service company",
+                  "I used to find messages the next morning. Now a text comes when someone asks for cards. I ring them back the same day, and the order does not sit there.",
+                initials: "AM",
+                name: "Amit",
+                role: "Printing shop, Lucknow",
               },
             ].map((review, index) => (
               <figure
@@ -299,7 +299,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="Start here"
             title="Tell me about the work."
-            lede="A website starts at ₹1,50,000. Pay it once, or start with ₹50,000. I reply within one business day."
+            lede="Tell me what the business needs. I reply within one business day."
           />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="hidden lg:block lg:col-span-4">

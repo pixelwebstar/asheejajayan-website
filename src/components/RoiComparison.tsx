@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 
 interface CriterionData {
   id: string;
@@ -15,63 +15,62 @@ const criteriaData: CriterionData[] = [
   {
     id: "speed",
     title: "Speed",
-    standard: { value: "3.5 Seconds", impact: "Slow on mobile phones" },
-    custom: { value: "1.2 Seconds", impact: "Fast on every device" },
+    standard: { value: "Slow", impact: "Slow on a phone" },
+    custom: { value: "Fast", impact: "Opens quickly" },
     standardCopy:
-      "Builders load extra scripts and heavy images, so phones bounce and Google sees a weaker speed signal.",
+      "A template loads extra scripts, so the page is slow on a phone and people leave.",
     customCopy:
-      "A custom Next.js site ships only the code each page needs, so visitors stay and Google can crawl it fast.",
+      "The site is coded to open quickly on a phone, so people can stay and call you.",
   },
   {
-    id: "fees",
-    title: "Fees",
-    standard: { value: "Ongoing", impact: "Billed every month" },
-    custom: { value: "None", impact: "No monthly site fee" },
+    id: "files",
+    title: "The files",
+    standard: { value: "Theirs", impact: "They keep them" },
+    custom: { value: "Yours", impact: "You keep them" },
     standardCopy:
-      "You pay platform, theme, and plugin fees for as long as the site stays up, and you never own the software.",
+      "The files stay on the builder's account. Moving the site later is hard.",
     customCopy:
-      "You own the files. Hosting is a normal bill, SSL is free, and budget goes to growth instead of rent.",
+      "The files are yours. You can host the site wherever you like.",
   },
   {
     id: "layout",
     title: "Design",
-    standard: { value: "Template", impact: "Pre-made theme look" },
-    custom: { value: "Custom", impact: "Built for your brand" },
+    standard: { value: "Template", impact: "Same as others" },
+    custom: { value: "Custom", impact: "Made for you" },
     standardCopy:
-      "A shared theme locks layout and forms, so your offer has to squeeze into someone else's page grid.",
+      "A template looks like many other sites. Your business has to fit their layout.",
     customCopy:
-      "Layout, type, and calls-to-action follow how your customers buy, from the first line to the lead form.",
+      "The pages are designed around your business, and how a customer calls you.",
   },
   {
     id: "ownership",
     title: "Ownership",
-    standard: { value: "Locked", impact: "Locked to one host" },
-    custom: { value: "Owned", impact: "You own every file" },
+    standard: { value: "Theirs", impact: "Builder keeps it" },
+    custom: { value: "Yours", impact: "You get the files" },
     standardCopy:
-      "Files stay inside the builder. You cannot move hosts freely if prices rise or the platform shuts down.",
+      "The files stay with the builder. Moving the site later is hard.",
     customCopy:
-      "You get the source, assets, and content, with a local backup, so no single vendor can lock you in.",
+      "You get the files. You are not locked to one builder.",
   },
   {
     id: "customers",
-    title: "SEO",
-    standard: { value: "Page 2–3", impact: "Harder to get found" },
-    custom: { value: "Page 1", impact: "Easier to get found" },
+    title: "Contact",
+    standard: { value: "Email", impact: "Easy to miss" },
+    custom: { value: "A call", impact: "Form and a call" },
     standardCopy:
-      "Slow loads and duplicate template markup make it hard for Google to trust the page in local search.",
+      "A form can sit in email. A busy day means a missed customer.",
     customCopy:
-      "Clean HTML, unique copy, and a fast mobile render help Google show you when people search to hire you.",
+      "They can call, or send their name and phone. You get a text.",
   },
 ];
 
-const stageOrder = ["all", "speed", "fees", "layout", "ownership", "customers"];
+const stageOrder = ["all", "speed", "files", "layout", "ownership", "customers"];
 
 export default function RoiComparison() {
   const [rotation, setRotation] = useState(0);
   const [frontStage, setFrontStage] = useState("all");
   const [backStage, setBackStage] = useState("speed");
   const [activeStage, setActiveStage] = useState("all");
-  const [feesStandard, setFeesStandard] = useState(0);
 
   const triggerFlip = useCallback(
     (nextStageId: string) => {
@@ -93,22 +92,6 @@ export default function RoiComparison() {
     const next = stageOrder[(idx + 1) % stageOrder.length];
     triggerFlip(next);
   }, [activeStage, triggerFlip]);
-
-  useEffect(() => {
-    if (activeStage === "fees") {
-      setFeesStandard(0);
-      let current = 0;
-      const interval = setInterval(() => {
-        current += 2;
-        if (current >= 80) {
-          current = 80;
-          clearInterval(interval);
-        }
-        setFeesStandard(current);
-      }, 15);
-      return () => clearInterval(interval);
-    }
-  }, [activeStage]);
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -186,9 +169,9 @@ export default function RoiComparison() {
           <div className="space-y-1 pt-4 shrink-0">{criteriaData.map((crit) => overviewRow(crit, "standard"))}</div>
           <div className="border-t border-slate-100 mt-4 flex-1 flex items-center justify-center text-center px-1 min-h-[6.5rem]">
             <div className="space-y-1.5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Select a metric</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Tap a row</p>
               <p className="text-xs text-slate-600 font-medium leading-snug">
-                Tap any row to see why a template falls short on that point.
+                Tap a row to read how a template handles it.
               </p>
             </div>
           </div>
@@ -196,7 +179,7 @@ export default function RoiComparison() {
       );
     }
 
-    const value = stageId === "fees" ? `$${feesStandard}.00/mo` : featured.standard.value;
+    const value = featured.standard.value;
 
     return (
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col h-full w-full">
@@ -228,9 +211,9 @@ export default function RoiComparison() {
           <div className="space-y-1 pt-4 shrink-0">{criteriaData.map((crit) => overviewRow(crit, "custom"))}</div>
           <div className="border-t border-slate-800 mt-4 flex-1 flex items-center justify-center text-center px-1 min-h-[6.5rem]">
             <div className="space-y-1.5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Select a metric</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Tap a row</p>
               <p className="text-xs text-slate-300 font-medium leading-snug">
-                Tap any row to see what a custom build returns on that point.
+                Tap a row to read how your site handles it.
               </p>
             </div>
           </div>

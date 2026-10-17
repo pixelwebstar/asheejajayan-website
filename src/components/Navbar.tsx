@@ -31,13 +31,15 @@ export default function Navbar() {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const onStart = pathname.startsWith("/start");
+  const onBook = pathname.startsWith("/book");
   let activeIndex = 0;
   for (let i = 0; i < nav.length; i++) {
     if (isCurrent(pathname, nav[i].href)) activeIndex = i;
   }
-  const prev = onStart ? nav[nav.length - 1] : nav[(activeIndex - 1 + nav.length) % nav.length];
-  const current = onStart ? { href: "/start", label: "Start" } : nav[activeIndex];
-  const next = onStart ? nav[0] : nav[(activeIndex + 1) % nav.length];
+  const special = onBook ? { href: "/book", label: "Call" } : onStart ? { href: "/start", label: "Start" } : null;
+  const prev = special ? nav[nav.length - 1] : nav[(activeIndex - 1 + nav.length) % nav.length];
+  const current = special ?? nav[activeIndex];
+  const next = special ? nav[0] : nav[(activeIndex + 1) % nav.length];
 
   useEffect(() => {
     const bar = progressRef.current;

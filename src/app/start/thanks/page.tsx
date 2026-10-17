@@ -3,11 +3,11 @@ import Link from "next/link";
 import FullSection from "@/components/FullSection";
 import HeroSection from "@/components/HeroSection";
 import HireSteps from "@/components/HireSteps";
-import { btnPrimary, btnSecondary } from "@/lib/ui";
+import { btnPrimary, btnSecondary, frame } from "@/lib/ui";
 
 export const metadata: Metadata = {
   title: "Brief received",
-  description: "Your project brief was sent. A fixed quote follows in one business day.",
+  description: "Your note was sent. I reply within one business day.",
   robots: { index: false, follow: false },
 };
 
@@ -23,12 +23,12 @@ export default function StartThanksPage() {
             </h1>
           </div>
           <p className="text-lg leading-relaxed text-slate-600 font-medium max-w-2xl mx-auto">
-            I will reply within one business day with a fixed price. Nothing is due until you accept it.
+            Thank you. I will read this and reply within one business day.
           </p>
         </div>
       </HeroSection>
       <FullSection bgClass="bg-cool-light">
-        <div className="max-w-3xl mx-auto w-full space-y-10">
+        <div className={`${frame} space-y-10`}>
           <HireSteps />
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/" className={`${btnSecondary} w-full sm:w-auto text-center`}>

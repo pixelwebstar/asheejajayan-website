@@ -20,183 +20,182 @@ const steps: StepDetail[] = [
     num: "01",
     title: "Brief",
     desc: "You send the work in writing. I learn the business, the customer, and the pages the site needs.",
-    longDesc: "The written brief is the first call. I review your market, the pages you need, and how visitors should hire you. No video required.",
+    longDesc: "You write down the work. I learn the business, the customer, and the pages the site needs.",
     timeframe: "Days 1–2",
-    focusDesc: "You send the brief. I reply in writing with questions only if something is unclear.",
+    focusDesc: "You send what the business does. I ask a question only if something is unclear.",
     deliverables: [
-      "List of business goals",
-      "Notes on your target customer",
-      "Your preferred colors and style",
-      "Review of other websites in your field",
-      "Final list of pages to build",
-      "Plan for custom features",
-      "Check of your domain name",
-      "Plan for your text and images",
-      "First draft of the timeline",
-      "Checklist for project success"
+      "What the business does",
+      "Who the customer is",
+      "The pages to build",
+      "Your logo and colors",
+      "Your photos",
+      "Your current website",
+      "Your domain name",
+      "How people contact you",
+      "A first timeline",
+      "The plan for the site"
     ],
     clientInput: [
-      "Send the project brief",
-      "Share logo and colors if you have them"
+      "Send what the business does",
+      "Share your logo and colors if you have them"
     ],
-    result: "A clear website plan",
-    nextStep: "Send the project brief"
+    result: "A clear plan",
+    nextStep: "Send the brief"
   },
   {
     num: "02",
-    title: "Plan & Pricing",
-    desc: "We write what we will build, when it will be ready, and the fixed price you will pay for the work.",
-    longDesc: "We write down every feature, page count, and key date. We give you a clear proposal with fixed pricing so we both agree on the plan before we start.",
+    title: "The Plan",
+    desc: "I write the pages, the dates, and what you will see before anything goes live.",
+    longDesc: "I write the pages and the dates. Work starts after you say yes.",
     timeframe: "Days 3–4",
-    focusDesc: "We write a fixed plan covering page count, visual rules, dates, and the final project price.",
+    focusDesc: "I send one written plan: the pages, and the dates. Work starts after you say yes.",
     deliverables: [
-      "Written project agreement",
-      "Simple sitemap diagram",
-      "List of page layouts",
-      "List of custom features",
-      "Final timeline with dates",
-      "Payment milestone schedule",
-      "Launch day checklist",
-      "Plan for gathering content",
-      "Domain setup instructions",
-      "Signed project contract"
+      "The pages I will build",
+      "What the site will include",
+      "The start date",
+      "The launch date",
+      "What you need to send",
+      "The domain plan",
+      "What happens at launch",
+      "One written plan",
+      "Your yes before I start"
     ],
     clientInput: [
-      "Review the written plan",
-      "Choose your price option"
+      "Read the plan",
+      "Say yes before I start"
     ],
-    result: "Fixed price and dates",
-    nextStep: "Sign the project contract"
+    result: "A written plan",
+    nextStep: "Say yes to the plan"
   },
   {
     num: "03",
     title: "Layout & Text",
-    desc: "We plan where each page goes and write the headlines and words your visitors will actually read.",
-    longDesc: "We design black-and-white page layouts to show where text, images, and buttons will sit. We write clean, simple headlines that explain your value to visitors.",
+    desc: "I plan where each page goes, then I write the headlines and the words your visitors will read.",
+    longDesc: "I place the words, photos, and buttons, and I write the headlines your visitors will read.",
     timeframe: "Days 5–8",
-    focusDesc: "We map every page, write the headlines, and place buttons so visitors know how to contact you.",
+    focusDesc: "I place the words, photos, and buttons so a visitor knows how to call you.",
     deliverables: [
-      "Complete sitemap plan",
-      "First draft of page text",
-      "Map of how visitors use the site",
-      "First draft of page layouts",
-      "Mobile layout drafts",
-      "Button placement plan",
-      "Contact page layout plan",
-      "List of key search words",
-      "Text placement guide",
-      "Link to review layout blueprints"
+      "List of pages",
+      "Headline for each page",
+      "The body text",
+      "Where photos go",
+      "Where buttons go",
+      "The phone layout",
+      "The contact form",
+      "The call button",
+      "A link to review it",
+      "Your approval"
     ],
     clientInput: [
-      "Send your text and notes",
+      "Send your text and photos",
       "Approve the page layouts"
     ],
-    result: "Layouts and first text",
-    nextStep: "Review the text draft"
+    result: "Pages and words",
+    nextStep: "Review the words"
   },
   {
     num: "04",
     title: "Visual Design",
-    desc: "We design the look of the site from scratch with your colors, type, photos, and brand details.",
-    longDesc: "We build a unique visual design from scratch. We do not use cheap templates, so your brand looks professional and stands out from competitors.",
+    desc: "I design the look of the site from scratch, using your colors, your photos, and your logo.",
+    longDesc: "I design the phone and desktop pages with your colors, photos, and logo.",
     timeframe: "Days 9–14",
-    focusDesc: "We design custom visuals with color, type, and image style chosen to fit your brand.",
+    focusDesc: "I design the phone and desktop pages with your colors, photos, and logo.",
     deliverables: [
-      "Full color page designs",
-      "Designs for mobile screens",
-      "Final brand color choices",
-      "Font and text style guide",
-      "Buttons and inputs design guide",
-      "Custom graphics and icons",
-      "Link to view the interactive design",
-      "Custom illustrations pack",
-      "Button animation plans",
-      "Final design files for review"
+      "Your colors",
+      "Your logo",
+      "Your photos",
+      "The type",
+      "The buttons",
+      "Phone screens",
+      "Desktop screens",
+      "The contact page",
+      "A link to review it",
+      "Your approval"
     ],
     clientInput: [
-      "Review the visual designs",
-      "Pick your color options"
+      "Review the design",
+      "Tell me what to change"
     ],
-    result: "Full visual design set",
-    nextStep: "Approve the design look"
+    result: "The look of the site",
+    nextStep: "Approve the design"
   },
   {
     num: "05",
     title: "Building & Code",
-    desc: "We write clean custom code so the site loads fast and works the same on every screen size.",
-    longDesc: "We write custom code from scratch without bloated page builders. We optimize every script and image to make sure your site loads instantly on mobile.",
+    desc: "I write the code so the site opens fast and works on phones and computers.",
+    longDesc: "I code every page so it works on a phone and on a computer.",
     timeframe: "Days 15–24",
-    focusDesc: "We hand-code the site so it loads at once on computers, tablets, and phones.",
+    focusDesc: "I code every page so it works on a phone and on a computer.",
     deliverables: [
-      "Custom code for your website",
-      "Search-friendly page structure",
-      "Styles for all screen sizes",
-      "Compressed fast-loading images",
-      "Interactive page scripts",
-      "Working website contact forms",
-      "Page loading speed check",
-      "Mobile device display check",
-      "Google page speed audit",
-      "Link to preview the website live"
+      "The coded website",
+      "Phone layout",
+      "Desktop layout",
+      "Fast photos",
+      "The contact form",
+      "The call button",
+      "A preview link",
+      "A phone check",
+      "A computer check",
+      "Page titles for Google"
     ],
     clientInput: [
-      "Test the live preview site",
-      "Send your domain details"
+      "Open the preview",
+      "Send your domain login"
     ],
-    result: "A working preview link",
-    nextStep: "Test the preview link"
+    result: "A preview link",
+    nextStep: "Test the preview"
   },
   {
     num: "06",
-    title: "Launch & Google Setup",
-    desc: "We put the site live, connect your domain name, and help Google find and index every page.",
-    longDesc: "We point your domain name to the new host, install a secure padlock on your site, and register your pages with Google so they show up in searches.",
+    title: "Launch",
+    desc: "I put the site online, connect your domain, and help Google find the pages.",
+    longDesc: "I connect your domain, turn on HTTPS, and submit the pages so Google can find the site.",
     timeframe: "Days 25–27",
-    focusDesc: "We connect your domain, turn on HTTPS, and submit your pages so Google can find the site.",
+    focusDesc: "I connect your domain, turn on HTTPS, and submit the pages so Google can find the site.",
     deliverables: [
-      "Domain name connection",
-      "Secure site setup (HTTPS)",
-      "Fast hosting configuration",
-      "Google Search setup",
-      "Google sitemap file upload",
-      "Google bot crawl setup",
-      "Google search title descriptions",
-      "Redirects for old links",
-      "Final live speed check",
-      "Live website launch"
+      "Domain connected",
+      "HTTPS turned on",
+      "Site hosted",
+      "Sitemap for Google",
+      "Page titles",
+      "Old links redirected",
+      "Final check",
+      "The live website",
+      "You can open it",
+      "Google can find it"
     ],
     clientInput: [
-      "Share domain host access",
+      "Share domain access",
       "Check the live website"
     ],
-    result: "Site live on Google",
+    result: "Live on your domain",
     nextStep: "Help connect your domain"
   },
   {
     num: "07",
     title: "Updates & Support",
-    desc: "We keep the site safe, ship monthly text updates, and check loading speed after every change.",
-    longDesc: "We check your website uptime, run daily backups so you never lose data, and make monthly updates to your text and images to keep things fresh.",
+    desc: "I keep backups, update the text you send me, and check that the site stays fast.",
+    longDesc: "I keep a backup, watch that the site is online, and change text when you send it.",
     timeframe: "Ongoing care",
-    focusDesc: "We watch uptime daily, keep backups, and update copy whenever you send a change.",
+    focusDesc: "I keep a backup, watch that the site is online, and change text when you send it.",
     deliverables: [
-      "Daily check to ensure site is online",
-      "Daily website backup files",
-      "Weekly security scans",
-      "Monthly speed reports",
-      "Code library updates",
-      "Updates to your text and pictures",
-      "Google search reports",
-      "Regular visual display checks",
-      "Quick email support line",
-      "Monthly visitor traffic report"
+      "A daily backup",
+      "A check the site is up",
+      "Text changes you send",
+      "Photo changes you send",
+      "A speed check",
+      "Email support",
+      "The site stays online",
+      "Small fixes",
+      "You can stop later",
+      "You still own the files"
     ],
     clientInput: [
-      "Review visitor reports",
-      "Tell us updates you want"
+      "Send the text to change",
+      "Tell me if something breaks"
     ],
-    result: "Reports and updates",
-    nextStep: "Send the text updates"
+    result: "Backups and updates",
+    nextStep: "Send text changes"
   }
 ];
 
@@ -250,7 +249,7 @@ function DetailPanels({ step, stacked = false, autoPlay = false }: { step: StepD
       <div key={step.num + "-do"} className={inner}>
         <div className="space-y-2">
           <span className="text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] font-mono border-b border-slate-100 pb-2 block">
-            What We Do
+            What I do
           </span>
           <p className="text-xs sm:text-[13px] text-slate-600 font-medium leading-snug line-clamp-3 min-h-[3.75rem]">
             {step.focusDesc}
@@ -422,13 +421,13 @@ export default function MethodTimeline() {
         <div className="lg:col-span-1 flex flex-col justify-between self-stretch w-full lg:border-r lg:border-slate-200/80 lg:pr-10 xl:pr-16 text-left items-start min-h-0 gap-8">
           <div className="flex flex-col justify-start w-full text-left max-w-[500px] space-y-2 shrink-0">
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block font-mono">
-              OUR METHOD
+              How I work
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Built to Convert.
+              From the brief to launch.
             </h2>
             <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed font-medium pt-1">
-              We don&apos;t just design websites. We build clean, custom systems that turn your visitors into customers. By focusing on conversion psychology and optimized layouts, we ensure every element guides your audience toward taking action.
+              I design the site, write the code, and put it online. You see the plan before I start.
             </p>
           </div>
 

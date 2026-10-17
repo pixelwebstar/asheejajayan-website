@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Systems Optimization Blog - Amrith Sheeja Jayan",
-  description: "Practical guides on SEO rankings, local Google Ads, database structures, and Next.js performance optimizations for business growth.",
+  title: {
+    default: "Blog",
+    template: "%s | Amrith Sheeja Jayan",
+  },
+  description: "How ads and a website work together, what a premium site is for, and how a visit becomes a call.",
 };
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {

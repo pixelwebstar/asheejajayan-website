@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
-import { CARE_MONTHLY, FINANCE_MONTHLY, FINANCE_MONTHS, FINANCE_START, WEBSITE_PRICE, rupee } from "@/lib/catalog";
+import { frame, shell } from "@/lib/ui";
+import { CALL_MINUTES, CARE_MONTHLY, SHORT_PRICE, SINGLE_PAGE, WEBSITE_PRICE, YEAR_PLANS, rupee } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -11,20 +12,24 @@ export const metadata: Metadata = {
 
 const sections = [
   {
-    title: "Starting prices",
-    body: `Prices on this website are starting points. A website starts at ${rupee(WEBSITE_PRICE)}. Work begins only after you accept a written quote. If the quote names a different amount or date, the quote is the one that applies.`,
+    title: "Prices",
+    body: `One page is ${rupee(SINGLE_PAGE)}. A basic website is ${rupee(SHORT_PRICE)}. A premium website is ${rupee(WEBSITE_PRICE)}. Custom is the price of the pieces you keep. Work begins only after you accept a written quote. If the quote names a different amount or date, the quote is the one that applies.`,
   },
   {
     title: "Pay in full",
-    body: `You can pay the quoted website price in one payment. The project files are delivered when that payment is received. After launch, ${rupee(CARE_MONTHLY)} a month keeps the site online, with backups and up to two text changes a month. You can stop that care plan and host the files yourself. Stopping care does not take away a site you have already paid for.`,
+    body: `You can pay the quoted website price in one payment. Hosting comes with the website, with no monthly fee to keep it online. The project files are delivered when that payment is received. Support after launch is optional: ${rupee(CARE_MONTHLY)} a month covers backups and up to two text changes. You can skip support and still keep a site you have paid for.`,
   },
   {
     title: "Pay over time",
-    body: `You can start with ${rupee(FINANCE_START)}. The rest is ${rupee(FINANCE_MONTHLY)} a month for ${FINANCE_MONTHS} months. The total is the same ${rupee(WEBSITE_PRICE)}, unless the written quote says otherwise. Work starts after the first ${rupee(FINANCE_START)}. During those months the site stays on my account. The project files, the repository, and the handover are delivered only after the last payment.`,
+    body: `The basic website can be paid over a year: ${rupee(YEAR_PLANS[0].start)} to start, then ${rupee(YEAR_PLANS[0].monthly)} a month for ${YEAR_PLANS[0].months} months. The total is ${rupee(YEAR_PLANS[0].total)}. The premium website can start with ${rupee(YEAR_PLANS[1].start)}, then ${rupee(YEAR_PLANS[1].monthly)} a month for ${YEAR_PLANS[1].months} months. The total is ${rupee(YEAR_PLANS[1].total)}. A one-page website is ${rupee(SINGLE_PAGE)}, paid once, with no monthly fee. Work starts after the first payment. During a year plan the site stays on my account. The files are delivered only after the last payment.`,
   },
   {
     title: "If a payment is missed",
-    body: "A monthly payment is due on the date in the quote. If it is not received, I will email you. I may pause the website. If the payment is still missing 30 days after the due date, I may take the site offline and stop the work. Money already paid covers the work done up to that date and is not refunded. You can continue by paying what is overdue. Turning off an automatic payment counts as a missed payment. The files are not handed over while any part of the quoted price is unpaid.",
+    body: "An automated system watches the due date on a payment plan. If a payment is missed, you are emailed and the work pauses. Pay what is due and the work continues. If the payment is still missing 30 days after the due date, the site comes offline and the work stops until that payment is in. Money already paid covers the work done up to that date and is not refunded. Turning off an automatic payment counts as a missed payment. The files are not handed over while any part of the quoted price is unpaid.",
+  },
+  {
+    title: "A 30 minute call",
+    body: `A call is ${CALL_MINUTES} minutes. Tell me two times that work, and I confirm one within one business day.`,
   },
   {
     title: "Ads and other work",
@@ -40,7 +45,7 @@ export default function TermsPage() {
   return (
     <article className="w-full text-slate-900 bg-white">
       <HeroSection bgClass="bg-warm-light">
-        <div className="flex flex-col text-center items-center max-w-3xl mx-auto space-y-6">
+        <div className="flex flex-col text-center items-center max-w-4xl mx-auto space-y-6">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 block">
             LEGAL
           </span>
@@ -49,8 +54,9 @@ export default function TermsPage() {
           </h1>
         </div>
       </HeroSection>
-      <section className="px-6 sm:px-12 lg:px-20 xl:px-16 py-16 sm:py-24 bg-cool-light border-b border-gray-100">
-        <div className="max-w-3xl mx-auto space-y-10 text-slate-600 font-medium leading-relaxed">
+      <section className="py-16 sm:py-24 bg-cool-light border-b border-gray-100">
+        <div className={shell}>
+          <div className={`${frame} space-y-10 text-slate-600 font-medium leading-relaxed`}>
           {sections.map((section) => (
             <div key={section.title} className="space-y-3">
               <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">{section.title}</h2>
@@ -63,6 +69,7 @@ export default function TermsPage() {
             <Link href="/contact" className="font-bold text-slate-900 underline">Contact me</Link>
             {" with questions about these terms."}
           </p>
+          </div>
         </div>
       </section>
     </article>
